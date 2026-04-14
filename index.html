@@ -7,846 +7,1002 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --color-fenix-fire: #ff4500;
-            --color-oro: #ffd700;
-            --fondo-oscuro: #0a0a0a;
-            --fondo-tarjeta: #151515;
-            --borde-tarjeta: #333333;
-            --text-main: #eeeeee;
-            --fondo-header: #050505;
-            --whatsapp-green: #25d366;
-            --shadow-fire: 0 0 20px rgba(255, 69, 0, 0.6);
+            --fire:#ff4500; --oro:#ffd700; --fondo:#0a0a0a;
+            --tarjeta:#141414; --borde:#2a2a2a; --texto:#eeeeee;
+            --header:#050505; --ws:#25d366;
+            --glow:0 0 22px rgba(255,69,0,0.55);
         }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.6;overflow-x:hidden}
+        ::-webkit-scrollbar{width:6px} ::-webkit-scrollbar-track{background:#111} ::-webkit-scrollbar-thumb{background:var(--fire);border-radius:3px}
 
-        * { box-sizing: border-box; }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--fondo-oscuro);
-            color: var(--text-main);
-            margin: 0; padding: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container { max-width: 1000px; margin: auto; padding: 20px; padding-bottom: 80px; }
-
-        .seccion {
-            background: var(--fondo-tarjeta);
-            border: 1px solid var(--borde-tarjeta);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-
-        h2 {
-            color: var(--color-fenix-fire);
-            text-transform: uppercase;
-            text-align: center;
-            margin-top: 0; margin-bottom: 25px;
-            font-size: 2em;
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            text-shadow: var(--shadow-fire);
-        }
-        h2::before, h2::after { content:''; display:block; width:40px; height:2px; background:var(--color-fenix-fire); }
+        /* ── LAYOUT ── */
+        .container{max-width:1000px;margin:auto;padding:20px;padding-bottom:80px}
+        .seccion{background:var(--tarjeta);border:1px solid var(--borde);border-radius:15px;padding:28px;margin-bottom:28px;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+        h2{color:var(--fire);text-transform:uppercase;text-align:center;margin-bottom:22px;font-size:1.85em;display:flex;align-items:center;justify-content:center;gap:14px;text-shadow:var(--glow)}
+        h2::before,h2::after{content:'';display:block;width:35px;height:2px;background:var(--fire);flex-shrink:0}
 
         /* ── HEADER ── */
-        header {
-            background-color: var(--fondo-header);
-            padding: 50px 20px 40px;
-            text-align: center;
-            border-bottom: 4px solid var(--color-fenix-fire);
-            display: flex; flex-direction: column; align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Fondo decorativo de llamas */
-        header::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(255,69,0,0.18) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        /* LOGO SUPERIOR — imagen del cartel con el Fénix (215368.png) */
-        .logo-principal {
-            width: 260px;
-            height: auto;
-            border-radius: 15px;
-            border: 3px solid #444;
-            box-shadow: 0 0 40px rgba(255,69,0,0.7), 0 0 80px rgba(255,69,0,0.3);
-            margin-bottom: 25px;
-            object-fit: cover;
-        }
-
-        h1 {
-            margin: 0 0 5px 0;
-            font-size: 3em; font-weight: 900;
-            color: var(--color-fenix-fire);
-            text-transform: uppercase;
-            text-shadow: 0 0 25px var(--color-fenix-fire);
-            letter-spacing: 3px;
-        }
-
-        .subtitle {
-            font-size: 1.2em; color: var(--color-oro);
-            font-style: italic; margin-bottom: 25px; font-weight: bold;
-        }
-
-        .btn-freefire-header {
-            background: linear-gradient(45deg, #ff8c00, #ff4500);
-            color: white; padding: 16px 38px; border-radius: 12px;
-            text-decoration: none; font-weight: bold;
-            display: inline-flex; align-items: center; gap: 12px;
-            font-size: 1.15em;
-            box-shadow: 0 6px 20px rgba(255,69,0,0.5);
-            border: 2px solid var(--color-oro);
-            transition: all 0.3s ease;
-        }
-        .btn-freefire-header:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 10px 30px rgba(255,69,0,0.7); }
+        header{background:var(--header);padding:50px 20px 38px;text-align:center;border-bottom:4px solid var(--fire);display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden}
+        header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,69,0,0.15) 0%,transparent 70%);pointer-events:none}
+        .logo-principal{width:250px;height:auto;border-radius:15px;border:3px solid #444;box-shadow:0 0 40px rgba(255,69,0,0.7),0 0 80px rgba(255,69,0,0.25);margin-bottom:22px;object-fit:cover}
+        h1{font-size:2.9em;font-weight:900;color:var(--fire);text-transform:uppercase;text-shadow:0 0 25px var(--fire);letter-spacing:3px;margin-bottom:4px}
+        .subtitle{font-size:1.15em;color:var(--oro);font-style:italic;margin-bottom:22px;font-weight:bold}
+        .btn-ff{background:linear-gradient(45deg,#ff8c00,#ff4500);color:white;padding:15px 36px;border-radius:12px;text-decoration:none;font-weight:bold;display:inline-flex;align-items:center;gap:11px;font-size:1.1em;box-shadow:0 6px 20px rgba(255,69,0,0.5);border:2px solid var(--oro);transition:all .3s}
+        .btn-ff:hover{transform:scale(1.05) translateY(-3px);box-shadow:0 10px 30px rgba(255,69,0,0.7)}
 
         /* ── FAMA ── */
-        .fame-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 20px; }
-        .card-fame { background:#1a1a1a; border:2px solid var(--color-oro); border-radius:15px; padding:25px; text-align:center; }
-        .card-fame i { color:var(--color-oro); font-size:3.5em; margin-bottom:15px; }
-        .card-fame h3 { color:#fff; margin:10px 0; font-size:1.3em; text-transform:uppercase; }
+        .fame-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+        .card-fame{background:#1a1a1a;border:2px solid var(--oro);border-radius:14px;padding:22px;text-align:center}
+        .card-fame i{color:var(--oro);font-size:3.2em;margin-bottom:12px}
+        .card-fame h3{color:#fff;margin:8px 0 6px;font-size:1.2em;text-transform:uppercase}
+        .cf-edit{outline:none;border-bottom:1px dashed #555;transition:.2s;display:inline}
+        .cf-edit:focus{border-bottom-color:var(--oro);color:var(--oro);background:rgba(255,215,0,0.07)}
 
-        /* ── REQUISITOS ── */
-        .requisitos-list { display:flex; flex-direction:column; gap:12px; max-width:600px; margin:auto; }
-        .item-requisito { background:#222; padding:15px 20px; border-radius:8px; font-size:1.05em; display:flex; align-items:center; gap:12px; border-left:3px solid var(--color-oro); }
-
-        /* ── REGLAS ── */
-        .reglas-list { list-style:none; padding:0; max-width:800px; margin:auto; }
-        .reglas-list li { background:#1a1a1a; border-bottom:1px solid #333; padding:18px; display:flex; align-items:start; gap:15px; }
-        .reglas-list li:last-child { border-bottom:none; }
-
-        /* ── EDITABLE ── */
-        .admin-editable { outline:none; border-bottom:1px dashed #555; padding:2px; transition:all 0.2s; }
-        .admin-editable:focus { background:rgba(255,215,0,0.1); border-bottom:2px solid var(--color-oro); color:var(--color-oro); }
+        /* ── REQUISITOS / REGLAS ── */
+        .req-list{display:flex;flex-direction:column;gap:10px;max-width:600px;margin:auto}
+        .req-item{background:#1e1e1e;padding:13px 18px;border-radius:8px;font-size:1.02em;display:flex;align-items:center;gap:11px;border-left:3px solid var(--oro)}
+        .rules-list{list-style:none;max-width:800px;margin:auto}
+        .rules-list li{background:#1a1a1a;border-bottom:1px solid #2a2a2a;padding:16px;display:flex;align-items:start;gap:13px}
+        .rules-list li:last-child{border-bottom:none}
 
         /* ── ADMINISTRACIÓN ── */
-        .admin-list { display:flex; flex-direction:column; gap:15px; max-width:700px; margin:auto; }
-        .admin-item { background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:20px; display:flex; justify-content:space-between; align-items:center; gap:15px; }
-        .admin-info { display:flex; flex-direction:column; flex-grow:1; }
-        .admin-rol { font-size:0.9em; color:var(--color-oro); text-transform:uppercase; font-weight:bold; margin-bottom:5px; }
-        .admin-nombre { font-size:1.2em; color:white; font-weight:bold; }
-        .admin-id { font-size:1em; color:#aaa; margin-top:3px; }
-
-        .btn-ws-admin {
-            background-color:var(--whatsapp-green); color:white;
-            width:55px; height:55px; border-radius:50%;
-            display:flex; align-items:center; justify-content:center;
-            text-decoration:none; transition:all 0.3s ease;
-            box-shadow:0 4px 12px rgba(37,211,102,0.4); flex-shrink:0;
-        }
-        .btn-ws-admin:hover { background:#128c7e; transform:scale(1.1) translateY(-2px); }
-        .btn-ws-admin i { font-size:1.8em; }
+        .admin-list{display:flex;flex-direction:column;gap:13px;max-width:700px;margin:auto}
+        .admin-item{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:13px}
+        .admin-info{display:flex;flex-direction:column;flex-grow:1}
+        .admin-rol{font-size:.85em;color:var(--oro);text-transform:uppercase;font-weight:bold;margin-bottom:4px}
+        .admin-nombre{font-size:1.15em;color:white;font-weight:bold}
+        .admin-nick{font-size:.88em;color:#aaa;font-style:italic;margin-top:2px}
+        .admin-id{font-size:.9em;color:#888;margin-top:2px}
+        .admin-editable{outline:none;border-bottom:1px dashed #444;transition:.2s}
+        .admin-editable:focus{color:var(--oro);border-bottom-color:var(--oro);background:rgba(255,215,0,0.06)}
+        .btn-ws-admin{background:var(--ws);color:white;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s;box-shadow:0 4px 12px rgba(37,211,102,.35);flex-shrink:0}
+        .btn-ws-admin:hover{background:#128c7e;transform:scale(1.1)}
+        .btn-ws-admin i{font-size:1.7em}
 
         /* ── BOTÓN VER MIEMBROS ── */
-        .miembros-trigger {
-            width:100%; background:#222; color:var(--color-oro);
-            padding:20px; border:3px solid var(--color-oro); border-radius:12px;
-            font-size:1.3em; font-weight:bold; cursor:pointer;
-            display:flex; justify-content:center; align-items:center; gap:15px;
-            transition:all 0.3s; margin-bottom:30px; text-transform:uppercase;
-        }
-        .miembros-trigger:hover { background:#333; box-shadow:0 5px 20px rgba(255,215,0,0.3); }
+        .btn-miembros{width:100%;background:#1a1a1a;color:var(--oro);padding:19px;border:3px solid var(--oro);border-radius:12px;font-size:1.25em;font-weight:bold;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:14px;transition:all .3s;margin-bottom:28px;text-transform:uppercase;letter-spacing:1px}
+        .btn-miembros:hover{background:#222;box-shadow:0 5px 20px rgba(255,215,0,.25)}
+
+        /* ── COLABS ── */
+        .colabs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+        .colab-card{background:linear-gradient(135deg,#1a0a00,#200d00);border:1px solid #3d1a00;border-radius:12px;overflow:hidden;transition:.3s}
+        .colab-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(255,69,0,.3)}
+        .colab-img-wrap{position:relative;width:100%;height:140px;background:#111;overflow:hidden}
+        .colab-img-wrap img{width:100%;height:100%;object-fit:cover;opacity:.85}
+        .colab-badge{position:absolute;top:8px;right:8px;background:var(--fire);color:white;font-size:.68em;font-weight:bold;padding:3px 8px;border-radius:20px;text-transform:uppercase}
+        .colab-body{padding:14px}
+        .colab-title{color:var(--oro);font-weight:bold;font-size:1em;margin-bottom:4px}
+        .colab-desc{color:#aaa;font-size:.82em;line-height:1.4;margin-bottom:10px}
+        .colab-prizes{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+        .prize-tag{background:rgba(255,69,0,.15);border:1px solid rgba(255,69,0,.3);color:#ff8c55;font-size:.72em;padding:2px 7px;border-radius:10px}
+        .colab-fecha{font-size:.75em;color:#555;display:flex;align-items:center;gap:5px}
+        .btn-add-colab{width:100%;background:transparent;border:2px dashed #3d1a00;color:#553300;border-radius:12px;padding:20px;font-size:1em;cursor:pointer;transition:.3s;margin-top:4px}
+        .btn-add-colab:hover{border-color:var(--fire);color:var(--fire);background:rgba(255,69,0,.05)}
+
+        /* ── SALAS ── */
+        .salas-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+        .sala-card{background:#0d1a2a;border:1px solid #1a3a55;border-radius:12px;padding:16px 18px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:14px;transition:.25s}
+        .sala-card:hover{background:#112030;box-shadow:0 4px 14px rgba(52,152,219,.2)}
+        .sala-info{flex:1}
+        .sala-nombre{font-weight:bold;font-size:1.05em;color:#5bc8f5;margin-bottom:3px}
+        .sala-meta{font-size:.8em;color:#888;display:flex;gap:12px;flex-wrap:wrap}
+        .sala-meta span{display:flex;align-items:center;gap:4px}
+        .sala-estado{font-size:.72em;font-weight:bold;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;flex-shrink:0}
+        .sala-estado.abierta{background:rgba(37,211,102,.15);color:var(--ws);border:1px solid rgba(37,211,102,.3)}
+        .sala-estado.llena{background:rgba(255,69,0,.15);color:var(--fire);border:1px solid rgba(255,69,0,.3)}
+        .sala-estado.cerrada{background:rgba(100,100,100,.15);color:#888;border:1px solid #444}
+        .sala-premio{color:var(--oro);font-size:.78em;font-weight:bold;margin-top:4px}
+        .btn-sala-nueva{background:linear-gradient(45deg,#1a3a55,#1a4a6e);color:#5bc8f5;border:1px solid #1a3a55;border-radius:8px;padding:9px 18px;font-weight:bold;cursor:pointer;font-size:.88em;display:flex;align-items:center;gap:7px;transition:.3s}
+        .btn-sala-nueva:hover{background:#1a4a6e;box-shadow:0 4px 12px rgba(91,200,245,.2)}
+
+        /* ── ÚNETE ── */
+        .btn-join{background:var(--ws);color:white;padding:17px 34px;text-decoration:none;font-weight:bold;border-radius:50px;font-size:1.15em;display:inline-flex;align-items:center;gap:13px;transition:all .3s;box-shadow:0 6px 20px rgba(37,211,102,.4);text-transform:uppercase}
+        .btn-join:hover{background:#128c7e;transform:translateY(-2px)}
 
         /* ── OVERLAY ── */
-        .overlay { display:none; position:fixed; z-index:1999; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.65); }
+        .overlay{display:none;position:fixed;z-index:1998;inset:0;background:rgba(0,0,0,.7)}
 
-        /* ════════════════════════════════════════
-           PANEL LATERAL DESLIZANTE (DERECHA)
-        ════════════════════════════════════════ */
-        .side-panel {
-            height:100%; width:0; position:fixed; z-index:2000;
-            top:0; right:0; background-color:#0d0d0d;
-            overflow-x:hidden; overflow-y:auto;
-            transition:0.45s cubic-bezier(0.4,0,0.2,1);
-            box-shadow:-6px 0 30px rgba(0,0,0,0.8);
-            border-left:3px solid var(--color-fenix-fire);
-        }
+        /* ══════════════════════════════
+           PANEL LATERAL
+        ══════════════════════════════ */
+        .side-panel{height:100%;width:0;position:fixed;z-index:2000;top:0;right:0;background:#0c0c0c;overflow:hidden;transition:.42s cubic-bezier(.4,0,.2,1);box-shadow:-6px 0 30px rgba(0,0,0,.85);border-left:3px solid var(--fire);display:flex;flex-direction:column}
+        .panel-top{position:sticky;top:0;z-index:10;background:#000;border-bottom:2px solid var(--fire);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+        .panel-top-title{color:var(--fire);font-weight:900;font-size:.9em;text-transform:uppercase;letter-spacing:1px}
+        .panel-close-btn{background:none;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1}
+        .panel-controls{background:#0f0f0f;border-bottom:1px solid #1a1a1a;padding:9px 12px;display:flex;gap:8px;align-items:center;flex-shrink:0}
+        .panel-search{flex:1;background:#1a1a1a;border:1px solid #333;border-radius:7px;color:#ddd;padding:7px 11px;font-size:.85em;outline:none}
+        .panel-search:focus{border-color:var(--fire)}
+        .sync-status{font-size:.7em;color:#555;display:flex;align-items:center;gap:5px;white-space:nowrap}
+        .sync-dot{width:7px;height:7px;border-radius:50%;background:#555;flex-shrink:0}
+        .sync-dot.ok{background:var(--ws)} .sync-dot.err{background:var(--fire)} .sync-dot.sync{background:var(--oro);animation:pulse 1s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+        .panel-hint{text-align:center;color:var(--oro);font-size:.7em;padding:8px 12px 4px;flex-shrink:0}
+        .panel-body{flex:1;padding:10px 10px 0;overflow-y:auto}
+        .section-tag{background:#1a1000;color:var(--oro);text-align:center;font-size:.75em;font-weight:bold;text-transform:uppercase;letter-spacing:2px;padding:6px 12px;border-radius:5px;margin:12px 0 8px;border:1px solid #3a2800}
 
-        .panel-header {
-            position:sticky; top:0; z-index:10;
-            background:#000; border-bottom:2px solid var(--color-fenix-fire);
-            padding:13px 16px;
-            display:flex; justify-content:space-between; align-items:center;
-        }
-        .panel-header span { color:var(--color-fenix-fire); font-weight:900; font-size:0.95em; text-transform:uppercase; letter-spacing:1px; }
-        .panel-close { background:none; border:none; color:#fff; font-size:26px; cursor:pointer; line-height:1; }
+        /* ── TARJETA MIEMBRO ── */
+        .mc{background:#141414;border-left:4px solid var(--fire);border-radius:10px;margin-bottom:9px;padding:11px 12px;transition:background .2s}
+        .mc.es-admin{border-left-color:var(--oro);background:#17130a}
+        .mc.slot-vacio{border-left-color:#333}
+        .mc:hover{background:#1b1b1b}
+        .mc-top{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+        .mc-num{color:var(--fire);font-weight:bold;font-size:.8em;min-width:20px;flex-shrink:0}
+        .mc-num.gold{color:var(--oro)}
+        .mc-rango{font-size:.68em;color:var(--oro);font-weight:bold;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+        .mc-actions{display:flex;gap:5px;margin-left:auto;flex-shrink:0}
+        .mc-nombre-real{width:100%;background:transparent;border:none;border-bottom:1px dashed #2a2a2a;color:#ccc;font-size:.82em;padding:2px 4px;outline:none;font-style:italic}
+        .mc-nombre-real:focus{color:#eee;border-bottom-color:#555}
+        .mc-nombre-real::placeholder{color:#444;font-style:italic}
+        .mc-nick{width:100%;background:transparent;border:none;border-bottom:1px dashed #333;color:white;font-size:.93em;font-weight:bold;padding:2px 4px;outline:none}
+        .mc-nick:focus{color:var(--oro);border-bottom-color:var(--oro)}
+        .mc-id-row{display:flex;align-items:center;gap:4px;font-size:.74em;color:#555;margin-top:3px}
+        .mc-id-row input{background:transparent;border:none;border-bottom:1px dashed #222;color:#666;outline:none;font-size:1em;flex:1}
+        .mc-id-row input:focus{color:var(--oro);border-bottom-color:var(--oro)}
+        .social-bar{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
+        .soc-btn{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:5px;font-size:.74em;font-weight:bold;text-decoration:none;transition:.2s;flex-shrink:0}
+        .soc-btn:hover{opacity:.82;transform:scale(1.06)}
+        .soc-btn.wa{background:#0d2417;color:var(--ws);border:1px solid #1a3d2744}
+        .soc-btn.fb{background:#0d1829;color:#1877f2;border:1px solid #1877f244}
+        .soc-btn.ig{background:#2a0d1a;color:#e1306c;border:1px solid #e1306c44}
+        .soc-btn.yt{background:#2a0d0d;color:#ff0000;border:1px solid #ff000044}
+        .soc-btn.tk{background:#0d0d1a;color:#fff;border:1px solid #ffffff22}
+        .edit-fields{display:none;flex-direction:column;gap:5px;margin-top:8px}
+        .edit-fields.open{display:flex}
+        .ef-row{background:#1a1a1a;border:1px solid #222;border-radius:6px;padding:5px 9px;display:flex;align-items:center;gap:6px;font-size:.78em}
+        .ef-row i{width:15px;font-size:.9em;flex-shrink:0}
+        .ef-row .at{color:var(--fire);font-weight:bold}
+        .ef-row input{background:transparent;border:none;color:#ccc;outline:none;width:100%;font-size:1em}
+        .ef-row input:focus{color:var(--oro)}
 
-        .panel-content { padding:12px 12px 30px; }
+        /* ── BOTONES PEQUEÑOS ── */
+        .btn-sm{width:27px;height:27px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.75em;cursor:pointer;transition:.2s;flex-shrink:0;border:1px solid #3a3a3a}
+        .btn-sm-ws{background:#0d2417;color:var(--ws);text-decoration:none}
+        .btn-sm-ws:hover{background:#128c7e;transform:scale(1.08)}
+        /* candado cerrado = miembro no autenticado */
+        .btn-sm-lock{background:#1a1a1a;color:#555;border-color:#333}
+        /* candado abierto = modo redes (miembro auth o admin) */
+        .btn-sm-lock.redes{background:#0d2200;color:var(--ws);border-color:#1a4400}
+        /* candado admin = modo full */
+        .btn-sm-lock.admin-open{background:#1a0a00;color:var(--fire);border-color:rgba(255,69,0,.4)}
+        /* flecha normal de miembro */
+        .btn-sm-flecha{background:#1a1a1a;color:#aaa;border-color:#333}
+        .btn-sm-flecha:hover{color:var(--oro);background:#222}
 
-        .panel-hint { text-align:center; color:var(--color-oro); font-size:0.72em; margin-bottom:14px; }
+        /* ── BARRA INFERIOR PANEL — LIMPIA ── */
+        .panel-bottom{
+            position:sticky;bottom:0;flex-shrink:0;
+            background:#000;border-top:2px solid var(--fire);
+            padding:10px 12px;
+            display:flex;flex-direction:column;gap:6px;
+        }
+        .panel-bottom-row{display:flex;gap:6px}
+        .btn-save-main{flex:1;background:var(--fire);color:white;border:none;padding:11px 0;border-radius:20px;font-weight:bold;cursor:pointer;font-size:.88em;display:flex;align-items:center;justify-content:center;gap:7px;transition:.3s}
+        .btn-save-main:hover{background:#d93c00;box-shadow:0 0 14px rgba(255,69,0,.45)}
+        .btn-cerrar-sesion{flex:1;background:#1a0000;color:#ff6666;border:1px solid #440000;padding:11px 0;border-radius:20px;font-weight:bold;cursor:pointer;font-size:.85em;display:none;align-items:center;justify-content:center;gap:6px;transition:.3s}
+        .btn-cerrar-sesion:hover{background:#2a0000;color:#ff8888}
+        .btn-reset{background:#1c1c1c;color:#666;border:1px solid #2a2a2a;padding:8px 0;border-radius:15px;font-weight:bold;cursor:pointer;font-size:.78em;width:100%;display:flex;align-items:center;justify-content:center;gap:5px;transition:.3s}
+        .btn-reset:hover{color:#aaa;background:#222}
 
-        /* ── SEPARADOR DE SECCIÓN DENTRO DEL PANEL ── */
-        .panel-section-tag {
-            background:#1a1000; color:var(--color-oro);
-            text-align:center; font-size:0.8em; font-weight:bold;
-            text-transform:uppercase; letter-spacing:2px;
-            padding:7px 12px; border-radius:6px;
-            margin:14px 0 10px; border:1px solid #3a2800;
+        /* ── BADGE MODO SESIÓN ── */
+        .session-badge{
+            display:none;background:#0d2200;border:1px solid #1a4400;
+            color:var(--ws);font-size:.7em;font-weight:bold;
+            padding:4px 10px;border-radius:10px;text-align:center;
         }
+        .session-badge.admin-mode{background:#1a0a00;border-color:rgba(255,69,0,.4);color:var(--fire)}
 
-        /* ── TARJETA DE MIEMBRO EN EL PANEL ── */
-        .miembro-card-panel {
-            background:#141414; border-left:4px solid var(--color-fenix-fire);
-            border-radius:10px; margin-bottom:10px; padding:11px 13px;
-            position:relative; transition:background 0.2s;
-        }
-        .miembro-card-panel.es-admin { border-left-color:var(--color-oro); background:#1a1400; }
-        .miembro-card-panel.slot-vacio { border-left-color:#444; }
-        .miembro-card-panel:hover { background:#1c1c1c; }
+        /* ══════════════════════════════
+           MODALES
+        ══════════════════════════════ */
+        .modal-bg{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.82);align-items:center;justify-content:center}
+        .modal-bg.show{display:flex}
+        .modal-box{background:#111;border:2px solid var(--fire);border-radius:15px;padding:28px 26px;width:90%;max-width:340px;text-align:center}
+        .modal-box h3{color:var(--fire);margin-bottom:8px;font-size:1.3em}
+        .modal-box p{color:#aaa;font-size:.85em;margin-bottom:18px}
+        .modal-pin{background:#1a1a1a;border:2px solid #333;border-radius:8px;color:white;font-size:1.4em;text-align:center;letter-spacing:8px;padding:10px;width:100%;outline:none;margin-bottom:14px}
+        .modal-pin:focus{border-color:var(--fire)}
+        .modal-btn{background:var(--fire);color:white;border:none;padding:11px 28px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;margin:4px;transition:.2s}
+        .modal-btn:hover{background:#d93c00}
+        .modal-btn-cancel{background:#333}
+        .modal-btn-cancel:hover{background:#444}
+        .modal-btn-ws{background:#1a3d27;color:var(--ws);border:1px solid #25d36644}
+        .modal-btn-ws:hover{background:#1d5530}
+        .modal-error{color:var(--fire);font-size:.82em;margin-top:8px;min-height:18px}
+        .modal-form input,.modal-form textarea,.modal-form select{width:100%;background:#1a1a1a;border:1px solid #333;border-radius:7px;color:#ddd;padding:9px 11px;font-size:.88em;outline:none;margin-bottom:10px;font-family:inherit}
+        .modal-form input:focus,.modal-form textarea:focus{border-color:var(--fire)}
+        .modal-form label{display:block;font-size:.78em;color:#888;margin-bottom:3px;text-align:left}
+        /* Selector de tipo de login */
+        .login-opts{display:flex;gap:8px;margin-bottom:16px}
+        .login-opt-btn{flex:1;padding:10px;border-radius:8px;border:2px solid #333;background:#1a1a1a;color:#aaa;cursor:pointer;font-size:.85em;font-weight:bold;transition:.2s}
+        .login-opt-btn.active{border-color:var(--fire);color:var(--fire);background:#1a0800}
 
-        /* Fila nombre + botones */
-        .card-header-row {
-            display:flex; align-items:center; gap:8px; margin-bottom:6px;
-        }
-        .card-num { color:var(--color-fenix-fire); font-weight:bold; font-size:0.82em; min-width:22px; }
-        .card-num.num-admin { color:var(--color-oro); }
-        .card-rango { font-size:0.7em; color:var(--color-oro); font-weight:bold; text-transform:uppercase; margin-right:4px; flex-shrink:0; }
-
-        .card-nombre {
-            flex:1; font-weight:bold; font-size:0.93em; color:white;
-            outline:none; border:none; background:transparent;
-            border-bottom:1px dashed #333; padding:2px 4px; min-width:0;
-        }
-        .card-nombre:focus { border-bottom-color:var(--color-oro); color:var(--color-oro); }
-
-        .card-actions { display:flex; gap:5px; flex-shrink:0; }
-
-        .btn-expand {
-            background:#252525; border:1px solid #3a3a3a; color:var(--color-oro);
-            width:27px; height:27px; border-radius:5px; cursor:pointer;
-            display:flex; align-items:center; justify-content:center;
-            font-size:0.72em; transition:0.2s; flex-shrink:0;
-        }
-        .btn-expand:hover { background:#333; }
-
-        .btn-ws-panel {
-            background:var(--whatsapp-green); color:white;
-            width:27px; height:27px; border-radius:5px;
-            display:flex; align-items:center; justify-content:center;
-            text-decoration:none; font-size:0.82em; transition:0.2s; flex-shrink:0;
-        }
-        .btn-ws-panel:hover { background:#128c7e; transform:scale(1.1); }
-
-        /* Fila ID */
-        .card-id-row {
-            display:flex; align-items:center; gap:5px;
-            font-size:0.76em; color:#555; margin-bottom:3px;
-        }
-        .card-id-row input {
-            background:transparent; border:none; border-bottom:1px dashed #2a2a2a;
-            color:#666; outline:none; font-size:1em; flex:1;
-        }
-        .card-id-row input:focus { color:var(--color-oro); border-bottom-color:var(--color-oro); }
-
-        /* ── BARRA DE REDES SOCIALES (siempre visible, clicable) ── */
-        .social-bar {
-            display:flex; gap:7px; margin-top:7px; flex-wrap:wrap;
-        }
-
-        .social-btn {
-            display:inline-flex; align-items:center; gap:4px;
-            padding:4px 8px; border-radius:5px;
-            font-size:0.78em; font-weight:bold;
-            text-decoration:none; transition:0.2s; flex-shrink:0;
-        }
-        .social-btn:hover { opacity:0.85; transform:scale(1.05); }
-        .social-btn.wa  { background:#1a3d27; color:#25d366; border:1px solid #25d36644; }
-        .social-btn.fb  { background:#1a2a40; color:#1877f2; border:1px solid #1877f244; }
-        .social-btn.ig  { background:#3d1a27; color:#e1306c; border:1px solid #e1306c44; }
-        .social-btn.yt  { background:#3d1a1a; color:#ff0000; border:1px solid #ff000044; }
-        .social-btn.tk  { background:#1a1a2a; color:#ffffff; border:1px solid #ffffff22; }
-
-        /* Campos de edición expandibles */
-        .social-fields {
-            display:none; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px;
-        }
-        .social-fields.open { display:grid; }
-
-        .campo-social {
-            background:#1e1e1e; border:1px solid #2a2a2a; border-radius:6px;
-            padding:6px 8px; display:flex; align-items:center; gap:5px; font-size:0.78em;
-        }
-        .campo-social i { width:16px; font-size:0.9em; }
-        .campo-social .at-prefix { color:var(--color-fenix-fire); font-weight:bold; }
-        .campo-social input { background:transparent; border:none; color:#ccc; outline:none; width:100%; font-size:1em; }
-        .campo-social input:focus { color:var(--color-oro); }
-
-        /* Barra guardar fija */
-        .panel-save-bar {
-            position:sticky; bottom:0;
-            background:#000; border-top:2px solid var(--color-fenix-fire);
-            padding:10px 14px; display:flex; gap:10px; justify-content:center;
-        }
-        .btn-save-panel {
-            background:var(--color-fenix-fire); color:white; border:none;
-            padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer;
-            font-size:0.9em; display:flex; align-items:center; gap:8px; transition:0.3s;
-        }
-        .btn-save-panel:hover { background:#e03d00; box-shadow:0 0 15px rgba(255,69,0,0.5); }
-        .btn-clear-all-panel {
-            background:#333; color:#aaa; border:1px solid #444;
-            padding:10px 16px; border-radius:20px; font-weight:bold; cursor:pointer;
-            font-size:0.85em; display:flex; align-items:center; gap:6px; transition:0.3s;
-        }
-        .btn-clear-all-panel:hover { background:#444; color:white; }
+        /* ── TOAST ── */
+        .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px 20px;font-size:.88em;color:white;opacity:0;transition:all .35s;z-index:9999;white-space:nowrap;pointer-events:none}
+        .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+        .toast.ok{border-color:var(--ws);color:var(--ws)}
+        .toast.err{border-color:var(--fire);color:var(--fire)}
+        .toast.warn{border-color:var(--oro);color:var(--oro)}
 
         /* ── FOOTER ── */
-        footer { text-align:center; padding:50px 20px; font-size:1em; color:#888; background:#050505; border-top:1px solid #222; }
+        footer{text-align:center;padding:46px 20px;font-size:.95em;color:#777;background:#050505;border-top:1px solid #1a1a1a}
+        .logo-footer{width:90px;height:auto;border-radius:50%;object-fit:cover;border:3px solid #333;box-shadow:0 0 18px rgba(255,69,0,.45);margin-top:18px}
 
-        /* LOGO INFERIOR — emblema metálico (215367.png) */
-        .logo-footer {
-            width: 100px; height: auto;
-            border-radius: 50%; object-fit: cover;
-            border: 3px solid #333;
-            box-shadow: 0 0 20px rgba(255,69,0,0.5);
-            margin-top: 20px;
-        }
-
-        /* ── MEDIA QUERIES ── */
-        @media (max-width:600px) {
-            h1 { font-size:2em; }
-            h2 { font-size:1.5em; }
-            .seccion { padding:18px; }
-            .logo-principal { width:200px; }
-            .social-fields { grid-template-columns:1fr; }
-        }
+        /* ── RESPONSIVE ── */
+        @media(max-width:600px){h1{font-size:2em}h2{font-size:1.45em}.seccion{padding:16px}.logo-principal{width:200px}.edit-fields{flex-direction:column}}
     </style>
 </head>
 <body>
 
-<div class="overlay" id="overlay" onclick="closeNav()"></div>
+<div class="overlay" id="overlay" onclick="closePanel()"></div>
+<div class="toast" id="toast"></div>
 
-<!-- ══════════ HEADER ══════════ -->
+<!-- ════ HEADER ════ -->
 <header>
-    <!--
-    ╔══════════════════════════════════════════════════╗
-    ║  INSTRUCCIÓN PARA SUBIR LAS IMÁGENES A GITHUB   ║
-    ║                                                  ║
-    ║  1. Ve a github.com/miguel8904/clan-fenix-bb7drip║
-    ║  2. Clic en "Add file" → "Upload files"          ║
-    ║  3. Sube:                                        ║
-    ║     • imagen del cartel  →  banner_fenix.jpg     ║
-    ║     • emblema metálico   →  emblema_metalico.jpg ║
-    ║  4. Clic en "Commit changes"                     ║
-    ║  5. ¡Listo! Las imágenes aparecerán solas aquí.  ║
-    ╚══════════════════════════════════════════════════╝
-
-    URLs que usa este código:
-      ARRIBA  → https://raw.githubusercontent.com/miguel8904/clan-fenix-bb7drip/main/banner_fenix.jpg
-      ABAJO   → https://raw.githubusercontent.com/miguel8904/clan-fenix-bb7drip/main/emblema_metalico.jpg
-
-    Si los archivos ya existen con otro nombre, cambia solo el nombre al final de la URL.
-    -->
-
-    <!-- IMAGEN SUPERIOR: cartel del fénix con pandas (215368.png → banner_fenix.jpg) -->
-    <img
-        src="https://raw.githubusercontent.com/miguel8904/clan-fenix-bb7drip/main/banner_fenix.jpg"
-        onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/miguel8904/clan-fenix-bb7drip/main/emblema_metalico.jpg';"
-        alt="CLAN FÉNIX BB⁷_DRIP$"
-        class="logo-principal"
-    >
-
+    <img src="https://raw.githubusercontent.com/miguel8904/clan-fenix-bb7drip/main/banner_fenix.jpg"
+         onerror="this.src='https://raw.githubusercontent.com/miguel8904/clan-fenix-bb7drip/main/emblema_metalico.jpg'"
+         alt="CLAN FÉNIX BB⁷_DRIP$" class="logo-principal">
     <h1>CLAN FÉNIX<br>BB⁷_DRIP$</h1>
     <p class="subtitle">⚡ COMUNIDAD OFICIAL 🐼</p>
-    <a href="freefire://" class="btn-freefire-header">
-        <i class="fas fa-gamepad"></i> ABRIR FREE FIRE
-    </a>
+    <a href="freefire://" class="btn-ff"><i class="fas fa-gamepad"></i> ABRIR FREE FIRE</a>
 </header>
 
-<!-- ══════════ CONTENIDO PRINCIPAL ══════════ -->
+<!-- ════ CONTENIDO ════ -->
 <div class="container">
 
-    <!-- BIENVENIDA -->
-    <div class="seccion" style="text-align:center; border:2px solid var(--color-fenix-fire);">
+    <div class="seccion" style="text-align:center;border:2px solid var(--fire)">
         <h2>🔥 BIENVENIDOS</h2>
-        <p style="font-size:1.15em; font-weight:bold; color:white;">
-            "Aquí no solo formamos un team, formamos una familia.<br>
-            ¡Juntos renacemos más fuertes, como el Fenix!"
-        </p>
-        <p style="color:#ffcc00; font-weight:bold;">
-            Prepárate para dar lo mejor de ti, crecer juntos y dejar huella en cada partida.
-        </p>
-        <p style="font-size:1.3em;">💥 ¡Vamos con todo, crack! 💯🔥</p>
+        <p style="font-size:1.1em;font-weight:bold;color:white;margin-bottom:10px">"Aquí no solo formamos un team, formamos una familia.<br>¡Juntos renacemos más fuertes, como el Fenix!"</p>
+        <p style="color:#ffcc00;font-weight:bold;margin-bottom:8px">Prepárate para dar lo mejor de ti, crecer juntos y dejar huella en cada partida.</p>
+        <p style="font-size:1.2em">💥 ¡Vamos con todo, crack! 💯🔥</p>
     </div>
 
-    <!-- SALÓN DE LA FAMA -->
     <div class="seccion">
         <h2>🏆 SALÓN DE LA FAMA</h2>
         <div class="fame-grid">
-            <div class="card-fame">
-                <i class="fas fa-crown"></i>
-                <h3>MVP HONOR</h3>
-                <p class="admin-editable" contenteditable="true"><strong>[Nombre Aquí]</strong></p>
-                <p>Puntos: <span class="admin-editable" contenteditable="true">0000</span></p>
-            </div>
-            <div class="card-fame">
-                <i class="fas fa-medal"></i>
-                <h3>TOP PLACAS</h3>
-                <p class="admin-editable" contenteditable="true"><strong>[Nombre Aquí]</strong></p>
-                <p>Guerra de Clanes</p>
-            </div>
-            <div class="card-fame">
-                <i class="fas fa-fire"></i>
-                <h3>MÁS ACTIVO</h3>
-                <p class="admin-editable" contenteditable="true"><strong>[Nombre Aquí]</strong></p>
-                <p>Rango: Heroico</p>
-            </div>
+            <div class="card-fame"><i class="fas fa-crown"></i><h3>MVP HONOR</h3><p><span class="cf-edit" contenteditable="true">[Nombre Aquí]</span></p><p>Puntos: <span class="cf-edit" contenteditable="true">0000</span></p></div>
+            <div class="card-fame"><i class="fas fa-medal"></i><h3>TOP PLACAS</h3><p><span class="cf-edit" contenteditable="true">[Nombre Aquí]</span></p><p>Guerra de Clanes</p></div>
+            <div class="card-fame"><i class="fas fa-fire"></i><h3>MÁS ACTIVO</h3><p><span class="cf-edit" contenteditable="true">[Nombre Aquí]</span></p><p>Rango: Heroico</p></div>
         </div>
     </div>
 
-    <!-- REQUISITOS -->
     <div class="seccion">
-        <h2>📌 REQUISITOS PRINCIPALES</h2>
-        <div class="requisitos-list">
-            <div class="item-requisito"><i class="fas fa-award" style="color:var(--color-oro);"></i> +4000 de Honor Semanal</div>
-            <div class="item-requisito"><i class="fas fa-shield-alt" style="color:var(--color-oro);"></i> +80 Placas (Mié, Sáb, Dom)</div>
-            <div class="item-requisito"><i class="fas fa-clock" style="color:var(--color-oro);"></i> Horario de Guerra: 6pm – 10pm</div>
-            <div class="item-requisito"><i class="fas fa-user-slash" style="color:var(--color-oro);"></i> No cuentas secundarias</div>
-            <div class="item-requisito"><i class="fas fa-microphone" style="color:var(--color-oro);"></i> Micrófono encendido</div>
-            <div class="item-requisito"><i class="fas fa-handshake" style="color:var(--color-oro);"></i> Respeto y Juego Limpio</div>
+        <h2>📌 REQUISITOS</h2>
+        <div class="req-list">
+            <div class="req-item"><i class="fas fa-award" style="color:var(--oro)"></i> +4000 de Honor Semanal</div>
+            <div class="req-item"><i class="fas fa-shield-alt" style="color:var(--oro)"></i> +80 Placas (Mié, Sáb, Dom)</div>
+            <div class="req-item"><i class="fas fa-clock" style="color:var(--oro)"></i> Horario de Guerra: 6pm – 10pm</div>
+            <div class="req-item"><i class="fas fa-user-slash" style="color:var(--oro)"></i> No cuentas secundarias</div>
+            <div class="req-item"><i class="fas fa-microphone" style="color:var(--oro)"></i> Micrófono encendido</div>
+            <div class="req-item"><i class="fas fa-handshake" style="color:var(--oro)"></i> Respeto y Juego Limpio</div>
         </div>
-        <p style="text-align:center; color:#ff9900; font-weight:bold; margin-top:20px;">⚠️ El domingo a las 11:00 PM se revisan los puntos.</p>
+        <p style="text-align:center;color:#ff9900;font-weight:bold;margin-top:16px">⚠️ El domingo a las 11:00 PM se revisan los puntos.</p>
     </div>
 
-    <!-- REGLAS -->
     <div class="seccion">
-        <h2>📜 REGLAS DEL CLAN</h2>
-        <ul class="reglas-list">
-            <li><i class="fas fa-user-secret" style="color:#ff4444;"></i><div><b>NO chats privados:</b> Prohibido molestar a integrantes al privado.</div></li>
-            <li><i class="fas fa-comment-slash" style="color:#ff4444;"></i><div><b>Respeto total:</b> No palabras ni stickers obscenos/porno.</div></li>
-            <li><i class="fas fa-history" style="color:#ff4444;"></i><div><b>Inactividad:</b> Más de 2 días fuera sin aviso = Expulsión.</div></li>
-            <li><i class="fas fa-door-open" style="color:#ff4444;"></i><div><b>Salidas:</b> Si te sales 3 veces sin justificar, no regresas.</div></li>
-            <li><i class="fas fa-id-card" style="color:#25d366;"></i><div><b>Presentación:</b> Cada 15 días presentarse con foto o plantilla.</div></li>
-            <li><i class="fas fa-phone-slash" style="color:#25d366;"></i><div><b>Llamadas:</b> Solo administradores pueden iniciar llamadas grupales.</div></li>
-            <li><i class="fas fa-gamepad" style="color:#3498db;"></i><div><b>Juego Colectivo:</b> Jugar entre los integrantes y solo Guerra en su horario.</div></li>
-            <li><i class="fas fa-exclamation-triangle" style="color:#ff4444;"></i><div><b>PVP Interno:</b> No capturas de PVP entre miembros.</div></li>
+        <h2>📜 REGLAS</h2>
+        <ul class="rules-list">
+            <li><i class="fas fa-user-secret" style="color:#ff4444"></i><div><b>NO chats privados:</b> Prohibido molestar a integrantes al privado.</div></li>
+            <li><i class="fas fa-comment-slash" style="color:#ff4444"></i><div><b>Respeto total:</b> No palabras ni stickers obscenos/porno.</div></li>
+            <li><i class="fas fa-history" style="color:#ff4444"></i><div><b>Inactividad:</b> Más de 2 días fuera sin aviso = Expulsión.</div></li>
+            <li><i class="fas fa-door-open" style="color:#ff4444"></i><div><b>Salidas:</b> Si te sales 3 veces sin justificar, no regresas.</div></li>
+            <li><i class="fas fa-id-card" style="color:var(--ws)"></i><div><b>Presentación:</b> Cada 15 días presentarse con foto o plantilla.</div></li>
+            <li><i class="fas fa-phone-slash" style="color:var(--ws)"></i><div><b>Llamadas:</b> Solo administradores pueden iniciar llamadas grupales.</div></li>
+            <li><i class="fas fa-gamepad" style="color:#3498db"></i><div><b>Juego Colectivo:</b> Jugar entre los integrantes y solo Guerra en su horario.</div></li>
+            <li><i class="fas fa-exclamation-triangle" style="color:#ff4444"></i><div><b>PVP Interno:</b> No capturas de PVP entre miembros.</div></li>
         </ul>
     </div>
 
-    <!-- ADMINISTRACIÓN -->
     <div class="seccion">
         <h2>👤 ADMINISTRACIÓN</h2>
-        <p style="text-align:center; color:#aaa; margin-bottom:25px;">PULSA EN NOMBRE O ID PARA EDITAR DATOS</p>
+        <p style="text-align:center;color:#888;margin-bottom:20px;font-size:.9em">Pulsa nombre o ID para editar</p>
         <div class="admin-list">
-            <h3 style="text-align:center; color:var(--color-oro);">👑 LÍDERES</h3>
-
-            <div class="admin-item">
-                <div class="admin-info">
-                    <span class="admin-rol">👑 Jefe de Clan</span>
-                    <span class="admin-nombre admin-editable" contenteditable="true">CRISTOFER (CRIS)</span>
-                    <span class="admin-id">(<span class="admin-editable" contenteditable="true">BB⁷ ⚔ CRϟS 亗</span>)</span>
-                    <span class="admin-id">ID: <strong><span class="admin-editable" contenteditable="true">12999345204</span></strong></span>
-                </div>
-                <a href="https://wa.me/18633037050" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a>
-            </div>
-
-            <div class="admin-item">
-                <div class="admin-info">
-                    <span class="admin-rol">👑 2do Líder</span>
-                    <span class="admin-nombre admin-editable" contenteditable="true">MIGUEL (MIGUE)</span>
-                    <span class="admin-id">(<span class="admin-editable" contenteditable="true">BB⁷┆M¡gષ૯™</span>)</span>
-                    <span class="admin-id">ID: <strong><span class="admin-editable" contenteditable="true">4277377760</span></strong></span>
-                </div>
-                <a href="https://wa.me/5353383049" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a>
-            </div>
-
-            <h3 style="text-align:center; color:var(--color-oro);">⚔️ DECANOS</h3>
-
-            <div class="admin-item">
-                <div class="admin-info">
-                    <span class="admin-rol">⚔️ Decano</span>
-                    <span class="admin-nombre admin-editable" contenteditable="true">RAFAEL (CUCHI)</span>
-                    <span class="admin-id">(<span class="admin-editable" contenteditable="true">BB⁷CUCHI</span>)</span>
-                    <span class="admin-id">ID: <strong><span class="admin-editable" contenteditable="true">10840251372</span></strong></span>
-                </div>
-                <a href="https://wa.me/17372918753" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a>
-            </div>
-
-            <div class="admin-item">
-                <div class="admin-info">
-                    <span class="admin-rol">⚔️ Decano</span>
-                    <span class="admin-nombre admin-editable" contenteditable="true">IVAN (POLLO)</span>
-                    <span class="admin-id">(<span class="admin-editable" contenteditable="true">BB⁷ ☬POLLO☬</span>)</span>
-                    <span class="admin-id">ID: <strong><span class="admin-editable" contenteditable="true">2045531676</span></strong></span>
-                </div>
-                <a href="https://wa.me/18173503509" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a>
-            </div>
-
-            <div class="admin-item">
-                <div class="admin-info">
-                    <span class="admin-rol">⚔️ Decano</span>
-                    <span class="admin-nombre admin-editable" contenteditable="true">LUIS (WICHO)</span>
-                    <span class="admin-id">(<span class="admin-editable" contenteditable="true">꧁ঔৣ☬DRACO☬ঔৣ꧂</span>)</span>
-                    <span class="admin-id">ID: <strong><span class="admin-editable" contenteditable="true">12867919510</span></strong></span>
-                </div>
-                <a href="https://wa.me/17132525468" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a>
-            </div>
+            <h3 style="text-align:center;color:var(--oro);margin-bottom:8px">👑 LÍDERES</h3>
+            <div class="admin-item"><div class="admin-info"><span class="admin-rol">👑 Jefe de Clan</span><span class="admin-nombre admin-editable" contenteditable="true">CRISTOFER (CRIS)</span><span class="admin-nick admin-editable" contenteditable="true">BB⁷ ⚔ CRϟS 亗</span><span class="admin-id">ID: <span class="admin-editable" contenteditable="true">12999345204</span></span></div><a href="https://wa.me/18633037050" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a></div>
+            <div class="admin-item"><div class="admin-info"><span class="admin-rol">⭐ 2do Líder</span><span class="admin-nombre admin-editable" contenteditable="true">MIGUEL (MIGUE)</span><span class="admin-nick admin-editable" contenteditable="true">BB⁷┆M¡gષ૯™</span><span class="admin-id">ID: <span class="admin-editable" contenteditable="true">4277377760</span></span></div><a href="https://wa.me/5353383049" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a></div>
+            <h3 style="text-align:center;color:var(--oro);margin:12px 0 8px">⚔️ DECANOS</h3>
+            <div class="admin-item"><div class="admin-info"><span class="admin-rol">⚔️ Decano</span><span class="admin-nombre admin-editable" contenteditable="true">RAFAEL (CUCHI)</span><span class="admin-nick admin-editable" contenteditable="true">BB⁷CUCHI</span><span class="admin-id">ID: <span class="admin-editable" contenteditable="true">10840251372</span></span></div><a href="https://wa.me/17372918753" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a></div>
+            <div class="admin-item"><div class="admin-info"><span class="admin-rol">⚔️ Decano</span><span class="admin-nombre admin-editable" contenteditable="true">IVAN (POLLO)</span><span class="admin-nick admin-editable" contenteditable="true">BB⁷ ☬POLLO☬</span><span class="admin-id">ID: <span class="admin-editable" contenteditable="true">2045531676</span></span></div><a href="https://wa.me/18173503509" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a></div>
+            <div class="admin-item"><div class="admin-info"><span class="admin-rol">⚔️ Decano</span><span class="admin-nombre admin-editable" contenteditable="true">LUIS (WICHO)</span><span class="admin-nick admin-editable" contenteditable="true">꧁ঔৣ☬DRACO☬ঔৣ꧂</span><span class="admin-id">ID: <span class="admin-editable" contenteditable="true">12867919510</span></span></div><a href="https://wa.me/17132525468" target="_blank" class="btn-ws-admin"><i class="fab fa-whatsapp"></i></a></div>
         </div>
     </div>
 
-    <!-- BOTÓN VER MIEMBROS (55) -->
-    <button class="miembros-trigger" onclick="openNav()">
-        <i class="fas fa-users"></i> VER MIEMBROS DEL CLAN (55) <i class="fas fa-chevron-right"></i>
+    <!-- COLABORACIONES -->
+    <div class="seccion">
+        <h2>🎁 COLABORACIONES GARENA</h2>
+        <p style="text-align:center;color:#888;margin-bottom:18px;font-size:.88em">Premios y eventos especiales de la semana</p>
+        <div class="colabs-grid" id="colabsGrid"></div>
+        <button class="btn-add-colab" id="btnAddColab" onclick="abrirModalColab()" style="display:none"><i class="fas fa-plus"></i> AGREGAR COLABORACIÓN (solo admin)</button>
+    </div>
+
+    <!-- DINÁMICAS -->
+    <div class="seccion">
+        <h2>🎮 DINÁMICAS DE SALAS</h2>
+        <div class="salas-header">
+            <p style="color:#888;font-size:.88em;margin:0">Salas privadas activas para integrantes</p>
+            <button class="btn-sala-nueva" id="btnNuevaSala" onclick="abrirModalSala()" style="display:none"><i class="fas fa-plus"></i> NUEVA SALA</button>
+        </div>
+        <div id="salasGrid"></div>
+        <p id="salasVacio" style="text-align:center;color:#555;font-size:.88em;padding:20px 0">No hay salas activas en este momento.</p>
+    </div>
+
+    <!-- BOTÓN MIEMBROS -->
+    <button class="btn-miembros" onclick="openPanel()">
+        <i class="fas fa-users"></i> VER INTEGRANTES DEL CLAN (55) <i class="fas fa-chevron-right"></i>
     </button>
 
     <!-- ÚNETE -->
-    <div class="seccion" style="text-align:center; border:2px solid var(--whatsapp-green);">
+    <div class="seccion" style="text-align:center;border:2px solid var(--ws)">
         <h2>🎮 ÚNETE AL CLAN</h2>
-        <p style="font-size:1.1em; color:white;">¿Cumples con todo? Entra al grupo principal de reclutamiento aquí:</p>
-        <a href="https://chat.whatsapp.com/IlQ2kAC82DN1ZGt3dHBLY3" target="_blank"
-           style="background-color:var(--whatsapp-green); color:white; padding:18px 36px; text-decoration:none; font-weight:bold; border-radius:50px; font-size:1.2em; display:inline-flex; align-items:center; gap:15px; transition:all 0.3s; box-shadow:0 6px 20px rgba(37,211,102,0.4); text-transform:uppercase;">
-            <i class="fab fa-whatsapp" style="font-size:1.4em;"></i> ENTRAR AL CLAN (WHATSAPP)
-        </a>
-    </div>
-
-</div><!-- fin .container -->
-
-<!-- ══════════ FOOTER ══════════ -->
-<footer>
-    🐦‍🔥 CLAN FENIX BB⁷_DRIP$ &copy; 2026<br>
-    Desarrollado por Miguel Acosta | Panel de Gestión Dinámico
-
-    <!-- IMAGEN INFERIOR: emblema metálico (215367.png → emblema_metalico.jpg) -->
-    <br>
-    <img
-        src="https://raw.githubusercontent.com/miguel8904/clan-fenix-bb7drip/main/emblema_metalico.jpg"
-        alt="Emblema Fénix"
-        class="logo-footer"
-    >
-</footer>
-
-<!-- ══════════════════════════════════════════════
-     PANEL LATERAL — LISTA DE 55 INTEGRANTES
-══════════════════════════════════════════════ -->
-<div id="mySidepanel" class="side-panel">
-
-    <div class="panel-header">
-        <span>⚔️ INTEGRANTES DEL CLAN (55)</span>
-        <button class="panel-close" onclick="closeNav()">&times;</button>
-    </div>
-
-    <div class="panel-content">
-        <div class="panel-hint">
-            <i class="fas fa-pen"></i> Pulsa <strong>▼</strong> para editar redes sociales · Los iconos se activan al guardar
-        </div>
-        <div id="gridMiembros"></div>
-    </div>
-
-    <div class="panel-save-bar">
-        <button class="btn-save-panel" onclick="guardarDatos()">
-            <i class="fas fa-save"></i> GUARDAR CAMBIOS
-        </button>
-        <button class="btn-clear-all-panel" onclick="limpiarRedes()">
-            <i class="fas fa-undo"></i> Restablecer
-        </button>
+        <p style="font-size:1.05em;color:white;margin-bottom:18px">¿Cumples con todo? Entra al grupo principal aquí:</p>
+        <a href="https://chat.whatsapp.com/IlQ2kAC82DN1ZGt3dHBLY3" target="_blank" class="btn-join"><i class="fab fa-whatsapp" style="font-size:1.35em"></i> ENTRAR AL CLAN (WHATSAPP)</a>
     </div>
 
 </div>
 
-<!-- ══════════ JAVASCRIPT ══════════ -->
+<!-- ════ FOOTER ════ -->
+<footer>
+    🐦‍🔥 CLAN FENIX BB⁷_DRIP$ &copy; 2026<br>
+    Desarrollado por Miguel Acosta | Panel de Gestión v3.2
+    <br>
+    <img src="https://raw.githubusercontent.com/miguel8904/clan-fenix-bb7drip/main/emblema_metalico.jpg" alt="Emblema" class="logo-footer">
+    <br><br>
+    <small style="color:#333;font-size:.75em">
+        <i class="fas fa-shield-alt"></i>
+        <a href="#" onclick="abrirLoginPanel(event)" style="color:#444;text-decoration:none">Admin / Miembro: Panel de Control</a>
+    </small>
+</footer>
+
+<!-- ════ PANEL LATERAL ════ -->
+<div id="sidePanel" class="side-panel">
+    <div class="panel-top">
+        <span class="panel-top-title">⚔️ INTEGRANTES DEL CLAN (55)</span>
+        <button class="panel-close-btn" onclick="closePanel()">&times;</button>
+    </div>
+    <div class="panel-controls">
+        <input type="text" class="panel-search" placeholder="🔍 Buscar miembro..." oninput="filtrarMiembros(this.value)">
+        <div class="sync-status"><div class="sync-dot" id="syncDot"></div><span id="syncText">local</span></div>
+    </div>
+    <div class="panel-hint" id="panelHint">Sin sesión: solo lectura · Pulsa 🔒 para ver redes de ese miembro</div>
+    <div id="sessionBadge" class="session-badge"></div>
+    <div class="panel-body" id="gridMiembros"></div>
+
+    <!-- BARRA INFERIOR LIMPIA -->
+    <div class="panel-bottom">
+        <div class="panel-bottom-row">
+            <button class="btn-save-main" onclick="guardarTodo()">
+                <i class="fas fa-save"></i> GUARDAR CAMBIOS
+            </button>
+            <button class="btn-cerrar-sesion" id="btnCerrarSesion" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i> CERRAR SESIÓN
+            </button>
+        </div>
+        <button class="btn-reset" onclick="confirmarReset()">
+            <i class="fas fa-undo"></i> Restablecer redes sociales
+        </button>
+    </div>
+</div>
+
+<!-- ════ MODAL LOGIN (Admin / Miembro) ════ -->
+<div class="modal-bg" id="modalLogin">
+    <div class="modal-box">
+        <h3 id="loginTitle">🔐 PANEL DE CONTROL</h3>
+        <p id="loginDesc">Selecciona tu tipo de acceso</p>
+
+        <!-- Selector de tipo -->
+        <div class="login-opts">
+            <button class="login-opt-btn active" id="optAdmin" onclick="seleccionarTipoLogin('admin')">
+                <i class="fas fa-crown"></i><br>Admin
+            </button>
+            <button class="login-opt-btn" id="optMiembro" onclick="seleccionarTipoLogin('miembro')">
+                <i class="fas fa-user"></i><br>Miembro
+            </button>
+        </div>
+
+        <!-- Selección de miembro (solo visible en modo miembro) -->
+        <div id="loginMiembroSelect" style="display:none;margin-bottom:10px">
+            <label style="color:#888;font-size:.8em;display:block;margin-bottom:4px;text-align:left">¿Quién eres? Selecciona tu puesto:</label>
+            <select id="miembroSelect" style="width:100%;background:#1a1a1a;border:1px solid #333;border-radius:7px;color:#ddd;padding:9px;font-size:.85em;outline:none;margin-bottom:10px">
+                <!-- Se llena por JS -->
+            </select>
+        </div>
+
+        <input type="password" class="modal-pin" id="pinInput" maxlength="6" placeholder="• • • • • •">
+        <br>
+        <button class="modal-btn" onclick="verificarPin()"><i class="fas fa-unlock"></i> ENTRAR</button>
+        <button class="modal-btn modal-btn-cancel" onclick="cerrarModal('modalLogin')">Cancelar</button>
+        <div class="modal-error" id="pinError"></div>
+    </div>
+</div>
+
+<!-- ════ MODAL NUEVA COLABORACIÓN ════ -->
+<div class="modal-bg" id="modalColab">
+    <div class="modal-box" style="max-width:400px">
+        <h3 style="color:var(--oro);margin-bottom:14px">🎁 NUEVA COLABORACIÓN</h3>
+        <div class="modal-form">
+            <label>Nombre de la colaboración</label><input type="text" id="colabNombre" placeholder="ej: Colaboración One Piece">
+            <label>Descripción</label><input type="text" id="colabDesc" placeholder="ej: Skins exclusivos por tiempo limitado">
+            <label>Premios (separados por comas)</label><input type="text" id="colabPremios" placeholder="ej: Skin AK47, Bundle DJ, Gloo Wall">
+            <label>URL imagen (opcional)</label><input type="text" id="colabImg" placeholder="https://...">
+            <label>Fecha fin</label><input type="date" id="colabFecha">
+            <label>Estado</label>
+            <select id="colabEstado"><option value="activa">🟢 Activa</option><option value="proxima">🟡 Próximamente</option><option value="terminada">🔴 Terminada</option></select>
+        </div>
+        <button class="modal-btn" onclick="agregarColab()"><i class="fas fa-plus"></i> AGREGAR</button>
+        <button class="modal-btn modal-btn-cancel" onclick="cerrarModal('modalColab')">Cancelar</button>
+    </div>
+</div>
+
+<!-- ════ MODAL NUEVA SALA ════ -->
+<div class="modal-bg" id="modalSala">
+    <div class="modal-box" style="max-width:400px">
+        <h3 style="color:#5bc8f5;margin-bottom:14px">🎮 NUEVA DINÁMICA</h3>
+        <div class="modal-form">
+            <label>Nombre de la sala</label><input type="text" id="salaNombre" placeholder="ej: Sala Solo Clásico BB⁷">
+            <label>Tipo de dinámica</label>
+            <select id="salaTipo"><option>Solo Clásico</option><option>Dúo Clásico</option><option>Escuadra Clásico</option><option>Solo Clasificatorio</option><option>Escuadra Clasificatorio</option><option>Sala Personalizada</option></select>
+            <label>Contraseña de sala</label><input type="text" id="salaPass" placeholder="ej: fenix2024">
+            <label>Premio / recompensa</label><input type="text" id="salaPremio" placeholder="ej: 500 diamantes al ganador">
+            <label>Cupos disponibles</label><input type="number" id="salaCupos" value="12" min="2" max="50">
+            <label>Estado</label>
+            <select id="salaEstado"><option value="abierta">🟢 Abierta</option><option value="llena">🔴 Llena</option><option value="cerrada">⚫ Cerrada</option></select>
+        </div>
+        <button class="modal-btn" onclick="agregarSala()"><i class="fas fa-plus"></i> CREAR SALA</button>
+        <button class="modal-btn modal-btn-cancel" onclick="cerrarModal('modalSala')">Cancelar</button>
+    </div>
+</div>
+
+<!-- ════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════ -->
 <script>
-// ─────────────────────────────────────────────────────────
-//  DATOS BASE DE LOS 55 INTEGRANTES
-//  admin: true  → franja dorada (Líderes / Decanos)
-//  rango: texto que aparece en cada tarjeta
-// ─────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════
+   CONFIGURACIÓN
+═══════════════════════════════════════════ */
+const PIN_ADMIN      = '8904';
+const PIN_MIEMBRO    = '1207';   // PIN que usan los miembros para editar SUS redes
+const JSONBIN_BIN_ID = '69de81b4aaba882197fbbc22';
+const JSONBIN_KEY    = '$2a$10$bDuikv8hYMj0H1gZ2KLWw.EO1uBj.HrirpRmEbsSNl4ukg/3IXeHi';
+const STORAGE_KEY    = 'fenix_v3';
+
+/* ═══════════════════════════════════════════
+   DATOS BASE 55 INTEGRANTES
+═══════════════════════════════════════════ */
 const BASE = [
-    // ── LÍDERES ──
-    { nombre:"CRISTOFER (CRIS)",          id_ff:"12999345204", rango:"👑 Jefe de Clan",  admin:true,  wa:"18633037050" },
-    { nombre:"MIGUEL (MIGUE)",             id_ff:"4277377760",  rango:"👑 2do Líder",     admin:true,  wa:"5353383049"  },
-    // ── DECANOS ──
-    { nombre:"RAFAEL (CUCHI)",             id_ff:"10840251372", rango:"⚔️ Decano",        admin:true,  wa:"17372918753" },
-    { nombre:"IVAN (POLLO)",               id_ff:"2045531676",  rango:"⚔️ Decano",        admin:true,  wa:"18173503509" },
-    { nombre:"LUIS (WICHO)",               id_ff:"12867919510", rango:"⚔️ Decano",        admin:true,  wa:"17132525468" },
-    // ── MIEMBROS DEL CLAN (50) ──
-    { nombre:"Nexx┆§ ⛈️",                 id_ff:"5676853344"  },
-    { nombre:"Cesar_(-*-)_",              id_ff:"8536210504"  },
-    { nombre:"ALE (꧁ঔৣ☬ale☬ঔৣ꧂)",       id_ff:"9440769064"  },
-    { nombre:"Reynaldo (BNP.Reynaldo)",    id_ff:"13388690459" },
-    { nombre:"♡♡GEILY♡♡",                 id_ff:"4318173543"  },
-    { nombre:"BRAYAN (あ┆βrчαñ)",          id_ff:"7698725178"  },
-    { nombre:"ALBARO (BB⁷Albaro)",         id_ff:"6067370014"  },
-    { nombre:"DEURY (BB⁷Assias √°)",       id_ff:"265542399"   },
-    { nombre:"Smoke Mk11",                 id_ff:"363165969"   },
-    { nombre:"ALEX (BNP.ALEX ⚔ LE)",       id_ff:"1559152662"  },
-    { nombre:"꧁ঔৣ☬Balan☬ঔৣ꧂",            id_ff:"1666430346"  },
-    { nombre:"ISABEL (Scorpions ⚛️)",       id_ff:"1871794740"  },
-    { nombre:"@user J BB⁷",               id_ff:"2222203990"  },
-    { nombre:"EDUARDO (愛┆RG4TONTITO)",    id_ff:"2549895316"  },
-    { nombre:"©️®️™️SOMBRA2.",              id_ff:"2842395967"  },
-    { nombre:"@k.DIABLO@",                id_ff:"2930838858"  },
-    { nombre:"BB⁷_Farruko_",              id_ff:"3581531887"  },
-    { nombre:"THIAGO (☬Wilfred☬)",        id_ff:"4279412151"  },
-    { nombre:"IĘČRØMÄŃTÊ",               id_ff:"6217403535"  },
-    { nombre:"ISABEL (ββ⁷|Rocco ඞ)",      id_ff:"6240583317"  },
-    { nombre:"☽BB⁷☬ŞÊRİ",               id_ff:"6616395045"  },
-    { nombre:"★KING†࿐™",                 id_ff:"7446165340"  },
-    { nombre:"꧁.JØŞÊ.꧂",                id_ff:"7499625274"  },
-    { nombre:"SAD WICKED",                id_ff:"7688238689"  },
-    { nombre:"YURVIE (♡Girl♡Youvie)",      id_ff:"8211515157"  },
-    { nombre:"★☬TOKIO☬★",               id_ff:"8259208809"  },
-    { nombre:"MAURO (ffxAlber)",           id_ff:"8587847640"  },
-    { nombre:"Laso2X9k8F1M",              id_ff:"8773994504"  },
-    { nombre:"CARLOS (BB⁷┆CARLOS)",       id_ff:"9035661771"  },
-    { nombre:"|DIRROT|",                  id_ff:"9120339086"  },
-    { nombre:"™MX XHIPU",                id_ff:"9150436381"  },
-    { nombre:"JEANS MARCO (BB7--JM¥)",    id_ff:"9311524492"  },
-    { nombre:"Chic@n080",                 id_ff:"9395396813"  },
-    { nombre:"ANUBIS ☬",                  id_ff:"9480734394"  },
-    { nombre:"MAIKOL (BK3_PRO_GAM)",      id_ff:"9528076349"  },
-    { nombre:"YUNO (BB⁷┆ Yuno ぞ)",       id_ff:"9567125632"  },
-    { nombre:"D PLAGA",                   id_ff:"9743095337"  },
-    { nombre:"HEILER (BNP.Heiler)",        id_ff:"10109670739" },
-    { nombre:"DANIELA (Dany_stef☆♡)",     id_ff:"10266263158" },
-    { nombre:"ISABEL (@maniatica17)",      id_ff:"10600550142" },
-    { nombre:"༒S k i n༒",               id_ff:"13043545817" },
-    { nombre:"El_Bandii_$_",              id_ff:"13337780699" },
-    { nombre:"♡CANS€RBERO",              id_ff:"14154248054" },
-    { nombre:"SOFIA (BB⁷SOFI ┆ ღ⁶⁷⁴)",   id_ff:"14579981933" },
-    { nombre:"ALEXANDER (K NG ¿?)",       id_ff:"7599918214"  },
-    { nombre:"꧁*ⒽⒶⒾⓉⒾⒶⓃⓄ*꧂",           id_ff:"8905369928"  },
-    // ── 5 ESPACIOS DISPONIBLES ──
-    { nombre:"[Espacio Disponible]", id_ff:"----------", vacio:true },
-    { nombre:"[Espacio Disponible]", id_ff:"----------", vacio:true },
-    { nombre:"[Espacio Disponible]", id_ff:"----------", vacio:true },
-    { nombre:"[Espacio Disponible]", id_ff:"----------", vacio:true },
-    { nombre:"[Espacio Disponible]", id_ff:"----------", vacio:true }
+    { rango:'👑 Jefe de Clan', admin:true, nombre:'CRISTOFER (CRIS)', nick:'BB⁷ ⚔ CRϟS 亗',     id:'12999345204', wa:'18633037050' },
+    { rango:'⭐ 2do Líder',    admin:true, nombre:'MIGUEL (MIGUE)',    nick:'BB⁷┆M¡gષ૯™',        id:'4277377760',  wa:'5353383049'  },
+    { rango:'⚔️ Decano',       admin:true, nombre:'RAFAEL (CUCHI)',    nick:'BB⁷CUCHI',           id:'10840251372', wa:'17372918753' },
+    { rango:'⚔️ Decano',       admin:true, nombre:'IVAN (POLLO)',      nick:'BB⁷ ☬POLLO☬',       id:'2045531676',  wa:'18173503509' },
+    { rango:'⚔️ Decano',       admin:true, nombre:'LUIS (WICHO)',      nick:'꧁ঔৣ☬DRACO☬ঔৣ꧂',    id:'12867919510', wa:'17132525468' },
+    { nombre:'Nexx',        nick:'Nexx┆§ ⛈️',          id:'5676853344'  },
+    { nombre:'Cesar',       nick:'Cesar_(-*-)_',        id:'8536210504'  },
+    { nombre:'ALE',         nick:'꧁ঔৣ☬ale☬ঔৣ꧂',      id:'9440769064'  },
+    { nombre:'Reynaldo',    nick:'BNP.Reynaldo',        id:'13388690459' },
+    { nombre:'Geily',       nick:'♡♡GEILY♡♡',           id:'4318173543'  },
+    { nombre:'Brayan',      nick:'あ┆βrчαñ',            id:'7698725178'  },
+    { nombre:'Albaro',      nick:'BB⁷Albaro',           id:'6067370014'  },
+    { nombre:'Deury',       nick:'BB⁷Assias √°',        id:'265542399'   },
+    { nombre:'Smoke',       nick:'Smoke Mk11',          id:'363165969'   },
+    { nombre:'Alex',        nick:'BNP.ALEX ⚔ LE',       id:'1559152662'  },
+    { nombre:'Balan',       nick:'꧁ঔৣ☬Balan☬ঔৣ꧂',      id:'1666430346'  },
+    { nombre:'Isabel S.',   nick:'Scorpions ⚛️',         id:'1871794740'  },
+    { nombre:'J BB7',       nick:'@user J BB⁷',         id:'2222203990'  },
+    { nombre:'Eduardo',     nick:'愛┆RG4TONTITO',        id:'2549895316'  },
+    { nombre:'Sombra',      nick:'©️®️™️SOMBRA2.',        id:'2842395967'  },
+    { nombre:'Diablo',      nick:'@k.DIABLO@',          id:'2930838858'  },
+    { nombre:'Farruko',     nick:'BB⁷_Farruko_',        id:'3581531887'  },
+    { nombre:'Thiago',      nick:'☬Wilfred☬',           id:'4279412151'  },
+    { nombre:'Rómante',     nick:'IĘČRØMÄŃTÊ',         id:'6217403535'  },
+    { nombre:'Isabel R.',   nick:'ββ⁷|Rocco ඞ',         id:'6240583317'  },
+    { nombre:'Seri',        nick:'☽BB⁷☬ŞÊRİ',          id:'6616395045'  },
+    { nombre:'King',        nick:'★KING†࿐™',            id:'7446165340'  },
+    { nombre:'Jose',        nick:'꧁.JØŞÊ.꧂',           id:'7499625274'  },
+    { nombre:'Sad',         nick:'SAD WICKED',          id:'7688238689'  },
+    { nombre:'Yurvie',      nick:'♡Girl♡Youvie',        id:'8211515157'  },
+    { nombre:'Tokio',       nick:'★☬TOKIO☬★',          id:'8259208809'  },
+    { nombre:'Mauro',       nick:'ffxAlber',            id:'8587847640'  },
+    { nombre:'Laso',        nick:'Laso2X9k8F1M',        id:'8773994504'  },
+    { nombre:'Carlos',      nick:'BB⁷┆CARLOS',         id:'9035661771'  },
+    { nombre:'Dirrot',      nick:'|DIRROT|',            id:'9120339086'  },
+    { nombre:'Xhipu',       nick:'™MX XHIPU',          id:'9150436381'  },
+    { nombre:'Jeans Marco', nick:'BB7--JM¥',            id:'9311524492'  },
+    { nombre:'Chicano',     nick:'Chic@n080',           id:'9395396813'  },
+    { nombre:'Anubis',      nick:'ANUBIS ☬',            id:'9480734394'  },
+    { nombre:'Maikol',      nick:'BK3_PRO_GAM',         id:'9528076349'  },
+    { nombre:'Yuno',        nick:'BB⁷┆ Yuno ぞ',        id:'9567125632'  },
+    { nombre:'D Plaga',     nick:'D PLAGA',             id:'9743095337'  },
+    { nombre:'Heiler',      nick:'BNP.Heiler',          id:'10109670739' },
+    { nombre:'Daniela',     nick:'Dany_stef☆♡',        id:'10266263158' },
+    { nombre:'Isabel M.',   nick:'@maniatica17',        id:'10600550142' },
+    { nombre:'Skin',        nick:'༒S k i n༒',          id:'13043545817' },
+    { nombre:'Bandi',       nick:'El_Bandii_$_',        id:'13337780699' },
+    { nombre:'Cancerbero',  nick:'♡CANS€RBERO',        id:'14154248054' },
+    { nombre:'Sofia',       nick:'BB⁷SOFI ┆ ღ⁶⁷⁴',     id:'14579981933' },
+    { nombre:'Alexander',   nick:'K NG ¿?',            id:'7599918214'  },
+    { nombre:'Haitiano',    nick:'꧁*ⒽⒶⒾⓉⒾⒶⓃⓄ*꧂',     id:'8905369928'  },
+    { nombre:'', nick:'[Espacio Disponible]', id:'----------', vacio:true },
+    { nombre:'', nick:'[Espacio Disponible]', id:'----------', vacio:true },
+    { nombre:'', nick:'[Espacio Disponible]', id:'----------', vacio:true },
+    { nombre:'', nick:'[Espacio Disponible]', id:'----------', vacio:true },
+    { nombre:'', nick:'[Espacio Disponible]', id:'----------', vacio:true }
 ];
 
-const STORAGE_KEY = 'fenix_clan_55_v2';
+/* ═══════════════════════════════════════════
+   ESTADO GLOBAL
+═══════════════════════════════════════════ */
+let datos       = cargarDatos();
+let colabs      = JSON.parse(localStorage.getItem('fenix_colabs') || '[]');
+let salas       = JSON.parse(localStorage.getItem('fenix_salas')  || '[]');
 
-// Cargar datos guardados o crear desde BASE
+// Niveles de sesión:
+//  'none'    → solo lectura (cualquier visitante)
+//  'miembro' → puede editar SUS PROPIAS redes (idx === miIdxSesion)
+//  'admin'   → puede editar todo
+let sesion      = 'none';
+let miIdxSesion = -1;        // índice del miembro que inició sesión
+let tipoLoginUI = 'admin';   // qué pestaña está seleccionada en el modal
+let filtroBusq  = '';
+
+/* ═══════════════════════════════════════════
+   CARGA / GUARDADO
+═══════════════════════════════════════════ */
 function cargarDatos() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
         try {
-            const saved = JSON.parse(raw);
-            return BASE.map((b, i) => {
-                const s = saved[i] || {};
-                return {
-                    nombre: s.nombre ?? b.nombre,
-                    id_ff:  s.id_ff  ?? b.id_ff,
-                    rango:  b.rango  || 'Miembro',
-                    admin:  b.admin  || false,
-                    vacio:  b.vacio  || false,
-                    wa: s.wa || b.wa || '',
-                    fb: s.fb || '',
-                    ig: s.ig || '',
-                    yt: s.yt || '',
-                    tk: s.tk || ''
-                };
-            });
-        } catch(e) { /* falla silenciosa */ }
+            const s = JSON.parse(raw);
+            return BASE.map((b,i) => ({
+                rango: b.rango||'', admin: b.admin||false, vacio: b.vacio||false,
+                nombre: s[i]?.nombre ?? b.nombre,
+                nick:   s[i]?.nick   ?? b.nick,
+                id:     s[i]?.id     ?? b.id,
+                wa: s[i]?.wa ?? (b.wa||''),
+                fb: s[i]?.fb || '', ig: s[i]?.ig || '',
+                yt: s[i]?.yt || '', tk: s[i]?.tk || ''
+            }));
+        } catch(e) {}
     }
     return BASE.map(b => ({
-        nombre: b.nombre, id_ff: b.id_ff,
-        rango:  b.rango  || 'Miembro',
-        admin:  b.admin  || false,
-        vacio:  b.vacio  || false,
-        wa: b.wa || '', fb: '', ig: '', yt: '', tk: ''
+        rango:b.rango||'', admin:b.admin||false, vacio:b.vacio||false,
+        nombre:b.nombre, nick:b.nick, id:b.id,
+        wa:b.wa||'', fb:'', ig:'', yt:'', tk:''
     }));
 }
 
-let datos = cargarDatos();
+function guardarLocal() { localStorage.setItem(STORAGE_KEY, JSON.stringify(datos)); }
 
-// ─────────────────────────────────────────────────────────
-//  RENDERIZAR PANEL
-// ─────────────────────────────────────────────────────────
+async function guardarNube() {
+    if (!JSONBIN_BIN_ID || !JSONBIN_KEY) return false;
+    setSyncStatus('sync','guardando...');
+    try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+            method:'PUT',
+            headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+            body: JSON.stringify({ datos, colabs, salas, updated: Date.now() })
+        });
+        if (!res.ok) throw new Error('HTTP '+res.status);
+        setSyncStatus('ok','guardado ✓');
+        return true;
+    } catch(e) { setSyncStatus('err','sin conexión'); return false; }
+}
+
+async function cargarNube() {
+    if (!JSONBIN_BIN_ID || !JSONBIN_KEY) return;
+    setSyncStatus('sync','cargando...');
+    try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+            headers:{'X-Master-Key':JSONBIN_KEY}
+        });
+        if (!res.ok) throw new Error('HTTP '+res.status);
+        const json = await res.json();
+        if (json.record?.datos) {
+            datos  = json.record.datos;
+            colabs = json.record.colabs || [];
+            salas  = json.record.salas  || [];
+            guardarLocal();
+            localStorage.setItem('fenix_colabs', JSON.stringify(colabs));
+            localStorage.setItem('fenix_salas',  JSON.stringify(salas));
+        }
+        setSyncStatus('ok','sincronizado ✓');
+    } catch(e) { setSyncStatus('err','solo local'); }
+}
+
+function setSyncStatus(estado, texto) {
+    const dot = document.getElementById('syncDot');
+    const sp  = document.getElementById('syncText');
+    if (dot) dot.className = 'sync-dot '+estado;
+    if (sp)  sp.textContent = texto;
+}
+
+/* ═══════════════════════════════════════════
+   RENDERIZAR
+═══════════════════════════════════════════ */
 function renderizar() {
     const grid = document.getElementById('gridMiembros');
     grid.innerHTML = '';
-
-    let seccionActual = '';
+    const filtro = filtroBusq.toLowerCase();
 
     datos.forEach((m, idx) => {
+        if (filtro && !m.nombre.toLowerCase().includes(filtro)
+                   && !m.nick.toLowerCase().includes(filtro)
+                   && !m.id.includes(filtro)) return;
+
         const num = idx + 1;
-
-        // Separadores de sección
-        let secTag = '';
-        if (idx === 0) secTag = '👑 LÍDERES';
-        else if (idx === 2) secTag = '⚔️ DECANOS';
-        else if (idx === 5) secTag = '⚔️ MIEMBROS DEL CLAN (50)';
-
-        if (secTag) {
-            const div = document.createElement('div');
-            div.className = 'panel-section-tag';
-            div.textContent = secTag;
-            grid.appendChild(div);
-        }
-
-        // Links de redes
-        const waHref = m.wa ? `https://wa.me/${m.wa.replace(/\D/g,'')}` : '#';
-        const fbHref = m.fb ? `fb://facewebmodal/auth?next=/${encodeURIComponent(m.fb)}` : '#';
-        const igHref = m.ig ? `instagram://user?username=${encodeURIComponent(m.ig)}` : '#';
-        const ytHref = m.yt ? `vnd.youtube://www.youtube.com/@${encodeURIComponent(m.yt)}` : '#';
-        const tkHref = m.tk ? `snssdk1233://user/profile?user=${encodeURIComponent(m.tk)}` : '#';
-
-        const tieneRedes = m.wa || m.fb || m.ig || m.yt || m.tk;
+        if (idx===0)  grid.appendChild(secTag('👑 LÍDERES'));
+        if (idx===2)  grid.appendChild(secTag('⚔️ DECANOS'));
+        if (idx===5)  grid.appendChild(secTag('⚔️ MIEMBROS DEL CLAN (50)'));
+        if (idx===51) grid.appendChild(secTag('🔓 ESPACIOS DISPONIBLES'));
 
         const card = document.createElement('div');
-        card.className = `miembro-card-panel${m.admin ? ' es-admin' : ''}${m.vacio ? ' slot-vacio' : ''}`;
+        card.className = `mc${m.admin?' es-admin':''}${m.vacio?' slot-vacio':''}`;
+
+        const waH = m.wa ? `https://wa.me/${m.wa.replace(/\D/g,'')}` : '#';
+        const fbH = m.fb ? `fb://facewebmodal/auth?next=/${encodeURIComponent(m.fb)}` : '#';
+        const igH = m.ig ? `instagram://user?username=${encodeURIComponent(m.ig)}` : '#';
+        const ytH = m.yt ? `vnd.youtube://www.youtube.com/@${encodeURIComponent(m.yt)}` : '#';
+        const tkH = m.tk ? `snssdk1233://user/profile?user=${encodeURIComponent(m.tk)}` : '#';
+
+        // Determinar qué permisos tiene este usuario sobre ESTA tarjeta
+        const esMiPuesto = (sesion === 'miembro' && miIdxSesion === idx);
+        const esAdminMode = (sesion === 'admin');
+        const puedeEditarRedes = esAdminMode || esMiPuesto;
+        const puedeEditarTodo  = esAdminMode;
+
+        // Botón de candado
+        let lockBtn;
+        if (esAdminMode) {
+            lockBtn = `<button class="btn-sm btn-sm-lock admin-open" onclick="toggleEdit(${idx})" title="Admin: editar todo"><i class="fas fa-lock-open"></i></button>`;
+        } else if (esMiPuesto) {
+            lockBtn = `<button class="btn-sm btn-sm-lock redes" onclick="toggleEdit(${idx})" title="Editar mis redes"><i class="fas fa-lock-open"></i></button>`;
+        } else {
+            // Sin acceso a este perfil: botón de candado cerrado que pide login
+            lockBtn = `<button class="btn-sm btn-sm-lock" onclick="pedirLoginParaMiembro(${idx})" title="Acceder para editar"><i class="fas fa-lock"></i></button>`;
+        }
+
+        // Campos según permisos
+        const nombreInput = puedeEditarTodo
+            ? `<input type="text" class="mc-nombre-real" value="${esc(m.nombre)}" placeholder="Nombre real / apodo..." onchange="act(${idx},'nombre',this.value)">`
+            : (m.nombre ? `<div class="mc-nombre-real" style="pointer-events:none;color:#888">${esc(m.nombre)}</div>` : '');
+
+        const nickInput = puedeEditarTodo
+            ? `<input type="text" class="mc-nick" value="${esc(m.nick)}" placeholder="Nick en el juego..." onchange="act(${idx},'nick',this.value)" style="${m.vacio?'color:#555':''}">`
+            : `<div class="mc-nick" style="pointer-events:none;${m.vacio?'color:#555':''}">${esc(m.nick)}</div>`;
+
+        const idInput = puedeEditarTodo
+            ? `<input type="text" value="${esc(m.id)}" placeholder="ID Free Fire" onchange="act(${idx},'id',this.value)" style="color:#555">`
+            : `<span style="color:#666">${esc(m.id)}</span>`;
+
+        // Campos de redes (solo si tiene permiso de editar o si tiene datos y no es admin)
+        const redesEdit = puedeEditarRedes ? `
+            <div class="edit-fields" id="ef-${idx}">
+                <div class="ef-row"><i class="fab fa-whatsapp" style="color:#25d366"></i><input type="text" placeholder="WhatsApp (+1...)" value="${esc(m.wa)}" onchange="act(${idx},'wa',this.value);refSocial(${idx})"></div>
+                <div class="ef-row"><i class="fab fa-facebook" style="color:#1877f2"></i><span class="at">@</span><input type="text" placeholder="Facebook user" value="${esc(m.fb)}" onchange="act(${idx},'fb',this.value);refSocial(${idx})"></div>
+                <div class="ef-row"><i class="fab fa-instagram" style="color:#e1306c"></i><span class="at">@</span><input type="text" placeholder="Instagram user" value="${esc(m.ig)}" onchange="act(${idx},'ig',this.value);refSocial(${idx})"></div>
+                <div class="ef-row"><i class="fab fa-youtube" style="color:#ff0000"></i><span class="at">@</span><input type="text" placeholder="YouTube canal" value="${esc(m.yt)}" onchange="act(${idx},'yt',this.value);refSocial(${idx})"></div>
+                <div class="ef-row"><i class="fab fa-tiktok" style="color:#ee1d52"></i><span class="at">@</span><input type="text" placeholder="TikTok user" value="${esc(m.tk)}" onchange="act(${idx},'tk',this.value);refSocial(${idx})"></div>
+                ${esAdminMode ? `<div style="text-align:right;margin-top:4px"><button onclick="limpiarMiembro(${idx})" style="background:#2a0000;border:1px solid #550000;color:#ff6666;padding:4px 10px;border-radius:5px;font-size:.75em;cursor:pointer"><i class="fas fa-trash"></i> Limpiar puesto</button></div>` : ''}
+            </div>` : '';
 
         card.innerHTML = `
-            <div class="card-header-row">
-                <span class="card-num${m.admin ? ' num-admin' : ''}">${num}.</span>
-                ${m.rango ? `<span class="card-rango">${m.rango}</span>` : ''}
-                <input
-                    type="text"
-                    class="card-nombre"
-                    value="${esc(m.nombre)}"
-                    placeholder="Nombre / Nick"
-                    onchange="actualizar(${idx},'nombre',this.value)"
-                    style="${m.vacio ? 'color:#555;' : ''}"
-                >
-                <div class="card-actions">
-                    <a href="${waHref}" target="_blank" class="btn-ws-panel" id="ws-link-${idx}" title="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <button class="btn-expand" onclick="toggleEdit(${idx})" title="Editar redes">
-                        <i class="fas fa-chevron-down" id="ico-${idx}"></i>
-                    </button>
-                </div>
+            <div class="mc-top">
+                <span class="mc-num${m.admin?' gold':''}">${num}.</span>
+                ${m.rango ? `<span class="mc-rango">${m.rango}</span>` : ''}
+                <a href="${waH}" target="_blank" class="btn-sm btn-sm-ws" id="ws-${idx}" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                ${lockBtn}
             </div>
-
-            <div class="card-id-row">
-                <i class="fas fa-id-badge" style="color:#444;"></i>
-                <span style="color:#444;">ID:</span>
-                <input
-                    type="text"
-                    value="${esc(m.id_ff)}"
-                    placeholder="ID Free Fire"
-                    onchange="actualizar(${idx},'id_ff',this.value)"
-                    style="color:#555;"
-                >
+            ${nombreInput}
+            ${nickInput}
+            <div class="mc-id-row">
+                <i class="fas fa-id-badge" style="color:#444;font-size:.85em"></i>
+                <span style="color:#444">ID:</span>
+                ${idInput}
             </div>
-
-            <!-- Barra de iconos de redes (siempre visible si hay datos) -->
-            <div class="social-bar" id="sbar-${idx}">
-                ${m.wa ? `<a href="${waHref}" target="_blank" class="social-btn wa" title="WhatsApp"><i class="fab fa-whatsapp"></i> WA</a>` : ''}
-                ${m.fb ? `<a href="${fbHref}" target="_blank" class="social-btn fb" title="Facebook"><i class="fab fa-facebook"></i> FB</a>` : ''}
-                ${m.ig ? `<a href="${igHref}" target="_blank" class="social-btn ig" title="Instagram"><i class="fab fa-instagram"></i> IG</a>` : ''}
-                ${m.yt ? `<a href="${ytHref}" target="_blank" class="social-btn yt" title="YouTube"><i class="fab fa-youtube"></i> YT</a>` : ''}
-                ${m.tk ? `<a href="${tkHref}" target="_blank" class="social-btn tk" title="TikTok"><i class="fab fa-tiktok"></i> TK</a>` : ''}
+            <div class="social-bar" id="sb-${idx}">
+                ${m.wa?`<a href="${waH}" target="_blank" class="soc-btn wa"><i class="fab fa-whatsapp"></i> WA</a>`:''}
+                ${m.fb?`<a href="${fbH}" target="_blank" class="soc-btn fb"><i class="fab fa-facebook"></i> FB</a>`:''}
+                ${m.ig?`<a href="${igH}" target="_blank" class="soc-btn ig"><i class="fab fa-instagram"></i> IG</a>`:''}
+                ${m.yt?`<a href="${ytH}" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i> YT</a>`:''}
+                ${m.tk?`<a href="${tkH}" target="_blank" class="soc-btn tk"><i class="fab fa-tiktok"></i> TK</a>`:''}
             </div>
-
-            <!-- Campos editables (ocultos por defecto) -->
-            <div class="social-fields" id="sf-${idx}">
-                <div class="campo-social">
-                    <i class="fab fa-whatsapp" style="color:#25d366;"></i>
-                    <input type="text" placeholder="WhatsApp (+1...)" value="${esc(m.wa)}"
-                        onchange="actualizar(${idx},'wa',this.value); refresca(${idx})">
-                </div>
-                <div class="campo-social">
-                    <i class="fab fa-facebook" style="color:#1877f2;"></i>
-                    <span class="at-prefix">@</span>
-                    <input type="text" placeholder="Facebook" value="${esc(m.fb)}"
-                        onchange="actualizar(${idx},'fb',this.value); refresca(${idx})">
-                </div>
-                <div class="campo-social">
-                    <i class="fab fa-instagram" style="color:#e1306c;"></i>
-                    <span class="at-prefix">@</span>
-                    <input type="text" placeholder="Instagram" value="${esc(m.ig)}"
-                        onchange="actualizar(${idx},'ig',this.value); refresca(${idx})">
-                </div>
-                <div class="campo-social">
-                    <i class="fab fa-youtube" style="color:#ff0000;"></i>
-                    <span class="at-prefix">@</span>
-                    <input type="text" placeholder="YouTube" value="${esc(m.yt)}"
-                        onchange="actualizar(${idx},'yt',this.value); refresca(${idx})">
-                </div>
-                <div class="campo-social">
-                    <i class="fab fa-tiktok" style="color:#ee1d52;"></i>
-                    <span class="at-prefix">@</span>
-                    <input type="text" placeholder="TikTok" value="${esc(m.tk)}"
-                        onchange="actualizar(${idx},'tk',this.value); refresca(${idx})">
-                </div>
-            </div>
-        `;
+            ${redesEdit}`;
 
         grid.appendChild(card);
     });
 }
 
-function esc(s) {
-    return String(s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function secTag(txt) {
+    const d = document.createElement('div'); d.className='section-tag'; d.textContent=txt; return d;
 }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function act(idx, campo, val) { datos[idx][campo] = val.trim(); }
 
-function actualizar(idx, campo, valor) {
-    datos[idx][campo] = valor.trim();
-}
-
-// Refresca solo la barra de iconos de una tarjeta sin re-renderizar todo
-function refresca(idx) {
+function refSocial(idx) {
     const m = datos[idx];
-    const waHref = m.wa ? `https://wa.me/${m.wa.replace(/\D/g,'')}` : '#';
-    const fbHref = m.fb ? `fb://facewebmodal/auth?next=/${encodeURIComponent(m.fb)}` : '#';
-    const igHref = m.ig ? `instagram://user?username=${encodeURIComponent(m.ig)}` : '#';
-    const ytHref = m.yt ? `vnd.youtube://www.youtube.com/@${encodeURIComponent(m.yt)}` : '#';
-    const tkHref = m.tk ? `snssdk1233://user/profile?user=${encodeURIComponent(m.tk)}` : '#';
-
-    const bar = document.getElementById(`sbar-${idx}`);
-    if (bar) {
-        bar.innerHTML = `
-            ${m.wa ? `<a href="${waHref}" target="_blank" class="social-btn wa"><i class="fab fa-whatsapp"></i> WA</a>` : ''}
-            ${m.fb ? `<a href="${fbHref}" target="_blank" class="social-btn fb"><i class="fab fa-facebook"></i> FB</a>` : ''}
-            ${m.ig ? `<a href="${igHref}" target="_blank" class="social-btn ig"><i class="fab fa-instagram"></i> IG</a>` : ''}
-            ${m.yt ? `<a href="${ytHref}" target="_blank" class="social-btn yt"><i class="fab fa-youtube"></i> YT</a>` : ''}
-            ${m.tk ? `<a href="${tkHref}" target="_blank" class="social-btn tk"><i class="fab fa-tiktok"></i> TK</a>` : ''}
-        `;
-    }
-    // Actualizar link WA
-    const wsLink = document.getElementById(`ws-link-${idx}`);
-    if (wsLink) wsLink.href = m.wa ? `https://wa.me/${m.wa.replace(/\D/g,'')}` : '#';
+    const waH = m.wa ? `https://wa.me/${m.wa.replace(/\D/g,'')}` : '#';
+    const fbH = m.fb ? `fb://facewebmodal/auth?next=/${encodeURIComponent(m.fb)}` : '#';
+    const igH = m.ig ? `instagram://user?username=${encodeURIComponent(m.ig)}` : '#';
+    const ytH = m.yt ? `vnd.youtube://www.youtube.com/@${encodeURIComponent(m.yt)}` : '#';
+    const tkH = m.tk ? `snssdk1233://user/profile?user=${encodeURIComponent(m.tk)}` : '#';
+    const sb = document.getElementById(`sb-${idx}`);
+    if (sb) sb.innerHTML =
+        `${m.wa?`<a href="${waH}" target="_blank" class="soc-btn wa"><i class="fab fa-whatsapp"></i> WA</a>`:''}
+         ${m.fb?`<a href="${fbH}" target="_blank" class="soc-btn fb"><i class="fab fa-facebook"></i> FB</a>`:''}
+         ${m.ig?`<a href="${igH}" target="_blank" class="soc-btn ig"><i class="fab fa-instagram"></i> IG</a>`:''}
+         ${m.yt?`<a href="${ytH}" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i> YT</a>`:''}
+         ${m.tk?`<a href="${tkH}" target="_blank" class="soc-btn tk"><i class="fab fa-tiktok"></i> TK</a>`:''}`;
+    const ws = document.getElementById(`ws-${idx}`);
+    if (ws) ws.href = waH;
 }
 
 function toggleEdit(idx) {
-    const sf  = document.getElementById(`sf-${idx}`);
-    const ico = document.getElementById(`ico-${idx}`);
-    if (!sf) return;
-    sf.classList.toggle('open');
-    ico.style.transform = sf.classList.contains('open') ? 'rotate(180deg)' : '';
+    const ef = document.getElementById(`ef-${idx}`);
+    if (ef) ef.classList.toggle('open');
 }
 
-function guardarDatos() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(datos));
-    const btn = document.querySelector('.btn-save-panel');
+/* ═══════════════════════════════════════════
+   GUARDAR
+═══════════════════════════════════════════ */
+async function guardarTodo() {
+    guardarLocal();
+    const btn = document.querySelector('.btn-save-main');
     const orig = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-check"></i> ¡GUARDADO!';
-    btn.style.background = '#25d366';
-    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 2200);
+    if (JSONBIN_BIN_ID && JSONBIN_KEY) {
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+        const ok = await guardarNube();
+        btn.innerHTML = ok ? '<i class="fas fa-check"></i> ¡Guardado!' : '<i class="fas fa-exclamation-triangle"></i> Solo local';
+        btn.style.background = ok ? '#25d366' : '#ff8800';
+        showToast(ok ? '✅ Cambios guardados para todos' : '⚠️ Guardado solo en tu dispositivo', ok?'ok':'warn');
+    } else {
+        btn.innerHTML = '<i class="fas fa-check"></i> ¡Guardado!';
+        btn.style.background = '#25d366';
+        showToast('💾 Guardado en tu dispositivo','ok');
+    }
+    setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';},2500);
 }
 
-function limpiarRedes() {
-    if (!confirm('¿Restablecer todos los campos de redes sociales?\n(Nombres e IDs no se borran)')) return;
-    datos = datos.map(m => ({ ...m, fb:'', ig:'', yt:'', tk:'' }));
-    localStorage.removeItem(STORAGE_KEY);
+function confirmarReset() {
+    if (sesion !== 'admin') { showToast('Solo el admin puede restablecer','err'); return; }
+    if (!confirm('¿Restablecer redes sociales de TODOS los miembros?\n(Nombres, nicks e IDs no se borran)')) return;
+    datos = datos.map(m => ({...m, fb:'', ig:'', yt:'', tk:''}));
+    guardarLocal();
     renderizar();
+    showToast('Redes sociales restablecidas','warn');
 }
 
-// ── PANEL ──
-function openNav() {
-    const w = window.innerWidth <= 480 ? '100%' : window.innerWidth <= 768 ? '88%' : '430px';
-    document.getElementById('mySidepanel').style.width = w;
+function limpiarMiembro(idx) {
+    if (!confirm(`¿Limpiar puesto ${idx+1}?`)) return;
+    datos[idx] = {...BASE[idx], wa:'', fb:'', ig:'', yt:'', tk:''};
+    renderizar();
+    showToast(`Puesto ${idx+1} limpiado`,'warn');
+}
+
+/* ═══════════════════════════════════════════
+   PANEL LATERAL
+═══════════════════════════════════════════ */
+function openPanel() {
+    const w = window.innerWidth<=480?'100%':window.innerWidth<=768?'90%':'440px';
+    document.getElementById('sidePanel').style.width = w;
     document.getElementById('overlay').style.display = 'block';
     document.body.style.overflow = 'hidden';
+    if (JSONBIN_BIN_ID && JSONBIN_KEY) cargarNube().then(renderizar);
+    else renderizar();
 }
 
-function closeNav() {
-    document.getElementById('mySidepanel').style.width = '0';
+function closePanel() {
+    document.getElementById('sidePanel').style.width = '0';
     document.getElementById('overlay').style.display = 'none';
     document.body.style.overflow = '';
 }
 
-// Iniciar
-renderizar();
-</script>
+function filtrarMiembros(val) { filtroBusq=val; renderizar(); }
 
+/* ═══════════════════════════════════════════
+   SISTEMA DE SESIÓN
+═══════════════════════════════════════════ */
+function actualizarUI() {
+    const badge = document.getElementById('sessionBadge');
+    const hint  = document.getElementById('panelHint');
+    const btnCS = document.getElementById('btnCerrarSesion');
+    const btnAC = document.getElementById('btnAddColab');
+    const btnNS = document.getElementById('btnNuevaSala');
+
+    if (sesion === 'admin') {
+        badge.textContent = '🔓 MODO ADMIN — Edición completa activada';
+        badge.className = 'session-badge admin-mode';
+        badge.style.display = 'block';
+        hint.innerHTML = '🔓 <strong style="color:var(--fire)">MODO ADMIN</strong> — Puedes editar nombres, nicks, IDs y redes de todos';
+        btnCS.style.display = 'flex';
+        if (btnAC) btnAC.style.display = 'block';
+        if (btnNS) btnNS.style.display = 'flex';
+    } else if (sesion === 'miembro') {
+        const nombre = datos[miIdxSesion]?.nombre || datos[miIdxSesion]?.nick || `#${miIdxSesion+1}`;
+        badge.textContent = `🔒 Sesión miembro: ${nombre} — Solo puedes editar tus redes`;
+        badge.className = 'session-badge';
+        badge.style.display = 'block';
+        hint.innerHTML = 'Sesión activa: solo puedes editar <strong style="color:var(--ws)">tus propias redes sociales</strong>';
+        btnCS.style.display = 'flex';
+        if (btnAC) btnAC.style.display = 'none';
+        if (btnNS) btnNS.style.display = 'none';
+    } else {
+        badge.style.display = 'none';
+        hint.innerHTML = 'Sin sesión: solo lectura · Pulsa 🔒 de tu tarjeta para editar tus redes';
+        btnCS.style.display = 'none';
+        if (btnAC) btnAC.style.display = 'none';
+        if (btnNS) btnNS.style.display = 'none';
+    }
+    renderizar();
+    renderColabs();
+    renderSalas();
+}
+
+function cerrarSesion() {
+    sesion = 'none';
+    miIdxSesion = -1;
+    actualizarUI();
+    showToast('🔒 Sesión cerrada','warn');
+}
+
+// Llama al modal desde el footer (acceso general: admin o miembro)
+function abrirLoginPanel(e) {
+    e.preventDefault();
+    seleccionarTipoLogin('admin');
+    document.getElementById('pinInput').value='';
+    document.getElementById('pinError').textContent='';
+    llenarSelectMiembros();
+    document.getElementById('modalLogin').classList.add('show');
+    setTimeout(()=>document.getElementById('pinInput').focus(),150);
+}
+
+// Cuando se hace clic en el 🔒 de una tarjeta de otro miembro
+function pedirLoginParaMiembro(idx) {
+    seleccionarTipoLogin('miembro');
+    // Preseleccionar en el select ese miembro
+    const sel = document.getElementById('miembroSelect');
+    if (sel) sel.value = idx;
+    document.getElementById('pinInput').value='';
+    document.getElementById('pinError').textContent='';
+    llenarSelectMiembros();
+    document.getElementById('miembroSelect').value = idx;
+    document.getElementById('modalLogin').classList.add('show');
+    setTimeout(()=>document.getElementById('pinInput').focus(),150);
+}
+
+function seleccionarTipoLogin(tipo) {
+    tipoLoginUI = tipo;
+    document.getElementById('optAdmin').classList.toggle('active', tipo==='admin');
+    document.getElementById('optMiembro').classList.toggle('active', tipo==='miembro');
+    document.getElementById('loginMiembroSelect').style.display = tipo==='miembro'?'block':'none';
+    document.getElementById('loginTitle').textContent = tipo==='admin' ? '🔐 MODO ADMIN' : '👤 ACCESO MIEMBRO';
+    document.getElementById('loginDesc').textContent  = tipo==='admin'
+        ? 'Introduce el PIN de administrador'
+        : 'Selecciona tu puesto e introduce el PIN de miembro';
+}
+
+function llenarSelectMiembros() {
+    const sel = document.getElementById('miembroSelect');
+    sel.innerHTML = '';
+    datos.forEach((m,i) => {
+        if (m.vacio) return;
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `${i+1}. ${m.nombre || m.nick}`;
+        sel.appendChild(opt);
+    });
+}
+
+function verificarPin() {
+    const pin = document.getElementById('pinInput').value.trim();
+    const errEl = document.getElementById('pinError');
+    errEl.textContent = '';
+
+    if (tipoLoginUI === 'admin') {
+        if (pin === PIN_ADMIN) {
+            sesion = 'admin';
+            miIdxSesion = -1;
+            cerrarModal('modalLogin');
+            actualizarUI();
+            showToast('🔓 Modo admin activado','ok');
+        } else {
+            errEl.textContent = '❌ PIN incorrecto';
+            document.getElementById('pinInput').value='';
+        }
+    } else {
+        // miembro
+        const idx = parseInt(document.getElementById('miembroSelect').value);
+        if (pin === PIN_MIEMBRO) {
+            sesion = 'miembro';
+            miIdxSesion = idx;
+            cerrarModal('modalLogin');
+            // Si el panel no está abierto, abrirlo
+            if (document.getElementById('sidePanel').style.width === '0' ||
+                document.getElementById('sidePanel').style.width === '') {
+                openPanel();
+            } else {
+                actualizarUI();
+            }
+            const nombre = datos[idx]?.nombre || datos[idx]?.nick || `#${idx+1}`;
+            showToast(`✅ Sesión iniciada como ${nombre}`,'ok');
+            // Abrir automáticamente los campos de ese miembro
+            setTimeout(()=>{
+                const ef = document.getElementById(`ef-${idx}`);
+                if (ef) ef.classList.add('open');
+                const card = document.querySelector(`.mc:nth-of-type(${idx+1})`);
+                if (card) card.scrollIntoView({behavior:'smooth',block:'center'});
+            },400);
+        } else {
+            errEl.textContent = '❌ PIN incorrecto';
+            document.getElementById('pinInput').value='';
+        }
+    }
+}
+
+/* ═══════════════════════════════════════════
+   COLABORACIONES
+═══════════════════════════════════════════ */
+function renderColabs() {
+    const grid = document.getElementById('colabsGrid');
+    grid.innerHTML='';
+    if (!colabs.length) { grid.innerHTML='<p style="text-align:center;color:#555;font-size:.88em;padding:20px 0">No hay colaboraciones activas en este momento.</p>'; return; }
+    colabs.forEach((c,i)=>{
+        const badge={activa:'🟢 ACTIVA',proxima:'🟡 PRÓXIMO',terminada:'🔴 TERMINADA'}[c.estado]||'';
+        const tags=(c.premios||'').split(',').filter(Boolean).map(p=>`<span class="prize-tag">${p.trim()}</span>`).join('');
+        const div=document.createElement('div'); div.className='colab-card';
+        div.innerHTML=`<div class="colab-img-wrap">${c.img?`<img src="${c.img}" onerror="this.style.display='none'" alt="">`:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0500,#2d0d00)"></div>'}<span class="colab-badge">${badge}</span>${sesion==='admin'?`<button onclick="borrarColab(${i})" style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);border:none;color:#ff6666;padding:3px 7px;border-radius:4px;cursor:pointer;font-size:.75em"><i class="fas fa-trash"></i></button>`:''}</div><div class="colab-body"><div class="colab-title"><i class="fas fa-fire" style="color:var(--fire);margin-right:5px"></i>${c.nombre}</div><div class="colab-desc">${c.desc}</div><div class="colab-prizes">${tags}</div>${c.fecha?`<div class="colab-fecha"><i class="fas fa-calendar-alt"></i> Hasta: ${c.fecha}</div>`:''}</div>`;
+        grid.appendChild(div);
+    });
+}
+function abrirModalColab(){ if(sesion!=='admin'){showToast('Solo admin','err');return;} document.getElementById('modalColab').classList.add('show'); }
+function agregarColab(){
+    const nombre=document.getElementById('colabNombre').value.trim();
+    if(!nombre){showToast('Pon un nombre','err');return;}
+    colabs.push({nombre,desc:document.getElementById('colabDesc').value.trim(),premios:document.getElementById('colabPremios').value.trim(),img:document.getElementById('colabImg').value.trim(),fecha:document.getElementById('colabFecha').value,estado:document.getElementById('colabEstado').value});
+    localStorage.setItem('fenix_colabs',JSON.stringify(colabs)); cerrarModal('modalColab'); renderColabs(); showToast('Colaboración agregada ✓','ok');
+}
+function borrarColab(i){ if(!confirm('¿Eliminar?'))return; colabs.splice(i,1); localStorage.setItem('fenix_colabs',JSON.stringify(colabs)); renderColabs(); }
+
+/* ═══════════════════════════════════════════
+   SALAS
+═══════════════════════════════════════════ */
+function renderSalas(){
+    const grid=document.getElementById('salasGrid'); const vacio=document.getElementById('salasVacio'); grid.innerHTML='';
+    if(!salas.length){vacio.style.display='block';return;} vacio.style.display='none';
+    salas.forEach((s,i)=>{
+        const ec={abierta:'abierta',llena:'llena',cerrada:'cerrada'}[s.estado]||'cerrada';
+        const el={abierta:'🟢 ABIERTA',llena:'🔴 LLENA',cerrada:'⚫ CERRADA'}[s.estado]||'';
+        const div=document.createElement('div'); div.className='sala-card';
+        div.innerHTML=`<div class="sala-info"><div class="sala-nombre"><i class="fas fa-gamepad" style="margin-right:6px;opacity:.7"></i>${s.nombre}</div><div class="sala-meta"><span><i class="fas fa-tag"></i> ${s.tipo}</span>${s.pass?`<span><i class="fas fa-key"></i> Pass: <strong style="color:#eee">${s.pass}</strong></span>`:''}<span><i class="fas fa-users"></i> Cupos: ${s.cupos}</span></div>${s.premio?`<div class="sala-premio"><i class="fas fa-trophy"></i> ${s.premio}</div>`:''}</div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span class="sala-estado ${ec}">${el}</span>${sesion==='admin'?`<button onclick="borrarSala(${i})" style="background:transparent;border:none;color:#555;font-size:.75em;cursor:pointer"><i class="fas fa-trash"></i></button>`:''}</div>`;
+        grid.appendChild(div);
+    });
+}
+function abrirModalSala(){ if(sesion!=='admin'){showToast('Solo admin','err');return;} document.getElementById('modalSala').classList.add('show'); }
+function agregarSala(){
+    const nombre=document.getElementById('salaNombre').value.trim();
+    if(!nombre){showToast('Pon un nombre','err');return;}
+    salas.push({nombre,tipo:document.getElementById('salaTipo').value,pass:document.getElementById('salaPass').value.trim(),premio:document.getElementById('salaPremio').value.trim(),cupos:document.getElementById('salaCupos').value,estado:document.getElementById('salaEstado').value});
+    localStorage.setItem('fenix_salas',JSON.stringify(salas)); cerrarModal('modalSala'); renderSalas(); showToast('Sala creada ✓','ok');
+}
+function borrarSala(i){ if(!confirm('¿Eliminar?'))return; salas.splice(i,1); localStorage.setItem('fenix_salas',JSON.stringify(salas)); renderSalas(); }
+
+/* ═══════════════════════════════════════════
+   UTILIDADES
+═══════════════════════════════════════════ */
+function cerrarModal(id){ document.getElementById(id).classList.remove('show'); }
+function showToast(msg,tipo='ok'){
+    const t=document.getElementById('toast'); t.textContent=msg;
+    t.className=`toast ${tipo} show`; setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+document.querySelectorAll('.modal-bg').forEach(m=>{
+    m.addEventListener('click', e=>{ if(e.target===m) m.classList.remove('show'); });
+});
+document.getElementById('pinInput').addEventListener('keydown', e=>{ if(e.key==='Enter') verificarPin(); });
+
+/* ═══════════════════════════════════════════
+   ARRANQUE
+═══════════════════════════════════════════ */
+renderizar();
+renderColabs();
+renderSalas();
+</script>
 </body>
 </html>
