@@ -248,6 +248,79 @@
         .admin-toolbar-btn:hover{background:#2a1800}
         .lock-sesion-btn{background:#0d2200;color:var(--ws);border-color:#1a4400}
         .lock-sesion-btn:hover{background:#1a3300}
+
+        /* ── GENERADOR DE NOMBRES / META / CHAT ── */
+        .gen-box{background:#111;border:1px solid var(--borde);border-radius:12px;padding:20px;margin-bottom:16px}
+        .gen-input{width:100%;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:white;padding:11px 14px;font-size:1em;outline:none;margin-bottom:10px;font-family:inherit}
+        .gen-input:focus{border-color:var(--fire)}
+        .gen-btn{background:linear-gradient(45deg,var(--fire),#ff8c00);color:white;border:none;padding:11px 22px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:.95em;display:inline-flex;align-items:center;gap:8px;transition:.3s;margin:4px 4px 4px 0}
+        .gen-btn:hover{opacity:.88;transform:translateY(-2px)}
+        .gen-btn.secondary{background:linear-gradient(45deg,#1a3a55,#1a4a6e);color:#5bc8f5}
+        .gen-btn.purple{background:linear-gradient(45deg,#3d1a6e,#5a2db0);color:#cca8ff}
+        .gen-btn.dark{background:linear-gradient(45deg,#1a1a2a,#2a1a3a);color:#ccc}
+        .gen-result{background:#0d0d0d;border:1px solid #2a2a2a;border-radius:8px;padding:14px;margin-top:12px;min-height:50px;font-size:1em;color:var(--oro);word-break:break-all;line-height:1.8;display:none}
+        .gen-result.show{display:block}
+        .nombre-chip{display:inline-block;background:#1a1000;border:1px solid var(--oro);border-radius:20px;padding:4px 12px;margin:3px;font-size:.9em;cursor:pointer;transition:.2s;color:var(--oro)}
+        .nombre-chip:hover{background:#2a1800;transform:scale(1.04)}
+        .sim-chip{display:inline-block;background:#111;border:1px solid #333;border-radius:6px;padding:3px 8px;margin:2px;font-size:1.1em;cursor:pointer;transition:.2s;color:#ddd;user-select:none}
+        .sim-chip:hover{background:#1a1a1a;border-color:var(--oro);color:var(--oro);transform:scale(1.08)}
+        .sim-chip:active{transform:scale(0.95)}
+        /* GUÍA META */
+        .meta-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+        .meta-tab{padding:8px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#aaa;cursor:pointer;font-size:.85em;font-weight:bold;transition:.2s}
+        .meta-tab.active{border-color:var(--fire);color:var(--fire);background:#1a0800}
+        .meta-content{display:none}
+        .meta-content.active{display:block}
+        .meta-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:15px;margin-bottom:12px}
+        .meta-card h4{color:var(--oro);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+        .meta-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.72em;font-weight:bold;margin:2px}
+        .meta-tag.S{background:rgba(255,69,0,.3);color:#ff8c55;border:1px solid var(--fire)}
+        .meta-tag.A{background:rgba(255,215,0,.2);color:var(--oro);border:1px solid var(--oro)}
+        .meta-tag.B{background:rgba(37,211,102,.15);color:var(--ws);border:1px solid var(--ws)}
+        .meta-habil{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+        .habil-chip{background:#222;border:1px solid #3a3a3a;border-radius:6px;padding:4px 10px;font-size:.8em;color:#ccc}
+        /* DINÁMICA */
+        .reto-display{background:linear-gradient(135deg,#1a0a00,#200d00);border:2px solid var(--fire);border-radius:14px;padding:22px;text-align:center;margin-bottom:16px;min-height:80px;display:flex;align-items:center;justify-content:center;transition:.2s}
+        .reto-texto{font-size:1.1em;color:white;font-weight:bold;line-height:1.5}
+        .reto-categoria{font-size:.7em;color:var(--oro);font-weight:bold;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
+        /* IA LOADING */
+        .ia-loading{display:none;text-align:center;color:#555;font-size:.88em;padding:12px}
+        .ia-loading.show{display:block}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .spin{animation:spin 1s linear infinite;display:inline-block}
+        /* CHAT DEL CLAN */
+        .chat-container{background:#0a0a0a;border:1px solid #2a2a2a;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;height:480px}
+        .chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+        .chat-messages::-webkit-scrollbar{width:4px}
+        .chat-messages::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+        .chat-msg{max-width:82%;display:flex;flex-direction:column;gap:2px}
+        .chat-msg.propio{align-self:flex-end;align-items:flex-end}
+        .chat-msg.otro{align-self:flex-start;align-items:flex-start}
+        .chat-msg-header{display:flex;align-items:center;gap:6px;font-size:.72em}
+        .chat-msg-name{color:var(--oro);font-weight:bold}
+        .chat-msg-name.admin-name{color:var(--fire)}
+        .chat-msg-time{color:#555}
+        .chat-bubble{background:#1a1a1a;border-radius:12px;padding:8px 12px;font-size:.9em;color:#eee;word-break:break-word;line-height:1.45;border:1px solid #252525}
+        .chat-msg.propio .chat-bubble{background:#1a2200;border-color:rgba(37,211,102,.25);color:#e8ffe0}
+        .chat-msg.admin-msg .chat-bubble{background:#1a0800;border-color:rgba(255,69,0,.3)}
+        .chat-input-area{background:#111;border-top:1px solid #1e1e1e;padding:10px 12px;display:flex;gap:8px;align-items:flex-end}
+        .chat-input{flex:1;background:#1a1a1a;border:1px solid #333;border-radius:10px;color:#eee;padding:9px 12px;font-size:.9em;outline:none;resize:none;max-height:80px;font-family:inherit}
+        .chat-input:focus{border-color:var(--fire)}
+        .chat-send-btn{background:var(--fire);color:white;border:none;width:40px;height:40px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1em;transition:.2s;flex-shrink:0}
+        .chat-send-btn:hover{background:#d93c00}
+        .chat-toolbar{background:#0f0f0f;border-bottom:1px solid #1a1a1a;padding:6px 12px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+        .chat-tool-btn{background:#1a1a1a;border:1px solid #2a2a2a;color:#888;padding:4px 10px;border-radius:6px;font-size:.78em;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:4px}
+        .chat-tool-btn:hover{color:var(--oro);border-color:#3a3a3a}
+        .chat-user-badge{background:#1a1000;border:1px solid #3a2800;color:var(--oro);padding:2px 8px;border-radius:10px;font-size:.72em;font-weight:bold}
+        .chat-empty{text-align:center;color:#333;padding:40px 20px;font-size:.88em}
+        .chat-sys-msg{text-align:center;color:#444;font-size:.72em;padding:4px 0;font-style:italic}
+        /* PANEL SÍMBOLOS */
+        .sim-panel-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+        .sim-panel-tab{padding:5px 12px;border-radius:6px;border:1px solid #2a2a2a;background:#1a1a1a;color:#888;cursor:pointer;font-size:.78em;font-weight:bold;transition:.2s}
+        .sim-panel-tab.active{border-color:var(--fire);color:var(--fire);background:#1a0800}
+        .sim-panel-content{display:none;font-size:1em;line-height:2;word-break:break-all;max-height:200px;overflow-y:auto;padding:4px}
+        .sim-panel-content.active{display:block}
+        .sim-preview-box{background:#0d0d0d;border:1px solid #2a2a2a;border-radius:8px;padding:12px;margin-top:10px;font-size:1.1em;color:white;min-height:44px;word-break:break-all;line-height:1.6}
     </style>
 
 </head>
@@ -344,6 +417,253 @@
         <div id="salasGrid"></div>
         <p id="salasVacio" style="text-align:center;color:#555;font-size:.88em;padding:20px 0">No hay salas activas en este momento.</p>
     </div>
+
+<!-- ══════ GENERADOR DE NOMBRES ══════ -->
+<div class="seccion">
+<h2>✨ GENERADOR DE NOMBRES BB⁷</h2>
+<p style="text-align:center;color:#888;font-size:.88em;margin-bottom:18px">Genera tu nick épico con el prefijo BB⁷ o crea nombres únicos para el clan</p>
+
+<div class="gen-box">
+<p style="color:var(--oro);font-size:.85em;font-weight:bold;margin-bottom:10px"><i class="fas fa-user"></i> NICK PARA MIEMBRO</p>
+<input type="text" class="gen-input" id="genNombreInput" placeholder="Escribe tu nombre o apodo... (ej: Carlos, Shadow, Ninja)">
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
+<span style="font-size:.75em;color:#666">Estilo:</span>
+<button onclick="setEstilo('fuego')" class="gen-btn secondary" style="padding:5px 10px;font-size:.78em">🔥 Fuego</button>
+<button onclick="setEstilo('oscuro')" class="gen-btn secondary" style="padding:5px 10px;font-size:.78em">💀 Oscuro</button>
+<button onclick="setEstilo('guerrero')" class="gen-btn secondary" style="padding:5px 10px;font-size:.78em">⚔️ Guerrero</button>
+<button onclick="setEstilo('fenix')" class="gen-btn secondary" style="padding:5px 10px;font-size:.78em">🐦 Fénix</button>
+<button onclick="setEstilo('elite')" class="gen-btn secondary" style="padding:5px 10px;font-size:.78em">👑 Elite</button>
+</div>
+<button class="gen-btn" onclick="generarNickMiembro()"><i class="fas fa-magic"></i> GENERAR NICK</button>
+<button class="gen-btn secondary" onclick="generarNickMiembro(true)"><i class="fas fa-sync"></i> MÁS OPCIONES</button>
+<div class="ia-loading" id="loadingNick"><i class="fas fa-circle-notch spin"></i> Generando variaciones...</div>
+<div class="gen-result" id="resultNick"></div>
+</div>
+
+<div class="gen-box">
+<p style="color:var(--oro);font-size:.85em;font-weight:bold;margin-bottom:10px"><i class="fas fa-users"></i> NOMBRE PARA CLAN / SUB-CLAN</p>
+<input type="text" class="gen-input" id="genClanInput" placeholder="Palabras clave del clan... (ej: fuego, sombra, dragón, elite)">
+<button class="gen-btn purple" onclick="generarNombreClan()"><i class="fas fa-crown"></i> GENERAR NOMBRE DE CLAN</button>
+<div class="ia-loading" id="loadingClan"><i class="fas fa-circle-notch spin"></i> Creando nombres épicos...</div>
+<div class="gen-result" id="resultClan"></div>
+</div>
+</div>
+
+<!-- ══════ GENERADOR DE DINÁMICAS ══════ -->
+<div class="seccion">
+<h2>🎲 GENERADOR DE DINÁMICAS PvP</h2>
+<p style="text-align:center;color:#888;font-size:.88em;margin-bottom:18px">Genera retos y dinámicas aleatorias para salas privadas del clan</p>
+<div class="reto-display" id="retoDisplay">
+<div>
+<div class="reto-categoria" id="retoCategoria">PULSA PARA GENERAR</div>
+<div class="reto-texto" id="retoTexto">¿Listo para el reto? ¡Dale al botón! 🎮</div>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px">
+<button class="gen-btn" onclick="generarReto('todos')"><i class="fas fa-random"></i> RETO ALEATORIO</button>
+<button class="gen-btn secondary" onclick="generarReto('armas')"><i class="fas fa-crosshairs"></i> Restricción de Armas</button>
+<button class="gen-btn secondary" onclick="generarReto('reglas')"><i class="fas fa-scroll"></i> Reglas Especiales</button>
+<button class="gen-btn secondary" onclick="generarReto('apuesta')"><i class="fas fa-coins"></i> Apuesta Diamantes</button>
+<button class="gen-btn purple" onclick="generarReto('clan')"><i class="fas fa-shield-alt"></i> Guerra Interna</button>
+</div>
+<div id="historialRetos" style="max-height:200px;overflow-y:auto"></div>
+</div>
+
+<!-- ══════ GUÍA META / HABILIDADES ══════ -->
+<div class="seccion">
+<h2>🧠 GUÍA META — HABILIDADES Y ARMAS</h2>
+<p style="text-align:center;color:#888;font-size:.88em;margin-bottom:16px">Mejores combinaciones por modo de juego · Actualización: Temporada actual</p>
+<div class="meta-tabs">
+<button class="meta-tab active" onclick="cambiarMeta('br')">🎯 BR Clásico</button>
+<button class="meta-tab" onclick="cambiarMeta('clasif')">🏆 Clasificatorio</button>
+<button class="meta-tab" onclick="cambiarMeta('guerra')">⚔️ Guerra Clanes</button>
+<button class="meta-tab" onclick="cambiarMeta('duo')">👥 Dúo/Escuadra</button>
+</div>
+
+<div class="meta-content active" id="meta-br">
+<div class="meta-card">
+<h4><span class="meta-tag S">S</span> Combinación Top BR — Aggressive Rush</h4>
+<p style="color:#aaa;font-size:.85em;margin-bottom:8px">Ideal para jugadores agresivos que buscan eliminaciones rápidas.</p>
+<div class="meta-habil">
+<span class="habil-chip">🔥 Chrono — Barrera Temporal</span>
+<span class="habil-chip">💨 Jai — Furia del Tigre</span>
+<span class="habil-chip">🛡️ Maro — Detonación Canina</span>
+<span class="habil-chip">⚡ Skyler — Onda Sónica</span>
+</div>
+<p style="color:#666;font-size:.78em;margin-top:8px">🔫 Armas: M1887 + MP40 | 🎯 Accesorio: Mira 4x + Silenciador</p>
+</div>
+<div class="meta-card">
+<h4><span class="meta-tag A">A</span> Combinación Supervivencia — Late Game</h4>
+<p style="color:#aaa;font-size:.85em;margin-bottom:8px">Para aguantar hasta la zona final con máxima HP.</p>
+<div class="meta-habil">
+<span class="habil-chip">❤️ Alok — Drop the Beat</span>
+<span class="habil-chip">🏃 Kelly — Espíritu Veloz</span>
+<span class="habil-chip">💊 Jota — Compresión de Adrenalina</span>
+<span class="habil-chip">🔍 Notora — Puntos de Interés</span>
+</div>
+<p style="color:#666;font-size:.78em;margin-top:8px">🔫 Armas: SCAR + M1887 | 🎯 Táctica: Zona + cobertura</p>
+</div>
+<div class="meta-card">
+<h4><span class="meta-tag B">B</span> Combinación Sniper — Largo Alcance</h4>
+<div class="meta-habil">
+<span class="habil-chip">🎯 Wukong — Camuflaje</span>
+<span class="habil-chip">👁️ Clu — Rastreo de Objetivos</span>
+<span class="habil-chip">💨 Rafael — Silencio Mortal</span>
+<span class="habil-chip">🛡️ Shirou — Rastreador de Heridas</span>
+</div>
+<p style="color:#666;font-size:.78em;margin-top:8px">🔫 Armas: AWM / Kar98k + P90 | 🎯 Zona alta con visión</p>
+</div>
+</div>
+
+<div class="meta-content" id="meta-clasif">
+<div class="meta-card">
+<h4><span class="meta-tag S">S</span> META Clasificatorio — Máximo Rank</h4>
+<p style="color:#aaa;font-size:.85em;margin-bottom:8px">Combinación más estable para subir de rango sin arriesgar.</p>
+<div class="meta-habil">
+<span class="habil-chip">❤️ Alok — Curación + velocidad</span>
+<span class="habil-chip">⚡ Skyler — Destruye Gloo</span>
+<span class="habil-chip">🔮 Dimitri — Zona de curación</span>
+<span class="habil-chip">💨 Jai — Daño mejorado</span>
+</div>
+<p style="color:#666;font-size:.78em;margin-top:8px">🔫 Armas: M1887 + MP40 o SVD · Prioriza puntos y survivir</p>
+</div>
+<div class="meta-card">
+<h4><span class="meta-tag A">A</span> Soporte de Equipo — Clasificatorio Escuadra</h4>
+<div class="meta-habil">
+<span class="habil-chip">💊 Jota — Curación activa</span>
+<span class="habil-chip">🔮 Dimitri — Revive aliados</span>
+<span class="habil-chip">🛡️ Xayne — HP + daño Gloo</span>
+<span class="habil-chip">❤️ Alok — Aura de vida</span>
+</div>
+<p style="color:#666;font-size:.78em;margin-top:8px">🔫 SMG o Escopeta para soporte cercano</p>
+</div>
+</div>
+
+<div class="meta-content" id="meta-guerra">
+<div class="meta-card">
+<h4><span class="meta-tag S">S</span> Guerra de Clanes — Máximo Daño</h4>
+<p style="color:#aaa;font-size:.85em;margin-bottom:8px">Habilidades orientadas a eliminar rápido y marcar puntos.</p>
+<div class="meta-habil">
+<span class="habil-chip">💥 Chrono — Escudo temporal</span>
+<span class="habil-chip">⚡ Skyler — Anti-Gloo</span>
+<span class="habil-chip">🔥 Jai — Recarga automática</span>
+<span class="habil-chip">🎯 Maro — Daño a distancia</span>
+</div>
+<p style="color:#666;font-size:.78em;margin-top:8px">🔫 Armas: AK / M60 + M1887 · Juega en equipo compacto</p>
+</div>
+<div class="meta-card">
+<h4><span class="meta-tag A">A</span> Placas Rápidas — Control de Zona</h4>
+<div class="meta-habil">
+<span class="habil-chip">🏃 Kelly — Velocidad de sprint</span>
+<span class="habil-chip">💨 Kapella — Curación mejorada</span>
+<span class="habil-chip">🛡️ D-Bee — Precisión en movimiento</span>
+<span class="habil-chip">🔍 Notora — Visión de zona</span>
+</div>
+<p style="color:#666;font-size:.78em;margin-top:8px">🔫 Armas: SMG para rotación rápida · Prioriza zonas calientes</p>
+</div>
+</div>
+
+<div class="meta-content" id="meta-duo">
+<div class="meta-card">
+<h4><span class="meta-tag S">S</span> Dúo Sincronizado — Máxima Efectividad</h4>
+<p style="color:#aaa;font-size:.85em;margin-bottom:8px">Un jugador ataca, el otro cura/revive. Combinación clásica.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+<div style="background:#111;border-radius:6px;padding:10px">
+<p style="color:var(--fire);font-size:.78em;font-weight:bold;margin-bottom:6px">ATACANTE</p>
+<div class="meta-habil"><span class="habil-chip">⚡ Skyler</span><span class="habil-chip">💥 Chrono</span><span class="habil-chip">🔥 Jai</span><span class="habil-chip">🎯 Maro</span></div>
+</div>
+<div style="background:#111;border-radius:6px;padding:10px">
+<p style="color:var(--ws);font-size:.78em;font-weight:bold;margin-bottom:6px">SOPORTE</p>
+<div class="meta-habil"><span class="habil-chip">❤️ Alok</span><span class="habil-chip">💊 Jota</span><span class="habil-chip">🔮 Dimitri</span><span class="habil-chip">💊 Kapella</span></div>
+</div>
+</div>
+</div>
+<div class="meta-card">
+<h4><span class="meta-tag B">B</span> Escuadra — Formación Básica BB⁷</h4>
+<div class="meta-habil">
+<span class="habil-chip">1 Sniper: Wukong + Clu</span>
+<span class="habil-chip">1 Rusher: Chrono + Jai</span>
+<span class="habil-chip">1 Soporte: Alok + Dimitri</span>
+<span class="habil-chip">1 Flexible: Kelly + Jota</span>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- ══════ GENERADOR DE SÍMBOLOS Y LETRAS ══════ -->
+<div class="seccion">
+<h2>🔤 GENERADOR DE SÍMBOLOS Y LETRAS</h2>
+<p style="text-align:center;color:#888;font-size:.88em;margin-bottom:16px">Toca cualquier símbolo para agregarlo a tu texto · Ideal para nicks y mensajes del clan</p>
+
+<!-- Preview y área de construcción -->
+<div class="sim-preview-box" id="simPreview">Pulsa los símbolos de abajo para construir tu texto...</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+  <button class="gen-btn" onclick="copiarSimPreview()"><i class="fas fa-copy"></i> Copiar texto</button>
+  <button class="gen-btn secondary" onclick="borrarUltimoSim()"><i class="fas fa-backspace"></i> Borrar</button>
+  <button class="gen-btn dark" onclick="limpiarSimPreview()"><i class="fas fa-trash"></i> Limpiar</button>
+</div>
+
+<!-- Pestañas de categorías -->
+<div class="sim-panel-tabs">
+  <button class="sim-panel-tab active" onclick="cambiarTabSim('normal')">⚔️ Símbolos</button>
+  <button class="sim-panel-tab" onclick="cambiarTabSim('decoraciones')">✨ Decoraciones</button>
+  <button class="sim-panel-tab" onclick="cambiarTabSim('flechas')">→ Flechas</button>
+  <button class="sim-panel-tab" onclick="cambiarTabSim('formas')">◆ Formas</button>
+  <button class="sim-panel-tab" onclick="cambiarTabSim('emojis')">😀 Emojis</button>
+  <button class="sim-panel-tab" onclick="cambiarTabSim('letras')">𝓐 Letras</button>
+  <button class="sim-panel-tab" onclick="cambiarTabSim('arts')">🎨 Arts</button>
+  <button class="sim-panel-tab" onclick="cambiarTabSim('raros')">𓆕 Raros</button>
+</div>
+
+<div class="sim-panel-content active" id="stab-normal" style="font-size:1.3em"></div>
+<div class="sim-panel-content" id="stab-decoraciones" style="font-size:1em;color:#888"></div>
+<div class="sim-panel-content" id="stab-flechas" style="font-size:1.2em"></div>
+<div class="sim-panel-content" id="stab-formas" style="font-size:1.2em"></div>
+<div class="sim-panel-content" id="stab-emojis" style="font-size:1.3em"></div>
+<div class="sim-panel-content" id="stab-letras"></div>
+<div class="sim-panel-content" id="stab-arts" style="font-family:monospace;font-size:.85em;white-space:pre-wrap;color:#aaa"></div>
+<div class="sim-panel-content" id="stab-raros" style="font-size:1.2em"></div>
+</div>
+
+<!-- ══════ CHAT DEL CLAN ══════ -->
+<div class="seccion">
+<h2>💬 CHAT DEL CLAN BB⁷_DRIP$</h2>
+<p style="text-align:center;color:#888;font-size:.88em;margin-bottom:12px">Chat para coordinación de partidas · Mantén el WhatsApp del clan libre de spam</p>
+
+<!-- Estado de sesión en el chat -->
+<div id="chatLoginBanner" style="background:#1a1000;border:1px solid #3a2800;border-radius:8px;padding:10px 14px;margin-bottom:10px;text-align:center;font-size:.85em;color:#888">
+  <i class="fas fa-lock" style="color:var(--oro)"></i>
+  Para enviar mensajes debes iniciar sesión como miembro o admin desde el
+  <a href="#" onclick="abrirLoginPanel(event);return false" style="color:var(--fire);font-weight:bold">Panel de Control</a>
+</div>
+
+<div class="chat-container" id="chatContainer">
+  <div class="chat-toolbar">
+    <span class="chat-user-badge" id="chatUserBadge">👁️ Solo lectura</span>
+    <button class="chat-tool-btn" onclick="insertarEnChat('⚔️')">⚔️</button>
+    <button class="chat-tool-btn" onclick="insertarEnChat('🔥')">🔥</button>
+    <button class="chat-tool-btn" onclick="insertarEnChat('💎')">💎</button>
+    <button class="chat-tool-btn" onclick="insertarEnChat('👑')">👑</button>
+    <button class="chat-tool-btn" onclick="insertarEnChat('BB⁷ ')">BB⁷</button>
+    <button class="chat-tool-btn" onclick="insertarEnChat('꧁꧂')">꧁꧂</button>
+    <button class="chat-tool-btn" onclick="insertarEnChat('☬')">☬</button>
+    <button class="chat-tool-btn" onclick="limpiarChat()" id="chatBtnBorrar" style="display:none;color:#ff6666"><i class="fas fa-trash"></i></button>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="chat-empty">
+      <i class="fas fa-comments" style="font-size:2em;color:#333;display:block;margin-bottom:8px"></i>
+      Aún no hay mensajes. ¡Sé el primero en escribir!
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <textarea class="chat-input" id="chatInput" placeholder="Escribe un mensaje... (Enter = enviar)" rows="1" onkeydown="chatEnterEnviar(event)" oninput="ajustarChatInput(this)" disabled></textarea>
+    <button class="chat-send-btn" onclick="enviarMensajeChat()" id="chatSendBtn" disabled title="Inicia sesión para enviar">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
+</div>
 
     <!-- BOTÓN MIEMBROS -->
     <button class="btn-miembros" onclick="openPanel()">
@@ -1361,11 +1681,590 @@ document.querySelectorAll('.modal-bg').forEach(m=>{
 });
 
 /* ═══════════════════════════════════════════════════════════
-   ARRANQUE
+   GENERADOR DE NOMBRES (de V4)
+═══════════════════════════════════════════════════════════ */
+const DECORACIONES = {
+    fuego:   { pre:['🔥','⚡','💥','🌋'], suf:['🔥','💀','⚡'], sim:['꧁','꧂','亗','☬','★','✦'] },
+    oscuro:  { pre:['💀','🖤','⚰️','👁️'], suf:['💀','🖤','☠️'], sim:['꧁','ঔৣ','☬','死','亗','†'] },
+    guerrero:{ pre:['⚔️','🛡️','🏹','🗡️'], suf:['⚔️','🛡️','⚡'], sim:['꧁','⚔','★','╰','╮','亗'] },
+    fenix:   { pre:['🐦‍🔥','🔥','✨','🌟'], suf:['🐦','🔥','✨'], sim:['꧁','☬','亗','✦','★','⁷'] },
+    elite:   { pre:['👑','💎','🌟','✨'], suf:['👑','💎','™'], sim:['꧁','꧂','™','®','★','⁷'] }
+};
+const TRANSFORMACIONES = [
+    s=>s.replace(/a/gi,'α').replace(/e/gi,'ε').replace(/o/gi,'σ').replace(/i/gi,'ı'),
+    s=>s.replace(/a/gi,'4').replace(/e/gi,'3').replace(/i/gi,'1').replace(/o/gi,'0'),
+    s=>s.replace(/a/gi,'@').replace(/s/gi,'$').replace(/i/gi,'!'),
+    s=>s.toUpperCase().split('').join('┆').slice(0,-1),
+    s=>s.replace(/A/gi,'Δ').replace(/B/gi,'β').replace(/D/gi,'∂').replace(/E/gi,'€').replace(/G/gi,'Ꮆ'),
+    s=>s.replace(/a/gi,'ä').replace(/o/gi,'ö').replace(/u/gi,'ü').replace(/n/gi,'ñ'),
+];
+let estiloGen = 'fuego';
+let histRetos = [];
+
+function setEstilo(e){ estiloGen=e; showToast(`Estilo: ${e}`,'ok'); }
+
+function generarNickMiembro(extra=false){
+    const base = document.getElementById('genNombreInput').value.trim();
+    if(!base){showToast('Escribe tu nombre primero','err');return;}
+    const deco = DECORACIONES[estiloGen]||DECORACIONES.fuego;
+    const resultEl = document.getElementById('resultNick');
+    const loadEl = document.getElementById('loadingNick');
+    loadEl.classList.add('show'); resultEl.classList.remove('show');
+    setTimeout(()=>{
+        const variantes = [];
+        variantes.push(`BB⁷┆${base.toUpperCase()}`);
+        variantes.push(`BB⁷_${base}${deco.suf[0]||''}`);
+        variantes.push(`${deco.pre[0]||''}BB⁷${base}${deco.pre[1]||''}`);
+        const s1=deco.sim[0]||'꧁';
+        variantes.push(`${s1}BB⁷•${base}•꧂`);
+        TRANSFORMACIONES.forEach(t=>{ try{ variantes.push(`BB⁷┆${t(base)}`); }catch(e){} });
+        variantes.push(`☬BB⁷${base.toUpperCase()}☬`);
+        variantes.push(`꧁ঔৣBB⁷${base}ঔৣ꧂`);
+        variantes.push(`★BB⁷┆${base}★`);
+        variantes.push(`BB⁷ ⚔ ${base} 亗`);
+        variantes.push(`${deco.pre[2]||'💥'}${base.toUpperCase()}BB⁷`);
+        const pool = extra ? variantes : variantes.slice(0,6);
+        loadEl.classList.remove('show');
+        resultEl.innerHTML = pool.map(n=>`<span class="nombre-chip" onclick="copiarTexto('${n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}','${n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')" title="Toca para copiar">${n}</span>`).join('');
+        resultEl.classList.add('show');
+    },600);
+}
+
+function generarNombreClan(){
+    const kw = document.getElementById('genClanInput').value.trim();
+    if(!kw){showToast('Escribe palabras clave','err');return;}
+    const words=kw.split(/[\s,]+/).filter(Boolean);
+    const resultEl=document.getElementById('resultClan');
+    const loadEl=document.getElementById('loadingClan');
+    loadEl.classList.add('show'); resultEl.classList.remove('show');
+    setTimeout(()=>{
+        const combos=[];
+        const infijos=['☬','⚔','★','꧁','꧂','亗','☠','💀','🔥'];
+        const sufijos=['BB⁷','Clan','Team','Squad','Guild','Empire','Army'];
+        words.forEach(w=>{
+            sufijos.forEach(sf=>{
+                combos.push(`${w.toUpperCase()} ${sf}`);
+                combos.push(`${sf} ${w.charAt(0).toUpperCase()+w.slice(1)}`);
+                combos.push(`꧁${w.toUpperCase()}꧂ ${sf}`);
+            });
+            infijos.forEach(inf=>{ combos.push(`${inf} ${w.toUpperCase()} ${inf}`); });
+            combos.push(`${w.toUpperCase()} FENIX BB⁷`);
+            combos.push(`CLAN ${w.toUpperCase()} BB⁷_DRIP$`);
+        });
+        const shuffled=combos.sort(()=>Math.random()-.5).slice(0,12);
+        loadEl.classList.remove('show');
+        resultEl.innerHTML=shuffled.map(n=>`<span class="nombre-chip" onclick="copiarTexto('${n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}','${n.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')" title="Toca para copiar">${n}</span>`).join('');
+        resultEl.classList.add('show');
+    },800);
+}
+
+function copiarTexto(texto, display){
+    navigator.clipboard.writeText(texto).then(()=>{
+        showToast(`✅ Copiado: ${String(display).substring(0,20)}...`,'ok');
+    }).catch(()=>{ showToast('Mantén presionado para copiar','warn'); });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GENERADOR DE DINÁMICAS PvP
+═══════════════════════════════════════════════════════════ */
+const RETOS = {
+    armas:[
+        {cat:'🔫 Solo Pistolas', txt:'Solo se permite usar pistolas. Cualquier jugador que use otra arma pierde automáticamente su punto.'},
+        {cat:'🔪 Solo Cuerpo a Cuerpo', txt:'Prohibido usar armas de fuego. Solo cuchillo y granada (sin lanzar, solo golpe).'},
+        {cat:'🎯 Solo Escopeta', txt:'La única arma permitida es la escopeta. MP40 y pistola de respaldo sí se pueden.'},
+        {cat:'🏹 Sin Rifles de Asalto', txt:'Prohibidos AK, M4A1, SCAR y AR similares. Usa SMG, escopetas o sniper.'},
+        {cat:'💣 Solo Granada', txt:'Solo se puede matar con granadas. Sin armas de fuego activas.'},
+        {cat:'⚡ Sin Gloo Wall', txt:'Prohibido colocar Gloo Walls durante todo el juego.'},
+        {cat:'🔁 Arma Aleatoria', txt:'Cada jugador usa SOLO el arma que encuentre en el primer loot. Sin cambiar.'},
+    ],
+    reglas:[
+        {cat:'👀 Sin Mapa', txt:'Prohibido abrir el mapa durante toda la partida. Solo orientación visual.'},
+        {cat:'🏃 Sin Agacharse', txt:'Está prohibido ponerse en cuclillas en cualquier momento del juego.'},
+        {cat:'💨 Solo Sprint', txt:'Solo se puede correr al máximo. Prohibido caminar o agacharse.'},
+        {cat:'☁️ Solo Zona', txt:'Solo se puede matar dentro de la zona. Fuera de ella, tregua total.'},
+        {cat:'📵 Sin Habilidades', txt:'Prohibido activar cualquier habilidad de personaje durante el enfrentamiento.'},
+        {cat:'🤝 Alianza Forzada', txt:'Los primeros 5 minutos son de tregua total. Solo se puede atacar después.'},
+        {cat:'🔄 Cambio de Arma', txt:'Cada eliminación, el ganador debe soltar su arma principal y tomar la del eliminado.'},
+    ],
+    apuesta:[
+        {cat:'💎 Apuesta Pequeña', txt:'El último en morir gana 50 diamantes de cada participante. Mínimo 4 jugadores.'},
+        {cat:'💎💎 Apuesta Media', txt:'El MVP de la partida (más eliminaciones) recibe 100 diamantes del perdedor directo.'},
+        {cat:'🏆 Apuesta Grande', txt:'El ganador de la sala privada recibe 200 diamantes del jugador con menos eliminaciones.'},
+        {cat:'🎁 Apuesta de Item', txt:'El ganador elige un objeto del inventario del perdedor (mascota, emote o skin).'},
+        {cat:'🎯 Apuesta de Rank', txt:'El perdedor debe jugar 3 partidas en modo solo y reportar sus resultados.'},
+    ],
+    clan:[
+        {cat:'⚔️ Guerra Interna BB⁷', txt:'Equipo Rojo vs Equipo Azul. 5v5 Escuadra Clásica. Quien gane 3 rondas primero, gana el honor de la semana.'},
+        {cat:'👑 Desafío al Líder', txt:'Cualquier miembro puede retar al Jefe de Clan en 1v1. Si gana el retador, obtiene el título de "Guerrero del Mes".'},
+        {cat:'🎯 Torneo Eliminatorio', txt:'16 jugadores en bracket. Primero en eliminaciones gana cada ronda. El campeón no contribuye puntos de honor esa semana.'},
+        {cat:'🛡️ Defensa del Clan', txt:'5 miembros defienden una zona durante 10 minutos. El resto ataca. Quien elimine al líder defensor gana el reto.'},
+        {cat:'🔥 Caos Total', txt:'Sala libre para todos. Sin reglas. Sin alianzas. Solo surviva el más fuerte del BB⁷.'},
+        {cat:'🌍 Inter-Clanes', txt:'Invita a otro clan y organiza una batalla amistosa. El resultado se anuncia en el grupo principal.'},
+    ]
+};
+
+function generarReto(tipo){
+    const cats = tipo==='todos' ? Object.values(RETOS).flat() : RETOS[tipo]||[];
+    if(!cats.length){showToast('Sin retos disponibles','warn');return;}
+    const r = cats[Math.floor(Math.random()*cats.length)];
+    document.getElementById('retoCategoria').textContent = r.cat;
+    document.getElementById('retoTexto').textContent = r.txt;
+    const disp=document.getElementById('retoDisplay');
+    disp.style.transform='scale(1.01)';
+    setTimeout(()=>disp.style.transform='',200);
+    histRetos.unshift({cat:r.cat,txt:r.txt,hora:new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'})});
+    if(histRetos.length>10)histRetos.pop();
+    renderHistRetos();
+}
+
+function renderHistRetos(){
+    const cont=document.getElementById('historialRetos');
+    if(!histRetos.length){cont.innerHTML='';return;}
+    cont.innerHTML=`<p style="color:#555;font-size:.72em;margin-bottom:6px;padding-left:4px"><i class="fas fa-history"></i> Historial de retos generados</p>`
+        +histRetos.map(r=>`<div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;padding:7px 10px;margin-bottom:5px"><div style="color:var(--oro);font-size:.72em;font-weight:bold">${r.cat} <span style="color:#444;font-weight:normal">(${r.hora})</span></div><div style="color:#888;font-size:.75em;margin-top:2px">${r.txt.substring(0,80)}${r.txt.length>80?'...':''}</div></div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GUÍA META
+═══════════════════════════════════════════════════════════ */
+function cambiarMeta(id){
+    document.querySelectorAll('.meta-tab').forEach((t,i)=>{
+        const ids=['br','clasif','guerra','duo'];
+        t.classList.toggle('active',ids[i]===id);
+    });
+    document.querySelectorAll('.meta-content').forEach(c=>{
+        c.classList.toggle('active',c.id===`meta-${id}`);
+    });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GENERADOR DE SÍMBOLOS Y LETRAS
+   Base de datos completa suministrada por el usuario
+═══════════════════════════════════════════════════════════ */
+const SIMBOLOS_DB = {
+    normal: '▘𓆕꧁ ꧂ Ӂ ༺ ༻ ☬ ༒ ࿐ ៚ ༆ 乡 ⎝⎝ ⎠⎠ ░⫷⫸෴⚔⚒⛣ｯﭢツッシ囧ㅹÜ亗★☆✦✧✨✩✪✫✬✭✮✯✰☪✡❄❆☸⚜⛎☯♾∞',
+    decoraciones: [
+        '_____________(✪)__________________________❂_____________',
+        '⊱⋅ ──────────── ⋅⊰',
+        '∴━━━✿━━━∴',
+        '▩━━━━━━◈━━━━━━▩',
+        '▲───────◇◆◇───────▲',
+        '◁━━━━◈✙◈━━━━▷',
+        '◃───────────▹',
+        '◆ ▬▬▬▬▬▬ ❴✪❵ ▬▬▬▬▬▬ ◆',
+        '◈ ━━━━━━━ ⸙ ━━━━━━━ ◈',
+        '◈ ━━━━━━━ ◆ ━━━━━━━ ◈',
+        '◈ ━━━━━━━━ ● ━━━━━━━━ ◈',
+        '◆━━━━━━◆❃◆━━━━━━◆',
+        '◈━━━━━━━ ▣ ━━━━━━━ ◈',
+        '◆━━━━━━━▣✦▣━━━━━━━━◆',
+        '◑ ━━━━━ ▣ ━━━━━ ◐',
+        '◎━━━━━━◎━━━━━━◎',
+        '●❯────────────────❮●',
+        '◤━━━━━ ☆. ∆ .☆ ━━━━━◥',
+        '─── ❖ ── ✦ ── ❖ ───',
+        '━━━ • ✙ • ━━━',
+        '──── ◉ ────',
+        '━━━━❰･❉･❱━━━━',
+        '━━━━━━━━▣━━◤◢━━▣━━━━━━━━',
+        '━━━━ • ஜ • ❈ • ஜ • ━━━━',
+        '━━━━━━━━━━━ ⊙ ━━━━━━━━━━━',
+        '━━━━━━━━━━━ • ✿ • ━━━━━━',
+        '──────⊱◈◈◈⊰──────',
+        '━━━━━━◇◆◇━━━━━━',
+        '━━━━━━━━━━◇x◇━━━━━━━━━',
+        '━━━━━━━━━━━━━ ● ━━━━━━━━━━━',
+        '━━━━━━━━━━━━━ ★ ━━━━━━━━━━',
+        '━━━━━━━━━━━━━ •♬• ━━━━━━━━',
+        '━━━━━━━━━━━━━ ⟡ ━━━━━━━',
+        '─━━━━━━⊱✿⊰━━━━━━─',
+        '━━━━━━━━━━━━━━━━ ✤ ━━━━━━━',
+        '━━━━━━━━━━━━━━━━ ❆ ━━━━━━━',
+        '━━━━━━━━━━━━━━━━❪❂❫━━━━━━',
+        '━━━━━━━━━━━━━━━━》❈《 ━━━━',
+        '━━━━━━━━━━━━━━━━//━━━━━━━━',
+        '━━━━━━━✦✗✦━━━━━━━',
+        '───────•••───────',
+        '━━━━━━━༺༻━━━━━━━',
+        '━━━━━━━༺۵༻━━━━━━━',
+        '━━━━━━★━━━━━━✩━━━━━━★',
+        '❛ ━━━━━━･❪ ❁ ❫ ･━━━━━━ ❜',
+        '❢◥ ▬▬▬▬▬▬ ◆ ▬▬▬▬▬▬ ◤❢',
+        '• ────── ✾ ────── •',
+        '•━━━ ✽ • ✽ ━━━•',
+        '•───────────────────••',
+        '─────✧─────',
+        '────•──────────•────',
+        '••––––––☆––––––•',
+        '༺═──────────────═༻',
+        '࿇ ══━━━━✥◈✥━━━━══ ࿇',
+        '- - - - - - - ×∆× - - - - - - -',
+        '---------- » «» « ----------',
+        '*╔═══❖•ೋ° °ೋ•❖═══╗*',
+        '*╚═══❖•ೋ° °ೋ•❖═══╝*',
+        '﹏﹏﹏﹏﹏✪✭✪﹏﹏﹏﹏﹏',
+        '⊰᯽⊱┈──╌❊╌──┈⊰᯽⊱',
+        '======== • ✠ • ========',
+        '——————«•»——————',
+        '≪━─━─━─━─◈─━─━─━─━≫',
+        '× •-•-•-•⟮ ◆ ⟯•-•-•-• ×',
+        '—————×∆×—————',
+        '∴ ════ ∴ ❈ ∴ ════ ∴',
+        '╔══╗ ♪\n║██║ ♫\n║(●)║\n╚══╝',
+        'ılı.lıllılı.ıllı.',
+        '▂ ▃ ▄ ▅ ▆ ▇ █',
+        '~•━━━ ✽ • ✽ ━━━•~',
+        'ೋ❀❀ೋ═══ • ═══ೋ❀❀ೋ',
+        '【✔】',
+        '【✘】',
+    ],
+    flechas: '← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙ ↚ ↛ ↜ ↝ ↞ ↟ ↠ ↡ ↢ ↣ ↤ ↥ ↦ ↧ ↨ ↩ ↪ ↫ ↬ ↭ ↮ ↯ ↰ ↱ ↲ ↳ ↴ ↵ ↶ ↷ ↸ ↹ ↺ ↻ ↼ ↽ ↾ ↿ ⇀ ⇁ ⇂ ⇃ ⇄ ⇅ ⇆ ⇇ ⇈ ⇉ ⇊ ⇋ ⇌ ⇍ ⇎ ⇏ ⇐ ⇑ ⇒ ⇓ ⇔ ⇕ ⇖ ⇗ ⇘ ⇙ ⇚ ⇛ ⇜ ⇝ ⇞ ⇟ ⇠ ⇡ ⇢ ⇣ ⇤ ⇥ ⇦ ⇧ ⇨ ⇩ ⇪ ➔ ➘ ➙ ➚ ➛ ➜ ➝ ➞ ➟ ➠ ➡ ➢ ➣ ➤ ➥ ➦ ➧ ➨ ➩ ➪ ➫ ➬ ➭ ➮ ➯ ➱ ➲ ➳ ➴ ➵ ➶ ➷ ➸ ➹ ➺ ➻ ➼ ➽ ➾ ⟰ ⟱ ⟲ ⟳ ⟴ ⟵ ⟶ ⟷ ⟸ ⟹ ⟺ ⟻ ⟼ ⟽ ⟾ ⟿ ⤴ ⤵ ⬅ ⬆ ⬇',
+    formas: '▀ ▁ ▂ ▃ ▄ ▅ ▆ ▇ █ ▉ ▊ ▋ ▌ ▍ ▎ ▏ ▐ ░ ▒ ▓ ▕ ▖ ▗ ▙ ▚ ▛ ▜ ▝ ▞ ▟ ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ ▪ ▫ ▬ ▭ ▮ ▯ ▰ ▱ ◘ ◙ ◧ ◨ ◩ ◪ ◫ ◰ ◱ ◲ ◳ ◻ ◼ ◽ ◾ ▲ △ ▴ ▵ ▶ ▷ ▸ ▹ ► ▻ ▼ ▽ ▾ ▿ ◀ ◁ ◂ ◃ ◄ ◅ ◆ ◇ ◈ ◊ ◢ ◣ ◤ ◥ ◬ ◭ ◮ ◸ ◹ ◺ ◿ ⬤ ⬮ ⬯ ⭖ ⭗ ⭘ ⭙ 〄 ○ ◌ ◍ ◎ ● ◐ ◑ ◒ ◓ ◔ ◕ ◦ ◯ ⚪ ⚫ ⚬ ⭕ 🔴 🔵 🔶 🔷 🔸 🔹 🔺 🔻',
+    emojis: '😀 😁 😂 🤣 😃 😄 😅 😆 😉 😊 😋 😎 😍 😘 😗 😙 😚 ☺️ 🙂 🤗 🤔 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 😴 😌 😛 😜 😝 🤤 😒 😓 😔 😕 🙃 🤑 😲 ☹️ 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 😬 😰 😱 😳 😵 😡 😠 😷 🤒 🤕 🤢 🤧 😇 🤠 🤥 🤓 🤡 🤩 🤨 🤯 🤪 🤬 🤮 🤫 🤭 🧐 🥰 🥵 🥶 🥴 🥳 🥺 😈 👿 ☻ 👑 💀 ☠️ 👻 👽 👾 🤖 🎭 💩 🎃 👹 👺 🎅 👼 🎎 ⚔️ 🛡️ 🔥 💥 ⚡ 🌟 💫 ⭐ 🌈 💎 🏆 🥇 🎖️ 🎯 🎮 🕹️ 🎲 ♠️ ♥️ ♦️ ♣️ 🔮 ⚓ 💣 🔱 🏴‍☠️',
+    letras: 'ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾᴿˢᵀᵁᵛᵂˣʸᶻ ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖᵠʳˢᵗᵘᵛʷˣʸᶻ 𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅 𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟 𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩 𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃 𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ 𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕥𝕨𝕩𝕪𝕫 𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭 𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇 Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩',
+    raros: '๛ㄔㄓ༫𖤍༗𖣘༈ペᘛ「」𖠁𖠂𖠃𖠄𖠇𖠈𖠉𖠊𖠋𖠌𖠍𖠎𖠏𖠐𖠑𖠒𖠓𖠔𖠕𖠖𖠗𖠘𖠙𖠚𖠛𖠜𖠝𖠞𖠟𖠠𖠡𖠢𖠣𖠤𖠥𖠦𖠧𖠨𖠩𖠪𖠫𖠬𖠭𖠮𖠯𖠰𖠱𖠲𖠳𖠴𖠵𖠶𖠷𖠸𖠹𖠺𖠻𖠼𖠽𖠾𖠿𖡀𖡁𖡂𖡃𖡄𖡅𖡆𖡇𖡈𖡉𖡊𖡋𖡌𖡍𖡎𖡏𖡐𖡑𖡒𖡓𖡔𖡕𖡖𖡗𖡘𖡙𖡚𖡛𖡜𖡝𖡞𖡟𖡠𖡡𖡢𖡣𖡤𖡥𖡦𖡧𖡨𖡩𖡪𖡫𖡬𖡭𖡮𖡯𖡰𖡱𖡲𖡳𖡴𖡵𖡶𖡷𖡸𖡹𖡺𖡻𖡼𖡽𖡾𖡿𖢀𖢁𖢂𖢃𖢄𖢅𖢆𖢇𖢈𖢉𖢊𖢋𖢌𖢍𖢎𖢏𖢐𖢑𖢒𖢓𖢔𖢕𖢖𖢗𖢙𖢚𖢛𖢜𖢝𖢞𖢟𖢠𖢡𖢢𖢣𖢤𖢥𖢦𖢧𖢨𖢩𖢪𖢫𖢬𖢭𖢮𖢯𖢰𖢱𖢲𖢳𖢴𖢵𖢶𖢷𖢸𖢹𖢺𖢻𖢼𖢽𖢾𖢿𖣀𖣁𖣂𖣃𖣄𖣅𖣆𖣇𖣈𖣉𖣊𖣋𖣌𖣍𖣎𖣏𖣐𖣑𖣒𖣓𖣔𖣕𖣖𖣗𖣙𖣚𖣛𖣜𖣝𖣞𖣟𖣠𖣡𖣢𖣣𖣤𖣥𖣦𖣧𖣨𖣩𖣪𖣫𖣬𖣭𖣮𖣯𖣰𖣱𖣲𖣳𖣴𖣵𖣶𖣷𖣸𖣹𖣺𖣻𖣼𖣽𖣾𖣿',
+    arts: `¯\\_(ツ)_/¯   •  ╰‿╯  •  ( ͡° ͜ʖ ͡°)  •  ¬_¬  •  (◑▂◐)  •  ⊙▂⊙
+ʕ•̫͡•ʔ  ʕ•ٹ•ʔ  ʕ*̫͡*ʔ  (ᴗ˳ᴗ)  ʚĭɞ  (づ｡◕‿‿◕｡)づ
+(╯°□°）╯︵ ┻━┻   ┬─┬ノ( º _ ºノ)
+(•_•)   ( •_•)>⌐■-■   (⌐■_■)
+¸,ø¤º°\`°º¤ø,¸¸,ø¤º°°º¤ø,¸
+★·.·\´¯\`·.·★    ✧*:.｡.✿*:･ﾟﾟ･:*✿.｡.:*✧
+♡ﾟ･｡｡･ﾟ♡ﾟ･｡♥｡･ﾟ♥♥ﾟ･｡♥
+╔══╗ ♪║██║ ♫║(●)║╚══╝
+▂▃▅▆█████▇▆▅▃▂ılı.lıllılı.ıllı.
+█▀▀▀██▄▒▒▒▒▒▒▒▄██▀▀▀█
+───▄▄─▄████▄▐▄▄▄▌
+──▐──████▀███▄█▄▌
+▐─▌──█▀▌──▐▀▌▀█▀`
+};
+
+/* --- UI del panel de símbolos --- */
+function iniciarSimbolos() {
+    // Normal
+    const tabNorm = document.getElementById('stab-normal');
+    if (tabNorm) {
+        tabNorm.innerHTML = SIMBOLOS_DB.normal.split('').map(c=>c.trim()&&c!==''?`<span class="sim-chip" onclick="addSim('${c.replace(/'/g,"\\'")}\")">${c}</span>`:'').join('');
+    }
+    // Decoraciones
+    const tabDeco = document.getElementById('stab-decoraciones');
+    if (tabDeco) {
+        tabDeco.innerHTML = SIMBOLOS_DB.decoraciones.map(d=>`<div class="sim-chip" style="display:block;border-radius:6px;padding:5px 8px;margin:3px 0;font-size:.78em;font-family:monospace;white-space:pre" onclick="addSimStr(this.textContent)">${d}</div>`).join('');
+    }
+    // Flechas
+    const tabF = document.getElementById('stab-flechas');
+    if (tabF) {
+        tabF.innerHTML = SIMBOLOS_DB.flechas.split(' ').filter(Boolean).map(c=>`<span class="sim-chip" onclick="addSim('${c.replace(/'/g,"\\'")}\")">${c}</span>`).join('');
+    }
+    // Formas
+    const tabFo = document.getElementById('stab-formas');
+    if (tabFo) {
+        tabFo.innerHTML = SIMBOLOS_DB.formas.split(' ').filter(Boolean).map(c=>`<span class="sim-chip" onclick="addSim('${c.replace(/'/g,"\\'")}\")">${c}</span>`).join('');
+    }
+    // Emojis
+    const tabEm = document.getElementById('stab-emojis');
+    if (tabEm) {
+        tabEm.innerHTML = SIMBOLOS_DB.emojis.split(' ').filter(Boolean).map(c=>`<span class="sim-chip" onclick="addSim('${c.replace(/'/g,"\\'")}\")">${c}</span>`).join('');
+    }
+    // Letras
+    const tabLe = document.getElementById('stab-letras');
+    if (tabLe) {
+        tabLe.innerHTML = SIMBOLOS_DB.letras.split(' ').filter(Boolean).map(c=>`<span class="sim-chip" onclick="addSim('${c.replace(/'/g,"\\'")}\")">${c}</span>`).join('');
+    }
+    // Raros
+    const tabR = document.getElementById('stab-raros');
+    if (tabR) {
+        tabR.innerHTML = [...SIMBOLOS_DB.raros].map(c=>c.trim()?`<span class="sim-chip" onclick="addSim('${c.replace(/'/g,"\\'")}\")">${c}</span>`:'').join('');
+    }
+    // Arts
+    const tabAr = document.getElementById('stab-arts');
+    if (tabAr) {
+        tabAr.innerHTML = SIMBOLOS_DB.arts.split('\n').map(line=>`<div class="sim-chip" style="display:block;white-space:pre;border-radius:6px;padding:6px;margin:3px 0;font-size:.8em" onclick="addSimStr(this.textContent)">${line}</div>`).join('');
+    }
+}
+
+function cambiarTabSim(tab) {
+    document.querySelectorAll('.sim-panel-tab').forEach((t,i)=>{
+        const tabs=['normal','decoraciones','flechas','formas','emojis','letras','arts','raros'];
+        t.classList.toggle('active', tabs[i]===tab);
+    });
+    document.querySelectorAll('.sim-panel-content').forEach(c=>{
+        c.classList.toggle('active', c.id===`stab-${tab}`);
+    });
+}
+
+function addSim(c) {
+    const box = document.getElementById('simPreview');
+    if (!box) return;
+    if (box.textContent === 'Pulsa los símbolos de abajo para construir tu texto...') {
+        box.textContent = c;
+    } else {
+        box.textContent += c;
+    }
+}
+
+function addSimStr(s) {
+    const box = document.getElementById('simPreview');
+    if (!box) return;
+    const clean = s.trim();
+    if (box.textContent === 'Pulsa los símbolos de abajo para construir tu texto...') {
+        box.textContent = clean;
+    } else {
+        box.textContent += '\n' + clean;
+    }
+}
+
+function borrarUltimoSim() {
+    const box = document.getElementById('simPreview');
+    if (!box) return;
+    const t = box.textContent;
+    if (t === 'Pulsa los símbolos de abajo para construir tu texto...') return;
+    // Remove last character (handles emoji and multi-byte)
+    const arr = [...t];
+    arr.pop();
+    box.textContent = arr.length ? arr.join('') : 'Pulsa los símbolos de abajo para construir tu texto...';
+}
+
+function limpiarSimPreview() {
+    const box = document.getElementById('simPreview');
+    if (box) box.textContent = 'Pulsa los símbolos de abajo para construir tu texto...';
+}
+
+function copiarSimPreview() {
+    const box = document.getElementById('simPreview');
+    if (!box) return;
+    const t = box.textContent;
+    if (t === 'Pulsa los símbolos de abajo para construir tu texto...') { showToast('No hay texto para copiar','warn'); return; }
+    navigator.clipboard.writeText(t).then(()=>showToast('✅ Texto copiado','ok')).catch(()=>showToast('Mantén presionado para copiar','warn'));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CHAT DEL CLAN
+   Usa JSONBin para persistencia en la nube.
+   Los mensajes también se pueden insertar en el generador
+   de símbolos mediante los chips del chat toolbar.
+═══════════════════════════════════════════════════════════ */
+const CHAT_KEY    = 'fenix_chat_v1';
+const CHAT_MAX    = 100; // máximo mensajes guardados
+let chatMensajes  = [];
+let chatUsuario   = null; // { nombre, rango, esAdmin }
+let chatAutoScroll= true;
+
+function cargarChat() {
+    const raw = localStorage.getItem(CHAT_KEY);
+    if (raw) { try { chatMensajes = JSON.parse(raw); } catch(e){ chatMensajes=[]; } }
+}
+
+function guardarChat() {
+    if (chatMensajes.length > CHAT_MAX) chatMensajes = chatMensajes.slice(-CHAT_MAX);
+    localStorage.setItem(CHAT_KEY, JSON.stringify(chatMensajes));
+}
+
+async function sincronizarChatNube(solo_leer=false) {
+    if (!JSONBIN_BIN_ID || !JSONBIN_KEY) return;
+    try {
+        if (!solo_leer) {
+            // Guardar chat junto a los datos del clan
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+                headers:{'X-Master-Key':JSONBIN_KEY}
+            });
+            if (res.ok) {
+                const json = await res.json();
+                const rec = json.record || {};
+                rec.chat = chatMensajes;
+                await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
+                    method:'PUT',
+                    headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+                    body: JSON.stringify(rec)
+                });
+            }
+        } else {
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+                headers:{'X-Master-Key':JSONBIN_KEY}
+            });
+            if (res.ok) {
+                const json = await res.json();
+                if (json.record?.chat) {
+                    chatMensajes = json.record.chat;
+                    guardarChat();
+                    renderizarChat();
+                }
+            }
+        }
+    } catch(e) {}
+}
+
+function renderizarChat() {
+    const cont = document.getElementById('chatMessages');
+    if (!cont) return;
+    if (chatMensajes.length === 0) {
+        cont.innerHTML = `<div class="chat-empty"><i class="fas fa-comments" style="font-size:2em;color:#333;display:block;margin-bottom:8px"></i>Aún no hay mensajes. ¡Sé el primero en escribir!</div>`;
+        return;
+    }
+    cont.innerHTML = chatMensajes.map(m => {
+        const esPropio = chatUsuario && m.autor === chatUsuario.nombre;
+        const esAdminMsg = m.esAdmin;
+        const hora = m.hora || '';
+        const clases = `chat-msg${esPropio?' propio':'  otro'}${esAdminMsg?' admin-msg':''}`;
+        const nombreClass = `chat-msg-name${esAdminMsg?' admin-name':''}`;
+        const autorDisplay = esAdminMsg ? `👑 ${m.autor}` : m.autor;
+        return `<div class="${clases}">
+  <div class="chat-msg-header">
+    <span class="${nombreClass}">${autorDisplay}</span>
+    <span class="chat-msg-time">${hora}</span>
+  </div>
+  <div class="chat-bubble">${m.texto}</div>
+</div>`;
+    }).join('') + (chatMensajes.length > 0 ? '' : '');
+
+    if (chatAutoScroll) cont.scrollTop = cont.scrollHeight;
+}
+
+function actualizarChatUI() {
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSendBtn');
+    const badge = document.getElementById('chatUserBadge');
+    const banner = document.getElementById('chatLoginBanner');
+    const borrarBtn = document.getElementById('chatBtnBorrar');
+
+    if (chatUsuario) {
+        if (input) { input.disabled = false; input.placeholder = `Escribe como ${chatUsuario.nombre}...`; }
+        if (sendBtn) sendBtn.disabled = false;
+        if (badge) badge.textContent = `${chatUsuario.esAdmin?'👑':'👤'} ${chatUsuario.nombre}`;
+        if (banner) banner.style.display = 'none';
+        if (borrarBtn && chatUsuario.esAdmin) borrarBtn.style.display = 'flex';
+    } else {
+        if (input) { input.disabled = true; input.placeholder = 'Inicia sesión para enviar mensajes...'; }
+        if (sendBtn) sendBtn.disabled = true;
+        if (badge) badge.textContent = '👁️ Solo lectura';
+        if (banner) banner.style.display = 'block';
+        if (borrarBtn) borrarBtn.style.display = 'none';
+    }
+}
+
+function enviarMensajeChat() {
+    if (!chatUsuario) { showToast('Inicia sesión primero','err'); return; }
+    const input = document.getElementById('chatInput');
+    if (!input) return;
+    const texto = input.value.trim();
+    if (!texto) return;
+    const msg = {
+        autor:   chatUsuario.nombre,
+        esAdmin: chatUsuario.esAdmin,
+        texto:   texto,
+        hora:    new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'})
+    };
+    chatMensajes.push(msg);
+    guardarChat();
+    input.value = '';
+    input.style.height = 'auto';
+    renderizarChat();
+    // Sync a la nube en background
+    sincronizarChatNube(false);
+}
+
+function chatEnterEnviar(e) {
+    // Enter sin Shift = enviar; Enter + Shift = nueva línea
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        enviarMensajeChat();
+    }
+}
+
+function ajustarChatInput(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 80) + 'px';
+}
+
+function insertarEnChat(txt) {
+    const input = document.getElementById('chatInput');
+    if (!input || input.disabled) return;
+    const pos = input.selectionStart;
+    const val = input.value;
+    input.value = val.slice(0, pos) + txt + val.slice(pos);
+    input.focus();
+    input.setSelectionRange(pos + txt.length, pos + txt.length);
+}
+
+function limpiarChat() {
+    if (!chatUsuario?.esAdmin) { showToast('Solo admin puede borrar el chat','err'); return; }
+    if (!confirm('¿Borrar TODOS los mensajes del chat?')) return;
+    chatMensajes = [];
+    guardarChat();
+    renderizarChat();
+    sincronizarChatNube(false);
+    showToast('Chat limpiado','warn');
+}
+
+// Actualizar chatUsuario cuando cambia la sesión
+const _origActualizarUI = typeof actualizarUI !== 'undefined' ? actualizarUI : null;
+function actualizarUI() {
+    // Llamar la lógica original de sesión/panel
+    const badge = document.getElementById('sessionBadge');
+    const hint  = document.getElementById('panelHint');
+    const btnCS = document.getElementById('btnCerrarSesion');
+    const btnAC = document.getElementById('btnAddColab');
+    const btnNS = document.getElementById('btnNuevaSala');
+    let toolbar = document.getElementById('adminToolbar');
+    const esAdmin = (sesion === 'admin' || sesion === 'jefe');
+
+    if (sesion === 'jefe') {
+        badge.textContent = '👑 JEFE DE CLAN — Control total activado';
+        badge.className = 'session-badge admin-mode'; badge.style.display = 'block';
+        hint.innerHTML = '👑 <strong style="color:var(--oro)">JEFE DE CLAN</strong> — Edición completa + Gestión de PINes';
+        btnCS.style.display = 'flex';
+        if (btnAC) btnAC.style.display = 'block';
+        if (btnNS) btnNS.style.display = 'flex';
+        if (toolbar) toolbar.classList.add('show');
+        chatUsuario = { nombre: datos[0]?.nombre || 'Jefe', rango: 'Jefe', esAdmin: true };
+    } else if (sesion === 'admin') {
+        badge.textContent = '🔓 MODO ADMIN — Edición completa activada';
+        badge.className = 'session-badge admin-mode'; badge.style.display = 'block';
+        hint.innerHTML = '🔓 <strong style="color:var(--fire)">MODO ADMIN</strong> — Puedes editar nombres, nicks, IDs y redes de todos';
+        btnCS.style.display = 'flex';
+        if (btnAC) btnAC.style.display = 'block';
+        if (btnNS) btnNS.style.display = 'flex';
+        if (toolbar) toolbar.classList.add('show');
+        chatUsuario = { nombre: 'Admin', rango: 'Admin', esAdmin: true };
+    } else if (sesion === 'miembro') {
+        const nombre = datos[miIdxSesion]?.nombre || datos[miIdxSesion]?.nick || `#${miIdxSesion+1}`;
+        badge.textContent = `🔒 Sesión: ${nombre} · Edita tus redes · Pulsa el 🔓 para salir`;
+        badge.className = 'session-badge'; badge.style.display = 'block';
+        hint.innerHTML = `Conectado como <strong style="color:var(--ws)">${nombre}</strong> · Edita tus redes`;
+        btnCS.style.display = 'flex';
+        if (btnAC) btnAC.style.display = 'none';
+        if (btnNS) btnNS.style.display = 'none';
+        if (toolbar) toolbar.classList.remove('show');
+        chatUsuario = { nombre, rango: datos[miIdxSesion]?.rango || 'Miembro', esAdmin: false };
+    } else {
+        badge.style.display = 'none';
+        hint.innerHTML = 'Sin sesión: solo lectura · Pulsa 🔒 de tu tarjeta para editar tus redes';
+        btnCS.style.display = 'none';
+        if (btnAC) btnAC.style.display = 'none';
+        if (btnNS) btnNS.style.display = 'none';
+        if (toolbar) toolbar.classList.remove('show');
+        chatUsuario = null;
+    }
+    renderizar();
+    renderColabs();
+    renderSalas();
+    actualizarChatUI();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ARRANQUE FINAL
 ═══════════════════════════════════════════════════════════ */
 renderizar();
 renderColabs();
 renderSalas();
+cargarChat();
+renderizarChat();
+actualizarChatUI();
+iniciarSimbolos();
+
+// Auto-refresh del chat cada 30 segundos si hay JSONBin configurado
+if (JSONBIN_BIN_ID && JSONBIN_KEY) {
+    setInterval(() => sincronizarChatNube(true), 30000);
+}
 </script>
 </body>
 </html>
