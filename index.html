@@ -230,7 +230,26 @@
 
         /* ── RESPONSIVE ── */
         @media(max-width:600px){h1{font-size:2em}h2{font-size:1.45em}.seccion{padding:16px}.logo-principal{width:200px}.edit-fields{flex-direction:column}}
+
+        /* ── NUEVOS ESTILOS: GESTOR DE PINES ── */
+        .modal-box{max-height:90vh;overflow-y:auto}
+        .pin-manager-list{max-height:50vh;overflow-y:auto;margin-bottom:12px}
+        .pin-row{display:flex;align-items:center;gap:8px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:8px 10px;margin-bottom:5px}
+        .pin-row-label{flex:1;font-size:.82em;color:#ccc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .pin-row-label span{color:#666;font-size:.85em;display:block}
+        .pin-row-input{background:#0d0d0d;border:1px solid #333;border-radius:5px;color:var(--oro);width:68px;font-size:.88em;outline:none;text-align:center;padding:5px;font-family:monospace;letter-spacing:2px}
+        .pin-row-input:focus{border-color:var(--oro)}
+        .pin-section-head{color:var(--oro);font-size:.72em;font-weight:bold;text-transform:uppercase;letter-spacing:2px;padding:8px 4px 4px;border-bottom:1px solid #2a2a2a;margin-bottom:6px}
+        .btn-change-pin{background:#1a1400;color:var(--oro);border:1px solid #3a2800;padding:3px 8px;border-radius:4px;font-size:.7em;cursor:pointer;white-space:nowrap;transition:.2s}
+        .btn-change-pin:hover{background:#2a2000;color:white}
+        .admin-toolbar{display:none;background:#0d0800;border:1px solid #3a2800;border-radius:8px;padding:8px 10px;margin:4px 0 2px;gap:6px;flex-wrap:wrap;justify-content:center}
+        .admin-toolbar.show{display:flex}
+        .admin-toolbar-btn{background:#1a1000;color:var(--oro);border:1px solid #3a2000;border-radius:6px;padding:6px 12px;font-size:.78em;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:5px;transition:.2s;white-space:nowrap}
+        .admin-toolbar-btn:hover{background:#2a1800}
+        .lock-sesion-btn{background:#0d2200;color:var(--ws);border-color:#1a4400}
+        .lock-sesion-btn:hover{background:#1a3300}
     </style>
+
 </head>
 <body>
 
@@ -367,8 +386,17 @@
     <div id="sessionBadge" class="session-badge"></div>
     <div class="panel-body" id="gridMiembros"></div>
 
-    <!-- BARRA INFERIOR LIMPIA -->
+    <!-- BARRA INFERIOR -->
     <div class="panel-bottom">
+        <!-- Barra de herramientas admin (solo visible cuando hay sesión admin/jefe) -->
+        <div class="admin-toolbar" id="adminToolbar">
+            <button class="admin-toolbar-btn" onclick="abrirGestorPines()" title="Solo Jefe de Clan">
+                <i class="fas fa-key"></i> Gestionar PINes
+            </button>
+            <button class="admin-toolbar-btn" onclick="cerrarSesion()" style="color:#ff8888;border-color:#440000;background:#1a0000">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión Admin
+            </button>
+        </div>
         <div class="panel-bottom-row">
             <button class="btn-save-main" onclick="guardarTodo()">
                 <i class="fas fa-save"></i> GUARDAR CAMBIOS
@@ -452,28 +480,72 @@
     </div>
 </div>
 
+
+<!-- ════ MODAL CAMBIAR PIN ════ -->
+<div class="modal-bg" id="modalCambiarPin">
+    <div class="modal-box" style="max-width:320px">
+        <h3 id="cambiarPinTitle">🔑 CAMBIAR MI PIN</h3>
+        <p id="cambiarPinDesc" style="font-size:.82em;color:#888;margin-bottom:14px">Elige un PIN de 4 a 6 dígitos.</p>
+        <div class="modal-form">
+            <label>PIN actual</label>
+            <input type="password" id="pinActualInput" maxlength="6" placeholder="••••••" style="letter-spacing:6px;text-align:center">
+            <label>PIN nuevo</label>
+            <input type="password" id="pinNuevoInput" maxlength="6" placeholder="••••••" style="letter-spacing:6px;text-align:center">
+            <label>Confirmar PIN nuevo</label>
+            <input type="password" id="pinConfirmInput" maxlength="6" placeholder="••••••" style="letter-spacing:6px;text-align:center">
+        </div>
+        <button class="modal-btn" onclick="ejecutarCambioPin()"><i class="fas fa-key"></i> CONFIRMAR</button>
+        <button class="modal-btn modal-btn-cancel" onclick="cerrarModal('modalCambiarPin')">Cancelar</button>
+        <div class="modal-error" id="cambiarPinError"></div>
+    </div>
+</div>
+
+<!-- ════ MODAL GESTOR MAESTRO DE PINES (solo Jefe) ════ -->
+<div class="modal-bg" id="modalGestorPines">
+    <div class="modal-box" style="max-width:420px">
+        <h3 style="color:var(--oro)">🛡️ GESTOR MAESTRO DE PINES</h3>
+        <p style="font-size:.78em;color:#888;margin-bottom:10px">Solo Jefe de Clan. Visualiza y cambia el PIN de cualquier integrante.</p>
+        <input type="text" id="buscarPinMiembro" placeholder="🔍 Buscar miembro..." style="width:100%;background:#1a1a1a;border:1px solid #333;border-radius:7px;color:#ddd;padding:8px 11px;font-size:.85em;outline:none;margin-bottom:10px" oninput="filtrarListaPines(this.value)">
+        <div class="pin-manager-list" id="pinManagerList"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+            <button class="modal-btn" onclick="guardarTodosLosPines()"><i class="fas fa-save"></i> GUARDAR TODOS</button>
+            <button class="modal-btn" style="background:#1a3d27;font-size:.85em" onclick="resetearTodosPines()"><i class="fas fa-undo"></i> Reset General</button>
+            <button class="modal-btn modal-btn-cancel" onclick="cerrarModal('modalGestorPines')">Cerrar</button>
+        </div>
+        <div class="modal-error" id="gestorPinesError"></div>
+    </div>
+</div>
+
 <!-- ════════════════════════════════
-     JAVASCRIPT
+     JAVASCRIPT — SISTEMA DE PINES v4.1
 ════════════════════════════════ -->
 <script>
-/* ═══════════════════════════════════════════
-   CONFIGURACIÓN
-═══════════════════════════════════════════ */
-const PIN_ADMIN      = '8904';
-const PIN_MIEMBRO    = '1207';   // PIN que usan los miembros para editar SUS redes
+/* ═══════════════════════════════════════════════════════════
+   CONFIGURACIÓN MAESTRA
+   ─────────────────────────────────────────────────────────
+   PIN_JEFE    → PIN único del Jefe de Clan (solo tú, Miguel)
+                 Da acceso al GESTOR MAESTRO de pines de todos
+   PIN_ADMIN   → PIN para activar Modo Admin de edición total
+                 (Líderes y Decanos también pueden usarlo)
+   PINES_KEY   → Clave en localStorage donde se guardan los
+                 PINes individuales de cada miembro
+═══════════════════════════════════════════════════════════ */
+const PIN_JEFE       = '8904';      // ← SOLO TÚ (Jefe de Clan)
+const PIN_ADMIN      = '2026';      // ← Líderes y Decanos (edición total)
 const JSONBIN_BIN_ID = '69de81b4aaba882197fbbc22';
 const JSONBIN_KEY    = '$2a$10$bDuikv8hYMj0H1gZ2KLWw.EO1uBj.HrirpRmEbsSNl4ukg/3IXeHi';
 const STORAGE_KEY    = 'fenix_v3';
+const PINES_KEY      = 'fenix_pines_v4';
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
    DATOS BASE 55 INTEGRANTES
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════ */
 const BASE = [
-    { rango:'👑 Jefe de Clan', admin:true, nombre:'CRISTOFER (CRIS)', nick:'BB⁷ ⚔ CRϟS 亗',     id:'12999345204', wa:'18633037050' },
-    { rango:'⭐ 2do Líder',    admin:true, nombre:'MIGUEL (MIGUE)',    nick:'BB⁷┆M¡gષ૯™',        id:'4277377760',  wa:'5353383049'  },
-    { rango:'⚔️ Decano',       admin:true, nombre:'RAFAEL (CUCHI)',    nick:'BB⁷CUCHI',           id:'10840251372', wa:'17372918753' },
-    { rango:'⚔️ Decano',       admin:true, nombre:'IVAN (POLLO)',      nick:'BB⁷ ☬POLLO☬',       id:'2045531676',  wa:'18173503509' },
-    { rango:'⚔️ Decano',       admin:true, nombre:'LUIS (WICHO)',      nick:'꧁ঔৣ☬DRACO☬ঔৣ꧂',    id:'12867919510', wa:'17132525468' },
+    { rango:'👑 Jefe de Clan', admin:true, nombre:'CRISTOFER (CRIS)', nick:'BB⁷ ⚔ CRϟS 亗',   id:'12999345204', wa:'18633037050' },
+    { rango:'⭐ 2do Líder',    admin:true, nombre:'MIGUEL (MIGUE)',    nick:'BB⁷┆M¡gષ૯™',      id:'4277377760',  wa:'5353383049'  },
+    { rango:'⚔️ Decano',       admin:true, nombre:'RAFAEL (CUCHI)',    nick:'BB⁷CUCHI',         id:'10840251372', wa:'17372918753' },
+    { rango:'⚔️ Decano',       admin:true, nombre:'IVAN (POLLO)',      nick:'BB⁷ ☬POLLO☬',     id:'2045531676',  wa:'18173503509' },
+    { rango:'⚔️ Decano',       admin:true, nombre:'LUIS (WICHO)',      nick:'꧁ঔৣ☬DRACO☬ঔৣ꧂',  id:'12867919510', wa:'17132525468' },
     { nombre:'Nexx',        nick:'Nexx┆§ ⛈️',          id:'5676853344'  },
     { nombre:'Cesar',       nick:'Cesar_(-*-)_',        id:'8536210504'  },
     { nombre:'ALE',         nick:'꧁ঔৣ☬ale☬ঔৣ꧂',      id:'9440769064'  },
@@ -527,25 +599,52 @@ const BASE = [
     { nombre:'', nick:'[Espacio Disponible]', id:'----------', vacio:true }
 ];
 
-/* ═══════════════════════════════════════════
-   ESTADO GLOBAL
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   SISTEMA DE PINES INDIVIDUALES
+   ─────────────────────────────────────────────────────────
+   Cada miembro tiene su propio PIN guardado en localStorage.
+   El índice del array corresponde al índice en BASE[].
+   Formato: pines[0] = PIN del Jefe, pines[5] = PIN de Nexx…
+   
+   PINes por defecto:
+   - Índices 0-4 (Admins): PIN_ADMIN = '2026'
+   - Índices 5-54 (Miembros): '1207'
+   
+   Solo el Jefe (PIN_JEFE) puede ver/cambiar el PIN de TODOS.
+   Cada miembro solo puede cambiar el SUYO usando su PIN actual.
+═══════════════════════════════════════════════════════════ */
+function cargarPines() {
+    const raw = localStorage.getItem(PINES_KEY);
+    if (raw) { try { const p = JSON.parse(raw); if (Array.isArray(p) && p.length >= BASE.length) return p; } catch(e){} }
+    // Inicializar: admins con PIN_ADMIN, miembros con '1207'
+    return BASE.map((b,i) => b.admin ? PIN_ADMIN : '1207');
+}
+let pines = cargarPines();
+
+function guardarPinesLocal() {
+    localStorage.setItem(PINES_KEY, JSON.stringify(pines));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ESTADO GLOBAL DE SESIÓN
+   ─────────────────────────────────────────────────────────
+   sesion:       'none' | 'miembro' | 'admin' | 'jefe'
+   miIdxSesion:  índice del miembro autenticado (-1 si admin)
+   esJefe:       true si autenticado como Jefe de Clan
+═══════════════════════════════════════════════════════════ */
 let datos       = cargarDatos();
 let colabs      = JSON.parse(localStorage.getItem('fenix_colabs') || '[]');
 let salas       = JSON.parse(localStorage.getItem('fenix_salas')  || '[]');
-
-// Niveles de sesión:
-//  'none'    → solo lectura (cualquier visitante)
-//  'miembro' → puede editar SUS PROPIAS redes (idx === miIdxSesion)
-//  'admin'   → puede editar todo
 let sesion      = 'none';
-let miIdxSesion = -1;        // índice del miembro que inició sesión
-let tipoLoginUI = 'admin';   // qué pestaña está seleccionada en el modal
+let miIdxSesion = -1;
+let esJefe      = false;
+let tipoLoginUI = 'admin';
 let filtroBusq  = '';
+let idxCambioPin = -1; // índice del perfil cuyo PIN se está cambiando
 
-/* ═══════════════════════════════════════════
-   CARGA / GUARDADO
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   CARGA / GUARDADO DE DATOS
+═══════════════════════════════════════════════════════════ */
 function cargarDatos() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
@@ -557,8 +656,8 @@ function cargarDatos() {
                 nick:   s[i]?.nick   ?? b.nick,
                 id:     s[i]?.id     ?? b.id,
                 wa: s[i]?.wa ?? (b.wa||''),
-                fb: s[i]?.fb || '', ig: s[i]?.ig || '',
-                yt: s[i]?.yt || '', tk: s[i]?.tk || ''
+                fb: s[i]?.fb||'', ig: s[i]?.ig||'',
+                yt: s[i]?.yt||'', tk: s[i]?.tk||''
             }));
         } catch(e) {}
     }
@@ -614,9 +713,30 @@ function setSyncStatus(estado, texto) {
     if (sp)  sp.textContent = texto;
 }
 
-/* ═══════════════════════════════════════════
-   RENDERIZAR
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   FUNCIÓN CENTRAL: CONSTRUIR URLS SOCIALES
+   ─────────────────────────────────────────────────────────
+   Detecta si el valor es URL completa o usuario y construye
+   el enlace correcto sin encodeURIComponent que rompe URLs.
+═══════════════════════════════════════════════════════════ */
+function construirUrl(red, valor) {
+    if (!valor) return '#';
+    const v = valor.trim();
+    if (v.startsWith('http://') || v.startsWith('https://')) return v;
+    const u = v.startsWith('@') ? v.slice(1) : v;
+    const rutas = {
+        wa: () => 'https://wa.me/' + v.replace(/\D/g,''),
+        fb: () => 'https://www.facebook.com/' + u,
+        ig: () => 'instagram://user?username=' + u,
+        yt: () => 'https://www.youtube.com/@' + u,
+        tk: () => 'https://www.tiktok.com/@' + u
+    };
+    return rutas[red] ? rutas[red]() : '#';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDERIZAR PANEL DE MIEMBROS
+═══════════════════════════════════════════════════════════ */
 function renderizar() {
     const grid = document.getElementById('gridMiembros');
     grid.innerHTML = '';
@@ -628,120 +748,174 @@ function renderizar() {
                    && !m.id.includes(filtro)) return;
 
         const num = idx + 1;
-        if (idx===0)  grid.appendChild(secTag('👑 LÍDERES'));
-        if (idx===2)  grid.appendChild(secTag('⚔️ DECANOS'));
-        if (idx===5)  grid.appendChild(secTag('⚔️ MIEMBROS DEL CLAN (50)'));
-        if (idx===51) grid.appendChild(secTag('🔓 ESPACIOS DISPONIBLES'));
+        if (idx === 0)  grid.appendChild(secTag('👑 LÍDERES'));
+        if (idx === 2)  grid.appendChild(secTag('⚔️ DECANOS'));
+        if (idx === 5)  grid.appendChild(secTag('⚔️ MIEMBROS DEL CLAN (50)'));
+        if (idx === 51) grid.appendChild(secTag('🔓 ESPACIOS DISPONIBLES'));
 
         const card = document.createElement('div');
         card.className = `mc${m.admin?' es-admin':''}${m.vacio?' slot-vacio':''}`;
 
-        const waH = m.wa ? `https://wa.me/${m.wa.replace(/\D/g,'')}` : '#';
-        const fbH = m.fb ? `fb://facewebmodal/auth?next=/${encodeURIComponent(m.fb)}` : '#';
-        const igH = m.ig ? `instagram://user?username=${encodeURIComponent(m.ig)}` : '#';
-        const ytH = m.yt ? `vnd.youtube://www.youtube.com/@${encodeURIComponent(m.yt)}` : '#';
-        const tkH = m.tk ? `snssdk1233://user/profile?user=${encodeURIComponent(m.tk)}` : '#';
+        const waH = construirUrl('wa', m.wa);
+        const fbH = construirUrl('fb', m.fb);
+        const igH = construirUrl('ig', m.ig);
+        const ytH = construirUrl('yt', m.yt);
+        const tkH = construirUrl('tk', m.tk);
 
-        // Determinar qué permisos tiene este usuario sobre ESTA tarjeta
-        const esMiPuesto = (sesion === 'miembro' && miIdxSesion === idx);
-        const esAdminMode = (sesion === 'admin');
-        const puedeEditarRedes = esAdminMode || esMiPuesto;
-        const puedeEditarTodo  = esAdminMode;
+        const esMiPuesto    = (sesion === 'miembro' && miIdxSesion === idx);
+        const esAdminMode   = (sesion === 'admin' || sesion === 'jefe');
+        const puedeRedes    = esAdminMode || esMiPuesto;
+        const puedeEditarTodo = esAdminMode;
 
-        // Botón de candado
+        /* ── LÓGICA DEL CANDADO ──────────────────────────────────────
+           • Sin sesión      → 🔒 cerrado → al pulsar, abre modal login
+           • Miembro propio  → 🔓 verde  → al pulsar, cierra/abre sus campos
+                                             (segunda pulsada = cerrar sesión)
+           • Admin / Jefe    → 🔓 fuego  → edita todo
+        ─────────────────────────────────────────────────────────── */
         let lockBtn;
         if (esAdminMode) {
-            lockBtn = `<button class="btn-sm btn-sm-lock admin-open" onclick="toggleEdit(${idx})" title="Admin: editar todo"><i class="fas fa-lock-open"></i></button>`;
+            lockBtn = `<button class="btn-sm btn-sm-lock admin-open" onclick="toggleEdit(${idx})" title="Admin: editar todo">
+                <i class="fas fa-lock-open"></i>
+            </button>`;
         } else if (esMiPuesto) {
-            lockBtn = `<button class="btn-sm btn-sm-lock redes" onclick="toggleEdit(${idx})" title="Editar mis redes"><i class="fas fa-lock-open"></i></button>`;
+            // Candado verde: al pulsar cierra/abre campos. Doble toque = cerrar sesión
+            lockBtn = `<button class="btn-sm btn-sm-lock redes lock-sesion-btn" 
+                onclick="toggleEditMiembro(${idx})" 
+                title="Pulsa para abrir/cerrar edición · Pulsa 2 veces para cerrar sesión">
+                <i class="fas fa-lock-open"></i>
+            </button>`;
         } else {
-            // Sin acceso a este perfil: botón de candado cerrado que pide login
-            lockBtn = `<button class="btn-sm btn-sm-lock" onclick="pedirLoginParaMiembro(${idx})" title="Acceder para editar"><i class="fas fa-lock"></i></button>`;
+            lockBtn = `<button class="btn-sm btn-sm-lock" 
+                onclick="pedirLoginParaMiembro(${idx})" 
+                title="Acceder para editar mis redes">
+                <i class="fas fa-lock"></i>
+            </button>`;
         }
 
-        // Campos según permisos
-        const nombreInput = puedeEditarTodo
+        // Nombre real
+        const nombreEl = puedeEditarTodo
             ? `<input type="text" class="mc-nombre-real" value="${esc(m.nombre)}" placeholder="Nombre real / apodo..." onchange="act(${idx},'nombre',this.value)">`
             : (m.nombre ? `<div class="mc-nombre-real" style="pointer-events:none;color:#888">${esc(m.nombre)}</div>` : '');
 
-        const nickInput = puedeEditarTodo
+        // Nick del juego
+        const nickEl = puedeEditarTodo
             ? `<input type="text" class="mc-nick" value="${esc(m.nick)}" placeholder="Nick en el juego..." onchange="act(${idx},'nick',this.value)" style="${m.vacio?'color:#555':''}">`
             : `<div class="mc-nick" style="pointer-events:none;${m.vacio?'color:#555':''}">${esc(m.nick)}</div>`;
 
-        const idInput = puedeEditarTodo
+        // ID Free Fire
+        const idEl = puedeEditarTodo
             ? `<input type="text" value="${esc(m.id)}" placeholder="ID Free Fire" onchange="act(${idx},'id',this.value)" style="color:#555">`
             : `<span style="color:#666">${esc(m.id)}</span>`;
 
-        // Campos de redes (solo si tiene permiso de editar o si tiene datos y no es admin)
-        const redesEdit = puedeEditarRedes ? `
-            <div class="edit-fields" id="ef-${idx}">
-                <div class="ef-row"><i class="fab fa-whatsapp" style="color:#25d366"></i><input type="text" placeholder="WhatsApp (+1...)" value="${esc(m.wa)}" onchange="act(${idx},'wa',this.value);refSocial(${idx})"></div>
-                <div class="ef-row"><i class="fab fa-facebook" style="color:#1877f2"></i><span class="at">@</span><input type="text" placeholder="Facebook user" value="${esc(m.fb)}" onchange="act(${idx},'fb',this.value);refSocial(${idx})"></div>
-                <div class="ef-row"><i class="fab fa-instagram" style="color:#e1306c"></i><span class="at">@</span><input type="text" placeholder="Instagram user" value="${esc(m.ig)}" onchange="act(${idx},'ig',this.value);refSocial(${idx})"></div>
-                <div class="ef-row"><i class="fab fa-youtube" style="color:#ff0000"></i><span class="at">@</span><input type="text" placeholder="YouTube canal" value="${esc(m.yt)}" onchange="act(${idx},'yt',this.value);refSocial(${idx})"></div>
-                <div class="ef-row"><i class="fab fa-tiktok" style="color:#ee1d52"></i><span class="at">@</span><input type="text" placeholder="TikTok user" value="${esc(m.tk)}" onchange="act(${idx},'tk',this.value);refSocial(${idx})"></div>
-                ${esAdminMode ? `<div style="text-align:right;margin-top:4px"><button onclick="limpiarMiembro(${idx})" style="background:#2a0000;border:1px solid #550000;color:#ff6666;padding:4px 10px;border-radius:5px;font-size:.75em;cursor:pointer"><i class="fas fa-trash"></i> Limpiar puesto</button></div>` : ''}
-            </div>` : '';
+        // Campos de redes (expandibles)
+        const redesEl = puedeRedes ? `
+<div class="edit-fields" id="ef-${idx}">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+    <span style="font-size:.7em;color:#666"><i class="fas fa-share-alt"></i> REDES SOCIALES</span>
+    <button class="btn-change-pin" onclick="abrirCambiarPin(${idx})" title="Cambiar mi PIN privado">
+      <i class="fas fa-key"></i> Cambiar PIN
+    </button>
+  </div>
+  <div class="ef-row">
+    <i class="fab fa-whatsapp" style="color:#25d366"></i>
+    <input type="text" placeholder="Número o https://wa.me/..." value="${esc(m.wa)}" onchange="act(${idx},'wa',this.value);refSocial(${idx})">
+  </div>
+  <div class="ef-row">
+    <i class="fab fa-facebook" style="color:#1877f2"></i>
+    <span class="at">@</span>
+    <input type="text" placeholder="usuario o https://facebook.com/..." value="${esc(m.fb)}" onchange="act(${idx},'fb',this.value);refSocial(${idx})">
+  </div>
+  <div class="ef-row">
+    <i class="fab fa-instagram" style="color:#e1306c"></i>
+    <span class="at">@</span>
+    <input type="text" placeholder="usuario o https://instagram.com/..." value="${esc(m.ig)}" onchange="act(${idx},'ig',this.value);refSocial(${idx})">
+  </div>
+  <div class="ef-row">
+    <i class="fab fa-youtube" style="color:#ff0000"></i>
+    <span class="at">@</span>
+    <input type="text" placeholder="canal o https://youtube.com/@..." value="${esc(m.yt)}" onchange="act(${idx},'yt',this.value);refSocial(${idx})">
+  </div>
+  <div class="ef-row">
+    <i class="fab fa-tiktok" style="color:#ee1d52"></i>
+    <span class="at">@</span>
+    <input type="text" placeholder="usuario o https://tiktok.com/@..." value="${esc(m.tk)}" onchange="act(${idx},'tk',this.value);refSocial(${idx})">
+  </div>
+  ${esAdminMode ? `
+  <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
+    <button onclick="limpiarMiembro(${idx})" style="background:#2a0000;border:1px solid #550000;color:#ff6666;padding:4px 10px;border-radius:5px;font-size:.75em;cursor:pointer">
+      <i class="fas fa-trash"></i> Limpiar puesto
+    </button>
+    ${esJefe ? `<button onclick="abrirCambiarPinAdmin(${idx})" style="background:#1a1400;border:1px solid #3a2800;color:var(--oro);padding:4px 10px;border-radius:5px;font-size:.75em;cursor:pointer">
+      <i class="fas fa-key"></i> Cambiar PIN de este miembro
+    </button>` : ''}
+  </div>` : ''}
+  ${esMiPuesto ? `<div style="text-align:center;margin-top:8px">
+    <button onclick="cerrarSesionMiembro()" style="background:#1a0000;border:1px solid #440000;color:#ff6666;padding:5px 14px;border-radius:5px;font-size:.75em;cursor:pointer">
+      <i class="fas fa-sign-out-alt"></i> Cerrar mi sesión
+    </button>
+  </div>` : ''}
+</div>` : '';
 
         card.innerHTML = `
-            <div class="mc-top">
-                <span class="mc-num${m.admin?' gold':''}">${num}.</span>
-                ${m.rango ? `<span class="mc-rango">${m.rango}</span>` : ''}
-                <a href="${waH}" target="_blank" class="btn-sm btn-sm-ws" id="ws-${idx}" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                ${lockBtn}
-            </div>
-            ${nombreInput}
-            ${nickInput}
-            <div class="mc-id-row">
-                <i class="fas fa-id-badge" style="color:#444;font-size:.85em"></i>
-                <span style="color:#444">ID:</span>
-                ${idInput}
-            </div>
-            <div class="social-bar" id="sb-${idx}">
-                ${m.wa?`<a href="${waH}" target="_blank" class="soc-btn wa"><i class="fab fa-whatsapp"></i> WA</a>`:''}
-                ${m.fb?`<a href="${fbH}" target="_blank" class="soc-btn fb"><i class="fab fa-facebook"></i> FB</a>`:''}
-                ${m.ig?`<a href="${igH}" target="_blank" class="soc-btn ig"><i class="fab fa-instagram"></i> IG</a>`:''}
-                ${m.yt?`<a href="${ytH}" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i> YT</a>`:''}
-                ${m.tk?`<a href="${tkH}" target="_blank" class="soc-btn tk"><i class="fab fa-tiktok"></i> TK</a>`:''}
-            </div>
-            ${redesEdit}`;
-
+<div class="mc-top">
+  <span class="mc-num${m.admin?' gold':''}">${num}.</span>
+  ${m.rango ? `<span class="mc-rango">${m.rango}</span>` : ''}
+  <a href="${waH}" target="_blank" class="btn-sm btn-sm-ws" id="ws-${idx}" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  ${lockBtn}
+</div>
+${nombreEl}
+${nickEl}
+<div class="mc-id-row">
+  <i class="fas fa-id-badge" style="color:#444;font-size:.85em"></i>
+  <span style="color:#444">ID:</span>
+  ${idEl}
+</div>
+<div class="social-bar" id="sb-${idx}">
+  ${m.wa?`<a href="${waH}" target="_blank" class="soc-btn wa"><i class="fab fa-whatsapp"></i> WA</a>`:''}
+  ${m.fb?`<a href="${fbH}" target="_blank" class="soc-btn fb"><i class="fab fa-facebook"></i> FB</a>`:''}
+  ${m.ig?`<a href="${igH}" target="_blank" class="soc-btn ig"><i class="fab fa-instagram"></i> IG</a>`:''}
+  ${m.yt?`<a href="${ytH}" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i> YT</a>`:''}
+  ${m.tk?`<a href="${tkH}" target="_blank" class="soc-btn tk"><i class="fab fa-tiktok"></i> TK</a>`:''}
+</div>
+${redesEl}`;
         grid.appendChild(card);
     });
 }
 
-function secTag(txt) {
-    const d = document.createElement('div'); d.className='section-tag'; d.textContent=txt; return d;
-}
+function secTag(txt) { const d=document.createElement('div'); d.className='section-tag'; d.textContent=txt; return d; }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function act(idx, campo, val) { datos[idx][campo] = val.trim(); }
 
 function refSocial(idx) {
     const m = datos[idx];
-    const waH = m.wa ? `https://wa.me/${m.wa.replace(/\D/g,'')}` : '#';
-    const fbH = m.fb ? `fb://facewebmodal/auth?next=/${encodeURIComponent(m.fb)}` : '#';
-    const igH = m.ig ? `instagram://user?username=${encodeURIComponent(m.ig)}` : '#';
-    const ytH = m.yt ? `vnd.youtube://www.youtube.com/@${encodeURIComponent(m.yt)}` : '#';
-    const tkH = m.tk ? `snssdk1233://user/profile?user=${encodeURIComponent(m.tk)}` : '#';
     const sb = document.getElementById(`sb-${idx}`);
-    if (sb) sb.innerHTML =
-        `${m.wa?`<a href="${waH}" target="_blank" class="soc-btn wa"><i class="fab fa-whatsapp"></i> WA</a>`:''}
-         ${m.fb?`<a href="${fbH}" target="_blank" class="soc-btn fb"><i class="fab fa-facebook"></i> FB</a>`:''}
-         ${m.ig?`<a href="${igH}" target="_blank" class="soc-btn ig"><i class="fab fa-instagram"></i> IG</a>`:''}
-         ${m.yt?`<a href="${ytH}" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i> YT</a>`:''}
-         ${m.tk?`<a href="${tkH}" target="_blank" class="soc-btn tk"><i class="fab fa-tiktok"></i> TK</a>`:''}`;
+    if (sb) sb.innerHTML = `
+        ${m.wa?`<a href="${construirUrl('wa',m.wa)}" target="_blank" class="soc-btn wa"><i class="fab fa-whatsapp"></i> WA</a>`:''}
+        ${m.fb?`<a href="${construirUrl('fb',m.fb)}" target="_blank" class="soc-btn fb"><i class="fab fa-facebook"></i> FB</a>`:''}
+        ${m.ig?`<a href="${construirUrl('ig',m.ig)}" target="_blank" class="soc-btn ig"><i class="fab fa-instagram"></i> IG</a>`:''}
+        ${m.yt?`<a href="${construirUrl('yt',m.yt)}" target="_blank" class="soc-btn yt"><i class="fab fa-youtube"></i> YT</a>`:''}
+        ${m.tk?`<a href="${construirUrl('tk',m.tk)}" target="_blank" class="soc-btn tk"><i class="fab fa-tiktok"></i> TK</a>`:''}`;
     const ws = document.getElementById(`ws-${idx}`);
-    if (ws) ws.href = waH;
+    if (ws) ws.href = construirUrl('wa', m.wa) || '#';
 }
 
+/* ── TOGGLE EDIT ── */
+let tapCount = {};  // para detectar doble toque en candado de miembro
 function toggleEdit(idx) {
     const ef = document.getElementById(`ef-${idx}`);
     if (ef) ef.classList.toggle('open');
 }
 
-/* ═══════════════════════════════════════════
+function toggleEditMiembro(idx) {
+    // Simple: abre o cierra los campos del miembro autenticado
+    const ef = document.getElementById(`ef-${idx}`);
+    if (ef) ef.classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════════════════════════
    GUARDAR
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════ */
 async function guardarTodo() {
     guardarLocal();
     const btn = document.querySelector('.btn-save-main');
@@ -761,24 +935,23 @@ async function guardarTodo() {
 }
 
 function confirmarReset() {
-    if (sesion !== 'admin') { showToast('Solo el admin puede restablecer','err'); return; }
+    if (sesion === 'none') { showToast('Inicia sesión primero','err'); return; }
     if (!confirm('¿Restablecer redes sociales de TODOS los miembros?\n(Nombres, nicks e IDs no se borran)')) return;
     datos = datos.map(m => ({...m, fb:'', ig:'', yt:'', tk:''}));
-    guardarLocal();
-    renderizar();
+    guardarLocal(); renderizar();
     showToast('Redes sociales restablecidas','warn');
 }
 
 function limpiarMiembro(idx) {
-    if (!confirm(`¿Limpiar puesto ${idx+1}?`)) return;
+    if (!confirm(`¿Limpiar todos los datos del puesto ${idx+1}?`)) return;
     datos[idx] = {...BASE[idx], wa:'', fb:'', ig:'', yt:'', tk:''};
     renderizar();
     showToast(`Puesto ${idx+1} limpiado`,'warn');
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
    PANEL LATERAL
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════ */
 function openPanel() {
     const w = window.innerWidth<=480?'100%':window.innerWidth<=768?'90%':'440px';
     document.getElementById('sidePanel').style.width = w;
@@ -794,19 +967,37 @@ function closePanel() {
     document.body.style.overflow = '';
 }
 
-function filtrarMiembros(val) { filtroBusq=val; renderizar(); }
+function filtrarMiembros(val) { filtroBusq = val; renderizar(); }
 
-/* ═══════════════════════════════════════════
-   SISTEMA DE SESIÓN
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   SISTEMA DE SESIÓN — TRES NIVELES
+   ─────────────────────────────────────────────────────────
+   none    → visitante, solo lectura
+   miembro → edita SUS redes + puede cambiar SU PIN
+   admin   → edita todo (Líderes y Decanos)
+   jefe    → admin + puede ver/cambiar PIN de TODOS
+═══════════════════════════════════════════════════════════ */
 function actualizarUI() {
     const badge = document.getElementById('sessionBadge');
     const hint  = document.getElementById('panelHint');
     const btnCS = document.getElementById('btnCerrarSesion');
     const btnAC = document.getElementById('btnAddColab');
     const btnNS = document.getElementById('btnNuevaSala');
+    // Barra de herramientas admin
+    let toolbar = document.getElementById('adminToolbar');
 
-    if (sesion === 'admin') {
+    const esAdmin = (sesion === 'admin' || sesion === 'jefe');
+
+    if (sesion === 'jefe') {
+        badge.textContent = '👑 JEFE DE CLAN — Control total activado';
+        badge.className = 'session-badge admin-mode';
+        badge.style.display = 'block';
+        hint.innerHTML = '👑 <strong style="color:var(--oro)">JEFE DE CLAN</strong> — Edición completa + Gestión de PINes';
+        btnCS.style.display = 'flex';
+        if (btnAC) btnAC.style.display = 'block';
+        if (btnNS) btnNS.style.display = 'flex';
+        if (toolbar) toolbar.classList.add('show');
+    } else if (sesion === 'admin') {
         badge.textContent = '🔓 MODO ADMIN — Edición completa activada';
         badge.className = 'session-badge admin-mode';
         badge.style.display = 'block';
@@ -814,74 +1005,80 @@ function actualizarUI() {
         btnCS.style.display = 'flex';
         if (btnAC) btnAC.style.display = 'block';
         if (btnNS) btnNS.style.display = 'flex';
+        if (toolbar) toolbar.classList.add('show');
     } else if (sesion === 'miembro') {
         const nombre = datos[miIdxSesion]?.nombre || datos[miIdxSesion]?.nick || `#${miIdxSesion+1}`;
-        badge.textContent = `🔒 Sesión miembro: ${nombre} — Solo puedes editar tus redes`;
+        badge.textContent = `🔒 Sesión: ${nombre} · Edita tus redes · Pulsa el 🔓 para salir`;
         badge.className = 'session-badge';
         badge.style.display = 'block';
-        hint.innerHTML = 'Sesión activa: solo puedes editar <strong style="color:var(--ws)">tus propias redes sociales</strong>';
+        hint.innerHTML = `Conectado como <strong style="color:var(--ws)">${nombre}</strong> · Edita tus redes · Botón 🔓 para cerrar sesión`;
         btnCS.style.display = 'flex';
         if (btnAC) btnAC.style.display = 'none';
         if (btnNS) btnNS.style.display = 'none';
+        if (toolbar) toolbar.classList.remove('show');
     } else {
         badge.style.display = 'none';
         hint.innerHTML = 'Sin sesión: solo lectura · Pulsa 🔒 de tu tarjeta para editar tus redes';
         btnCS.style.display = 'none';
         if (btnAC) btnAC.style.display = 'none';
         if (btnNS) btnNS.style.display = 'none';
+        if (toolbar) toolbar.classList.remove('show');
     }
     renderizar();
     renderColabs();
     renderSalas();
 }
 
+/* Cerrar sesión completa (admin / jefe) */
 function cerrarSesion() {
-    sesion = 'none';
-    miIdxSesion = -1;
+    sesion = 'none'; miIdxSesion = -1; esJefe = false;
     actualizarUI();
     showToast('🔒 Sesión cerrada','warn');
 }
 
-// Llama al modal desde el footer (acceso general: admin o miembro)
+/* Cerrar sesión de miembro desde dentro de su tarjeta */
+function cerrarSesionMiembro() {
+    sesion = 'none'; miIdxSesion = -1;
+    actualizarUI();
+    showToast('🔒 Sesión de miembro cerrada','warn');
+}
+
+/* ── ABRIR LOGIN ── */
 function abrirLoginPanel(e) {
     e.preventDefault();
     seleccionarTipoLogin('admin');
-    document.getElementById('pinInput').value='';
-    document.getElementById('pinError').textContent='';
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinError').textContent = '';
     llenarSelectMiembros();
     document.getElementById('modalLogin').classList.add('show');
-    setTimeout(()=>document.getElementById('pinInput').focus(),150);
+    setTimeout(() => document.getElementById('pinInput').focus(), 150);
 }
 
-// Cuando se hace clic en el 🔒 de una tarjeta de otro miembro
 function pedirLoginParaMiembro(idx) {
     seleccionarTipoLogin('miembro');
-    // Preseleccionar en el select ese miembro
-    const sel = document.getElementById('miembroSelect');
-    if (sel) sel.value = idx;
-    document.getElementById('pinInput').value='';
-    document.getElementById('pinError').textContent='';
     llenarSelectMiembros();
     document.getElementById('miembroSelect').value = idx;
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinError').textContent = '';
     document.getElementById('modalLogin').classList.add('show');
-    setTimeout(()=>document.getElementById('pinInput').focus(),150);
+    setTimeout(() => document.getElementById('pinInput').focus(), 150);
 }
 
 function seleccionarTipoLogin(tipo) {
     tipoLoginUI = tipo;
-    document.getElementById('optAdmin').classList.toggle('active', tipo==='admin');
-    document.getElementById('optMiembro').classList.toggle('active', tipo==='miembro');
-    document.getElementById('loginMiembroSelect').style.display = tipo==='miembro'?'block':'none';
-    document.getElementById('loginTitle').textContent = tipo==='admin' ? '🔐 MODO ADMIN' : '👤 ACCESO MIEMBRO';
-    document.getElementById('loginDesc').textContent  = tipo==='admin'
-        ? 'Introduce el PIN de administrador'
-        : 'Selecciona tu puesto e introduce el PIN de miembro';
+    document.getElementById('optAdmin').classList.toggle('active', tipo === 'admin');
+    document.getElementById('optMiembro').classList.toggle('active', tipo === 'miembro');
+    document.getElementById('loginMiembroSelect').style.display = tipo === 'miembro' ? 'block' : 'none';
+    document.getElementById('loginTitle').textContent = tipo === 'admin' ? '🔐 PANEL DE CONTROL' : '👤 ACCESO MIEMBRO';
+    document.getElementById('loginDesc').textContent = tipo === 'admin'
+        ? 'Introduce tu PIN de administrador'
+        : 'Selecciona tu puesto e introduce tu PIN personal';
 }
 
 function llenarSelectMiembros() {
     const sel = document.getElementById('miembroSelect');
     sel.innerHTML = '';
-    datos.forEach((m,i) => {
+    datos.forEach((m, i) => {
         if (m.vacio) return;
         const opt = document.createElement('option');
         opt.value = i;
@@ -890,116 +1087,282 @@ function llenarSelectMiembros() {
     });
 }
 
+/* ── VERIFICAR PIN AL INGRESAR ── */
 function verificarPin() {
-    const pin = document.getElementById('pinInput').value.trim();
-    const errEl = document.getElementById('pinError');
+    const pin    = document.getElementById('pinInput').value.trim();
+    const errEl  = document.getElementById('pinError');
     errEl.textContent = '';
 
     if (tipoLoginUI === 'admin') {
-        if (pin === PIN_ADMIN) {
-            sesion = 'admin';
-            miIdxSesion = -1;
+        if (pin === PIN_JEFE) {
+            // Jefe de clan: acceso total + gestor de pines
+            sesion = 'jefe'; miIdxSesion = -1; esJefe = true;
+            cerrarModal('modalLogin');
+            actualizarUI();
+            showToast('👑 Acceso de Jefe de Clan activado','ok');
+        } else if (pin === PIN_ADMIN) {
+            // Admin normal: edición completa, sin gestor de pines
+            sesion = 'admin'; miIdxSesion = -1; esJefe = false;
             cerrarModal('modalLogin');
             actualizarUI();
             showToast('🔓 Modo admin activado','ok');
         } else {
             errEl.textContent = '❌ PIN incorrecto';
-            document.getElementById('pinInput').value='';
+            document.getElementById('pinInput').value = '';
         }
     } else {
-        // miembro
+        // Miembro: verifica su PIN individual
         const idx = parseInt(document.getElementById('miembroSelect').value);
-        if (pin === PIN_MIEMBRO) {
-            sesion = 'miembro';
-            miIdxSesion = idx;
+        if (!isNaN(idx) && pin === (pines[idx] || '1207')) {
+            sesion = 'miembro'; miIdxSesion = idx;
             cerrarModal('modalLogin');
-            // Si el panel no está abierto, abrirlo
-            if (document.getElementById('sidePanel').style.width === '0' ||
-                document.getElementById('sidePanel').style.width === '') {
+            if (!document.getElementById('sidePanel').style.width || 
+                document.getElementById('sidePanel').style.width === '0') {
                 openPanel();
             } else {
                 actualizarUI();
             }
             const nombre = datos[idx]?.nombre || datos[idx]?.nick || `#${idx+1}`;
-            showToast(`✅ Sesión iniciada como ${nombre}`,'ok');
-            // Abrir automáticamente los campos de ese miembro
-            setTimeout(()=>{
+            showToast(`✅ Sesión iniciada: ${nombre}`,'ok');
+            setTimeout(() => {
                 const ef = document.getElementById(`ef-${idx}`);
                 if (ef) ef.classList.add('open');
-                const card = document.querySelector(`.mc:nth-of-type(${idx+1})`);
-                if (card) card.scrollIntoView({behavior:'smooth',block:'center'});
-            },400);
+            }, 400);
         } else {
             errEl.textContent = '❌ PIN incorrecto';
-            document.getElementById('pinInput').value='';
+            document.getElementById('pinInput').value = '';
         }
     }
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
+   CAMBIAR PIN PROPIO
+   ─────────────────────────────────────────────────────────
+   Cada usuario (miembro o admin) puede cambiar su PIN con:
+   1. PIN actual  2. PIN nuevo  3. Confirmación
+═══════════════════════════════════════════════════════════ */
+function abrirCambiarPin(idx) {
+    // Miembro cambia su propio PIN
+    idxCambioPin = idx;
+    const nombre = datos[idx]?.nombre || datos[idx]?.nick || `#${idx+1}`;
+    document.getElementById('cambiarPinTitle').textContent = `🔑 CAMBIAR MI PIN`;
+    document.getElementById('cambiarPinDesc').textContent = `PIN de: ${nombre}`;
+    document.getElementById('pinActualInput').value = '';
+    document.getElementById('pinNuevoInput').value = '';
+    document.getElementById('pinConfirmInput').value = '';
+    document.getElementById('cambiarPinError').textContent = '';
+    document.getElementById('modalCambiarPin').classList.add('show');
+    setTimeout(() => document.getElementById('pinActualInput').focus(), 150);
+}
+
+function abrirCambiarPinAdmin(idx) {
+    // Jefe cambia el PIN de cualquier miembro (sin necesitar el PIN actual)
+    if (!esJefe) { showToast('Solo el Jefe puede cambiar pines ajenos','err'); return; }
+    idxCambioPin = idx;
+    const nombre = datos[idx]?.nombre || datos[idx]?.nick || `#${idx+1}`;
+    document.getElementById('cambiarPinTitle').textContent = `🛡️ PIN DE: ${nombre}`;
+    document.getElementById('cambiarPinDesc').textContent = `Cambiando PIN del miembro ${idx+1}`;
+    document.getElementById('pinActualInput').value = esJefe ? '____' : ''; // placeholder para jefe
+    document.getElementById('pinActualInput').disabled = esJefe; // jefe no necesita pin actual
+    document.getElementById('pinNuevoInput').value = '';
+    document.getElementById('pinConfirmInput').value = '';
+    document.getElementById('cambiarPinError').textContent = '';
+    document.getElementById('modalCambiarPin').classList.add('show');
+    setTimeout(() => document.getElementById('pinNuevoInput').focus(), 150);
+}
+
+function ejecutarCambioPin() {
+    const errEl   = document.getElementById('cambiarPinError');
+    const actual  = document.getElementById('pinActualInput').value.trim();
+    const nuevo   = document.getElementById('pinNuevoInput').value.trim();
+    const confirm = document.getElementById('pinConfirmInput').value.trim();
+    errEl.textContent = '';
+
+    if (!nuevo || nuevo.length < 4) { errEl.textContent = '❌ El PIN debe tener al menos 4 dígitos'; return; }
+    if (nuevo !== confirm) { errEl.textContent = '❌ Los PINes nuevos no coinciden'; return; }
+    if (nuevo === actual)  { errEl.textContent = '❌ El PIN nuevo debe ser diferente al actual'; return; }
+
+    if (esJefe && document.getElementById('pinActualInput').disabled) {
+        // Jefe cambia PIN sin verificar actual
+        pines[idxCambioPin] = nuevo;
+        guardarPinesLocal();
+        cerrarModal('modalCambiarPin');
+        document.getElementById('pinActualInput').disabled = false;
+        const nombre = datos[idxCambioPin]?.nombre || `#${idxCambioPin+1}`;
+        showToast(`🔑 PIN de ${nombre} actualizado`,'ok');
+    } else {
+        // Miembro verifica su PIN actual antes de cambiar
+        if (actual !== (pines[idxCambioPin] || '1207')) {
+            errEl.textContent = '❌ PIN actual incorrecto'; return;
+        }
+        pines[idxCambioPin] = nuevo;
+        guardarPinesLocal();
+        cerrarModal('modalCambiarPin');
+        showToast('🔑 Tu PIN fue actualizado correctamente','ok');
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GESTOR MAESTRO DE PINES (solo Jefe de Clan)
+═══════════════════════════════════════════════════════════ */
+function abrirGestorPines() {
+    if (!esJefe) { showToast('Solo el Jefe de Clan puede acceder al gestor','err'); return; }
+    filtrarListaPines('');
+    document.getElementById('buscarPinMiembro').value = '';
+    document.getElementById('gestorPinesError').textContent = '';
+    document.getElementById('modalGestorPines').classList.add('show');
+}
+
+function filtrarListaPines(busq) {
+    const cont = document.getElementById('pinManagerList');
+    cont.innerHTML = '';
+    const b = busq.toLowerCase();
+
+    // Sección admins
+    const divAdm = document.createElement('div');
+    divAdm.className = 'pin-section-head';
+    divAdm.innerHTML = '👑 LÍDERES Y DECANOS';
+    cont.appendChild(divAdm);
+
+    datos.forEach((m, i) => {
+        if (!m.admin) return;
+        if (b && !m.nombre.toLowerCase().includes(b) && !m.nick.toLowerCase().includes(b)) return;
+        cont.appendChild(crearFilaPin(m, i));
+    });
+
+    // Sección miembros
+    const divMem = document.createElement('div');
+    divMem.className = 'pin-section-head';
+    divMem.innerHTML = '⚔️ MIEMBROS';
+    cont.appendChild(divMem);
+
+    datos.forEach((m, i) => {
+        if (m.admin || m.vacio) return;
+        if (b && !m.nombre.toLowerCase().includes(b) && !m.nick.toLowerCase().includes(b)) return;
+        cont.appendChild(crearFilaPin(m, i));
+    });
+}
+
+function crearFilaPin(m, i) {
+    const div = document.createElement('div');
+    div.className = 'pin-row';
+    div.innerHTML = `
+<span class="pin-row-label">
+  <strong>${i+1}.</strong> ${m.nombre || m.nick}
+  <span>${m.nick !== m.nombre ? '· '+m.nick : ''}</span>
+</span>
+<input class="pin-row-input" id="gpin-${i}" type="text" maxlength="6" value="${pines[i]||'1207'}" placeholder="PIN">`;
+    return div;
+}
+
+function guardarTodosLosPines() {
+    datos.forEach((m, i) => {
+        if (m.vacio) return;
+        const inp = document.getElementById(`gpin-${i}`);
+        if (inp && inp.value.trim().length >= 4) {
+            pines[i] = inp.value.trim();
+        }
+    });
+    guardarPinesLocal();
+    cerrarModal('modalGestorPines');
+    showToast('🔑 Todos los PINes guardados','ok');
+}
+
+function resetearTodosPines() {
+    if (!confirm('¿Resetear TODOS los PINes a los valores por defecto?\n• Admins → 2026\n• Miembros → 1207')) return;
+    pines = BASE.map((b,i) => b.admin ? PIN_ADMIN : '1207');
+    guardarPinesLocal();
+    cerrarModal('modalGestorPines');
+    showToast('🔑 PINes reseteados a valores por defecto','warn');
+}
+
+/* ═══════════════════════════════════════════════════════════
    COLABORACIONES
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════ */
 function renderColabs() {
     const grid = document.getElementById('colabsGrid');
-    grid.innerHTML='';
-    if (!colabs.length) { grid.innerHTML='<p style="text-align:center;color:#555;font-size:.88em;padding:20px 0">No hay colaboraciones activas en este momento.</p>'; return; }
-    colabs.forEach((c,i)=>{
-        const badge={activa:'🟢 ACTIVA',proxima:'🟡 PRÓXIMO',terminada:'🔴 TERMINADA'}[c.estado]||'';
-        const tags=(c.premios||'').split(',').filter(Boolean).map(p=>`<span class="prize-tag">${p.trim()}</span>`).join('');
-        const div=document.createElement('div'); div.className='colab-card';
-        div.innerHTML=`<div class="colab-img-wrap">${c.img?`<img src="${c.img}" onerror="this.style.display='none'" alt="">`:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0500,#2d0d00)"></div>'}<span class="colab-badge">${badge}</span>${sesion==='admin'?`<button onclick="borrarColab(${i})" style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);border:none;color:#ff6666;padding:3px 7px;border-radius:4px;cursor:pointer;font-size:.75em"><i class="fas fa-trash"></i></button>`:''}</div><div class="colab-body"><div class="colab-title"><i class="fas fa-fire" style="color:var(--fire);margin-right:5px"></i>${c.nombre}</div><div class="colab-desc">${c.desc}</div><div class="colab-prizes">${tags}</div>${c.fecha?`<div class="colab-fecha"><i class="fas fa-calendar-alt"></i> Hasta: ${c.fecha}</div>`:''}</div>`;
+    grid.innerHTML = '';
+    const esAdmin = (sesion === 'admin' || sesion === 'jefe');
+    if (!colabs.length) {
+        grid.innerHTML = '<p style="text-align:center;color:#555;font-size:.88em;padding:20px 0">No hay colaboraciones activas.</p>';
+        return;
+    }
+    colabs.forEach((c, i) => {
+        const badge = {activa:'🟢 ACTIVA',proxima:'🟡 PRÓXIMO',terminada:'🔴 TERMINADA'}[c.estado] || '';
+        const tags = (c.premios||'').split(',').filter(Boolean).map(p=>`<span class="prize-tag">${p.trim()}</span>`).join('');
+        const div = document.createElement('div');
+        div.className = 'colab-card';
+        div.innerHTML = `<div class="colab-img-wrap">${c.img?`<img src="${c.img}" onerror="this.style.display='none'" alt="">`:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0500,#2d0d00)"></div>'}<span class="colab-badge">${badge}</span>${esAdmin?`<button onclick="borrarColab(${i})" style="position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);border:none;color:#ff6666;padding:3px 7px;border-radius:4px;cursor:pointer;font-size:.75em"><i class="fas fa-trash"></i></button>`:''}</div><div class="colab-body"><div class="colab-title"><i class="fas fa-fire" style="color:var(--fire);margin-right:5px"></i>${c.nombre}</div><div class="colab-desc">${c.desc}</div><div class="colab-prizes">${tags}</div>${c.fecha?`<div class="colab-fecha"><i class="fas fa-calendar-alt"></i> Hasta: ${c.fecha}</div>`:''}</div>`;
         grid.appendChild(div);
     });
 }
-function abrirModalColab(){ if(sesion!=='admin'){showToast('Solo admin','err');return;} document.getElementById('modalColab').classList.add('show'); }
+function abrirModalColab(){ if(sesion!=='admin'&&sesion!=='jefe'){showToast('Solo admin','err');return;} document.getElementById('modalColab').classList.add('show'); }
 function agregarColab(){
     const nombre=document.getElementById('colabNombre').value.trim();
     if(!nombre){showToast('Pon un nombre','err');return;}
     colabs.push({nombre,desc:document.getElementById('colabDesc').value.trim(),premios:document.getElementById('colabPremios').value.trim(),img:document.getElementById('colabImg').value.trim(),fecha:document.getElementById('colabFecha').value,estado:document.getElementById('colabEstado').value});
-    localStorage.setItem('fenix_colabs',JSON.stringify(colabs)); cerrarModal('modalColab'); renderColabs(); showToast('Colaboración agregada ✓','ok');
+    localStorage.setItem('fenix_colabs',JSON.stringify(colabs));
+    cerrarModal('modalColab'); renderColabs(); showToast('Colaboración agregada ✓','ok');
 }
 function borrarColab(i){ if(!confirm('¿Eliminar?'))return; colabs.splice(i,1); localStorage.setItem('fenix_colabs',JSON.stringify(colabs)); renderColabs(); }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
    SALAS
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════ */
 function renderSalas(){
-    const grid=document.getElementById('salasGrid'); const vacio=document.getElementById('salasVacio'); grid.innerHTML='';
-    if(!salas.length){vacio.style.display='block';return;} vacio.style.display='none';
+    const grid=document.getElementById('salasGrid');
+    const vacio=document.getElementById('salasVacio');
+    grid.innerHTML='';
+    const esAdmin=(sesion==='admin'||sesion==='jefe');
+    if(!salas.length){vacio.style.display='block';return;}
+    vacio.style.display='none';
     salas.forEach((s,i)=>{
         const ec={abierta:'abierta',llena:'llena',cerrada:'cerrada'}[s.estado]||'cerrada';
         const el={abierta:'🟢 ABIERTA',llena:'🔴 LLENA',cerrada:'⚫ CERRADA'}[s.estado]||'';
-        const div=document.createElement('div'); div.className='sala-card';
-        div.innerHTML=`<div class="sala-info"><div class="sala-nombre"><i class="fas fa-gamepad" style="margin-right:6px;opacity:.7"></i>${s.nombre}</div><div class="sala-meta"><span><i class="fas fa-tag"></i> ${s.tipo}</span>${s.pass?`<span><i class="fas fa-key"></i> Pass: <strong style="color:#eee">${s.pass}</strong></span>`:''}<span><i class="fas fa-users"></i> Cupos: ${s.cupos}</span></div>${s.premio?`<div class="sala-premio"><i class="fas fa-trophy"></i> ${s.premio}</div>`:''}</div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span class="sala-estado ${ec}">${el}</span>${sesion==='admin'?`<button onclick="borrarSala(${i})" style="background:transparent;border:none;color:#555;font-size:.75em;cursor:pointer"><i class="fas fa-trash"></i></button>`:''}</div>`;
+        const div=document.createElement('div');div.className='sala-card';
+        div.innerHTML=`<div class="sala-info"><div class="sala-nombre"><i class="fas fa-gamepad" style="margin-right:6px;opacity:.7"></i>${s.nombre}</div><div class="sala-meta"><span><i class="fas fa-tag"></i> ${s.tipo}</span>${s.pass?`<span><i class="fas fa-key"></i> Pass: <strong style="color:#eee">${s.pass}</strong></span>`:''}<span><i class="fas fa-users"></i> Cupos: ${s.cupos}</span></div>${s.premio?`<div class="sala-premio"><i class="fas fa-trophy"></i> ${s.premio}</div>`:''}</div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><span class="sala-estado ${ec}">${el}</span>${esAdmin?`<button onclick="borrarSala(${i})" style="background:transparent;border:none;color:#555;font-size:.75em;cursor:pointer"><i class="fas fa-trash"></i></button>`:''}</div>`;
         grid.appendChild(div);
     });
 }
-function abrirModalSala(){ if(sesion!=='admin'){showToast('Solo admin','err');return;} document.getElementById('modalSala').classList.add('show'); }
+function abrirModalSala(){ if(sesion!=='admin'&&sesion!=='jefe'){showToast('Solo admin','err');return;} document.getElementById('modalSala').classList.add('show'); }
 function agregarSala(){
     const nombre=document.getElementById('salaNombre').value.trim();
     if(!nombre){showToast('Pon un nombre','err');return;}
     salas.push({nombre,tipo:document.getElementById('salaTipo').value,pass:document.getElementById('salaPass').value.trim(),premio:document.getElementById('salaPremio').value.trim(),cupos:document.getElementById('salaCupos').value,estado:document.getElementById('salaEstado').value});
-    localStorage.setItem('fenix_salas',JSON.stringify(salas)); cerrarModal('modalSala'); renderSalas(); showToast('Sala creada ✓','ok');
+    localStorage.setItem('fenix_salas',JSON.stringify(salas));
+    cerrarModal('modalSala'); renderSalas(); showToast('Sala creada ✓','ok');
 }
 function borrarSala(i){ if(!confirm('¿Eliminar?'))return; salas.splice(i,1); localStorage.setItem('fenix_salas',JSON.stringify(salas)); renderSalas(); }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
    UTILIDADES
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════ */
 function cerrarModal(id){ document.getElementById(id).classList.remove('show'); }
-function showToast(msg,tipo='ok'){
+function showToast(msg, tipo='ok'){
     const t=document.getElementById('toast'); t.textContent=msg;
-    t.className=`toast ${tipo} show`; setTimeout(()=>t.classList.remove('show'),3000);
+    t.className=`toast ${tipo} show`;
+    setTimeout(()=>t.classList.remove('show'),3000);
 }
 
+// Cerrar modales al pulsar fuera
 document.querySelectorAll('.modal-bg').forEach(m=>{
     m.addEventListener('click', e=>{ if(e.target===m) m.classList.remove('show'); });
 });
-document.getElementById('pinInput').addEventListener('keydown', e=>{ if(e.key==='Enter') verificarPin(); });
 
-/* ═══════════════════════════════════════════
+// Enter en pin inputs
+['pinInput','pinActualInput','pinNuevoInput','pinConfirmInput'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener('keydown', e=>{
+        if(e.key==='Enter'){
+            if(id==='pinInput') verificarPin();
+            else ejecutarCambioPin();
+        }
+    });
+});
+
+/* ═══════════════════════════════════════════════════════════
    ARRANQUE
-═══════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════ */
 renderizar();
 renderColabs();
 renderSalas();
